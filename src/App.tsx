@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import ListingsPage from './pages/listings';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppBar position='relative'>
+        <Toolbar>
+          <Typography variant='h6' color='inherit' noWrap>
+            Левша
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        <Switch>
+          <Route path='/'>
+            <ListingsPage />
+          </Route>
+        </Switch>
+      </main>
+      <footer />
+    </>
   );
-}
+};
 
 export default App;
