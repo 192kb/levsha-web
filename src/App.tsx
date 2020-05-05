@@ -6,6 +6,7 @@ import ListingsPage from './pages/listings';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { Configuration } from './model';
+import { PagePath } from './pages';
 
 export const apiConfiguration: Configuration = {
   basePath: 'https://192kb.ru/levsha-api',
@@ -23,13 +24,13 @@ const App: React.FC = () => {
       </AppBar>
       <main>
         <Switch>
-          <Route path='/signin'>
+          <Route path={PagePath.SignIn}>
             <SignInPage />
           </Route>
-          <Route path='/signup'>
+          <Route path={PagePath.SignUp}>
             <SignUpPage />
           </Route>
-          <Route path='/'>
+          <Route path={PagePath.Tasks}>
             <ListingsPage />
           </Route>
         </Switch>
