@@ -25,6 +25,7 @@ paths:
       tags:
         - 'location'
       summary: 'Get list of current cities'
+      operationId: 'getCity'
       responses:
         200:
           description: OK
@@ -34,12 +35,15 @@ paths:
               $ref: '#/definitions/City'
         400:
           description: 'Server error'
+          schema:
+            $ref: '#/definitions/ApiResponse'
 
   /city/{city_id}/district:
     get:
       tags:
         - 'location'
       summary: 'Get list of current cities'
+      operationId: 'getDiscrictsByCityId'
       parameters:
         - name: 'city_id'
           in: 'path'
@@ -61,6 +65,7 @@ paths:
       tags:
         - 'task'
       summary: 'Get list of tasks'
+      operationId: 'getTasks'
       responses:
         200:
           description: OK
@@ -250,7 +255,6 @@ paths:
       description: 'This can only be done by the logged in user.'
       operationId: 'createUser'
       produces:
-        - 'application/xml'
         - 'application/json'
       parameters:
         - in: 'body'
@@ -260,8 +264,15 @@ paths:
           schema:
             $ref: '#/definitions/User'
       responses:
-        default:
-          description: 'successful operation'
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: 'Form invalid'
+          schema:
+            $ref: '#/definitions/ApiResponse'
+
   /user/login:
     get:
       tags:
@@ -270,12 +281,11 @@ paths:
       description: ''
       operationId: 'loginUser'
       produces:
-        - 'application/xml'
         - 'application/json'
       parameters:
-        - name: 'username'
+        - name: 'phone'
           in: 'query'
-          description: 'The user name for login'
+          description: 'The phone for login'
           required: true
           type: 'string'
         - name: 'password'
@@ -288,15 +298,6 @@ paths:
           description: 'successful operation'
           schema:
             type: 'string'
-          headers:
-            X-Rate-Limit:
-              type: 'integer'
-              format: 'int32'
-              description: 'calls per hour allowed by the user'
-            X-Expires-After:
-              type: 'string'
-              format: 'date-time'
-              description: 'date in UTC when token expires'
         400:
           description: 'Invalid username/password supplied'
   /user/logout:
@@ -401,8 +402,8 @@ definitions:
   User:
     type: 'object'
     properties:
-      id:
-        type: 'number'
+      uuid:
+        type: 'string'
       firstname:
         type: 'string'
       secondname:
@@ -417,9 +418,10 @@ definitions:
         type: 'string'
       is_deleted:
         type: 'boolean'
+        default: false
       login:
         type: 'string'
-      password_hash:
+      password:
         type: 'string'
       phone:
         type: 'string'
@@ -445,12 +447,14 @@ definitions:
         type: 'string'
       phone_comfirmed:
         type: 'boolean'
+        default: false
       email_confirmed:
         type: 'boolean'
+        default: false
       photo_url:
         type: 'string'
-      location:
-        $ref: '#/definitions/Location'
+      city:
+        $ref: '#/definitions/City'
       starred_users:
         type: 'array'
         items:
@@ -459,6 +463,12 @@ definitions:
         type: 'array'
         items:
           $ref: '#/definitions/User'
+    required:
+      - uuid
+      - firstname
+      - lastname
+      - password
+      - phone
 
   TaskCategory:
     type: 'object'
@@ -495,8 +505,8 @@ definitions:
         type: 'string'
       date_finish:
         type: 'string'
-      location:
-        $ref: '#/definitions/Location'
+      district:
+        $ref: '#/definitions/District'
       category:
         $ref: '#/definitions/TaskCategory'
       images:

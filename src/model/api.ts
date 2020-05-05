@@ -11,626 +11,660 @@
  * Do not edit the class manually.
  */
 
-
 import * as globalImportUrl from 'url';
 import { Configuration } from './configuration';
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
+import {
+  BASE_PATH,
+  COLLECTION_FORMATS,
+  RequestArgs,
+  BaseAPI,
+  RequiredError
+} from './base';
 
 /**
- * 
+ *
  * @export
  * @interface ApiResponse
  */
 export interface ApiResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof ApiResponse
-     */
-    code?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiResponse
-     */
-    type?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ApiResponse
-     */
-    message?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ApiResponse
+   */
+  code?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof ApiResponse
+   */
+  type?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ApiResponse
+   */
+  message?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface City
  */
 export interface City {
-    /**
-     * 
-     * @type {number}
-     * @memberof City
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof City
-     */
-    name: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof City
-     */
-    is_deleted: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof City
+   */
+  id: number;
+  /**
+   *
+   * @type {string}
+   * @memberof City
+   */
+  name: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof City
+   */
+  is_deleted: boolean;
 }
 /**
- * 
+ *
  * @export
  * @interface District
  */
 export interface District {
-    /**
-     * 
-     * @type {number}
-     * @memberof District
-     */
-    id: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof District
-     */
-    name: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof District
-     */
-    city_id: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof District
-     */
-    is_deleted: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof District
+   */
+  id: number;
+  /**
+   *
+   * @type {string}
+   * @memberof District
+   */
+  name: string;
+  /**
+   *
+   * @type {number}
+   * @memberof District
+   */
+  city_id: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof District
+   */
+  is_deleted: boolean;
 }
 /**
- * 
+ *
  * @export
  * @interface Message
  */
 export interface Message {
-    /**
-     * 
-     * @type {number}
-     * @memberof Message
-     */
-    id?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Message
-     */
-    user_from?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Message
-     */
-    user_to?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Message
-     */
-    task_id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Message
-     */
-    message?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Message
-     */
-    date_created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Message
-     */
-    date_read?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Message
-     */
-    is_deleted?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof Message
+   */
+  id?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof Message
+   */
+  user_from?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof Message
+   */
+  user_to?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof Message
+   */
+  task_id?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof Message
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Message
+   */
+  date_created?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Message
+   */
+  date_read?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Message
+   */
+  is_deleted?: boolean;
 }
 /**
- * 
+ *
  * @export
  * @interface Notification
  */
 export interface Notification {
-    /**
-     * 
-     * @type {number}
-     * @memberof Notification
-     */
-    id?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Notification
-     */
-    user_id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    message?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    date_created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    date_read?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Notification
-     */
-    payload?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Notification
-     */
-    notification_type_id?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof Notification
+   */
+  id?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof Notification
+   */
+  user_id?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof Notification
+   */
+  title?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Notification
+   */
+  message?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Notification
+   */
+  date_created?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Notification
+   */
+  date_read?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Notification
+   */
+  payload?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof Notification
+   */
+  notification_type_id?: number;
 }
 /**
- * 
+ *
  * @export
  * @interface NotificationType
  */
 export interface NotificationType {
-    /**
-     * 
-     * @type {number}
-     * @memberof NotificationType
-     */
-    id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof NotificationType
-     */
-    name?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof NotificationType
+   */
+  id?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationType
+   */
+  name?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface Task
  */
 export interface Task {
-    /**
-     * 
-     * @type {number}
-     * @memberof Task
-     */
-    id?: number;
-    /**
-     * 
-     * @type {User}
-     * @memberof Task
-     */
-    user?: User;
-    /**
-     * 
-     * @type {string}
-     * @memberof Task
-     */
-    date_created?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Task
-     */
-    is_active?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof Task
-     */
-    title?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Task
-     */
-    description?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Task
-     */
-    price?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Task
-     */
-    have_constant_price?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof Task
-     */
-    date_start?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Task
-     */
-    date_finish?: string;
-    /**
-     * 
-     * @type {Location}
-     * @memberof Task
-     */
-    location?: Location;
-    /**
-     * 
-     * @type {TaskCategory}
-     * @memberof Task
-     */
-    category?: TaskCategory;
-    /**
-     * 
-     * @type {Array<TaskImages>}
-     * @memberof Task
-     */
-    images?: Array<TaskImages>;
+  /**
+   *
+   * @type {number}
+   * @memberof Task
+   */
+  id?: number;
+  /**
+   *
+   * @type {User}
+   * @memberof Task
+   */
+  user?: User;
+  /**
+   *
+   * @type {string}
+   * @memberof Task
+   */
+  date_created?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Task
+   */
+  is_active?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof Task
+   */
+  title?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Task
+   */
+  description?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof Task
+   */
+  price?: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Task
+   */
+  have_constant_price?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof Task
+   */
+  date_start?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Task
+   */
+  date_finish?: string;
+  /**
+   *
+   * @type {District}
+   * @memberof Task
+   */
+  district?: District;
+  /**
+   *
+   * @type {TaskCategory}
+   * @memberof Task
+   */
+  category?: TaskCategory;
+  /**
+   *
+   * @type {Array<TaskImages>}
+   * @memberof Task
+   */
+  images?: Array<TaskImages>;
 }
 /**
- * 
+ *
  * @export
  * @interface TaskCategory
  */
 export interface TaskCategory {
-    /**
-     * 
-     * @type {number}
-     * @memberof TaskCategory
-     */
-    id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof TaskCategory
-     */
-    name?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TaskCategory
-     */
-    sorting?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TaskCategory
-     */
-    is_deprecated?: boolean;
+  /**
+   *
+   * @type {number}
+   * @memberof TaskCategory
+   */
+  id?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof TaskCategory
+   */
+  name?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof TaskCategory
+   */
+  sorting?: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof TaskCategory
+   */
+  is_deprecated?: boolean;
 }
 /**
- * 
+ *
  * @export
  * @interface TaskImages
  */
 export interface TaskImages {
-    /**
-     * 
-     * @type {number}
-     * @memberof TaskImages
-     */
-    id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof TaskImages
-     */
-    date_created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TaskImages
-     */
-    date_delete?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TaskImages
-     */
-    is_deleted?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TaskImages
-     */
-    url?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TaskImages
-     */
-    task_id?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof TaskImages
+   */
+  id?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof TaskImages
+   */
+  date_created?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TaskImages
+   */
+  date_delete?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof TaskImages
+   */
+  is_deleted?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof TaskImages
+   */
+  url?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof TaskImages
+   */
+  task_id?: number;
 }
 /**
- * 
+ *
  * @export
  * @interface User
  */
 export interface User {
-    /**
-     * 
-     * @type {number}
-     * @memberof User
-     */
-    id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    firstname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    secondname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    lastname?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    date_created?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    last_change?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    date_deleted?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof User
-     */
-    is_deleted?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    login?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    password_hash?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    phone?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    email?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    vk_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    ok_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    fb_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    ig_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    tw_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    yt_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    be_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    li_profile?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    hh_profile?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof User
-     */
-    phone_comfirmed?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof User
-     */
-    email_confirmed?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    photo_url?: string;
-    /**
-     * 
-     * @type {Location}
-     * @memberof User
-     */
-    location?: Location;
-    /**
-     * 
-     * @type {Array<User>}
-     * @memberof User
-     */
-    starred_users?: Array<User>;
-    /**
-     * 
-     * @type {Array<User>}
-     * @memberof User
-     */
-    hidden_users?: Array<User>;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  uuid: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  firstname: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  secondname?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  lastname: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  date_created?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  last_change?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  date_deleted?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof User
+   */
+  is_deleted?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  login?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  phone: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  email?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  vk_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  ok_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  fb_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  ig_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  tw_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  yt_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  be_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  li_profile?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  hh_profile?: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof User
+   */
+  phone_comfirmed?: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof User
+   */
+  email_confirmed?: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof User
+   */
+  photo_url?: string;
+  /**
+   *
+   * @type {City}
+   * @memberof User
+   */
+  city?: City;
+  /**
+   *
+   * @type {Array<User>}
+   * @memberof User
+   */
+  starred_users?: Array<User>;
+  /**
+   *
+   * @type {Array<User>}
+   * @memberof User
+   */
+  hidden_users?: Array<User>;
 }
 
 /**
  * LocationApi - axios parameter creator
  * @export
  */
-export const LocationApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Get list of current cities
-         * @param {number} cityId Id of queried city
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cityCityIdDistrictGet(cityId: number, options: any = {}): RequestArgs {
-            // verify required parameter 'cityId' is not null or undefined
-            if (cityId === null || cityId === undefined) {
-                throw new RequiredError('cityId','Required parameter cityId was null or undefined when calling cityCityIdDistrictGet.');
-            }
-            const localVarPath = `/city/{city_id}/district`
-                .replace(`{${"city_id"}}`, encodeURIComponent(String(cityId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+export const LocationApiAxiosParamCreator = function(
+  configuration?: Configuration
+) {
+  return {
+    /**
+     *
+     * @summary Get list of current cities
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCity(options: any = {}): RequestArgs {
+      const localVarPath = `/city`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Get list of current cities
+     * @param {number} cityId Id of queried city
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDiscrictsByCityId(cityId: number, options: any = {}): RequestArgs {
+      // verify required parameter 'cityId' is not null or undefined
+      if (cityId === null || cityId === undefined) {
+        throw new RequiredError(
+          'cityId',
+          'Required parameter cityId was null or undefined when calling getDiscrictsByCityId.'
+        );
+      }
+      const localVarPath = `/city/{city_id}/district`.replace(
+        `{${'city_id'}}`,
+        encodeURIComponent(String(cityId))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get list of current cities
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cityGet(options: any = {}): RequestArgs {
-            const localVarPath = `/city`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
+  };
 };
 
 /**
@@ -638,63 +672,97 @@ export const LocationApiAxiosParamCreator = function (configuration?: Configurat
  * @export
  */
 export const LocationApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Get list of current cities
-         * @param {number} cityId Id of queried city
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cityCityIdDistrictGet(cityId: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<District>> {
-            const localVarAxiosArgs = LocationApiAxiosParamCreator(configuration).cityCityIdDistrictGet(cityId, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Get list of current cities
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cityGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<City>> {
-            const localVarAxiosArgs = LocationApiAxiosParamCreator(configuration).cityGet(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
+  return {
+    /**
+     *
+     * @summary Get list of current cities
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCity(
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<City>> {
+      const localVarAxiosArgs = LocationApiAxiosParamCreator(
+        configuration
+      ).getCity(options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Get list of current cities
+     * @param {number} cityId Id of queried city
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDiscrictsByCityId(
+      cityId: number,
+      options?: any
+    ): (
+      axios?: AxiosInstance,
+      basePath?: string
+    ) => AxiosPromise<Array<District>> {
+      const localVarAxiosArgs = LocationApiAxiosParamCreator(
+        configuration
+      ).getDiscrictsByCityId(cityId, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
     }
+  };
 };
 
 /**
  * LocationApi - factory interface
  * @export
  */
-export const LocationApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    return {
-        /**
-         * 
-         * @summary Get list of current cities
-         * @param {number} cityId Id of queried city
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cityCityIdDistrictGet(cityId: number, options?: any): AxiosPromise<Array<District>> {
-            return LocationApiFp(configuration).cityCityIdDistrictGet(cityId, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Get list of current cities
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cityGet(options?: any): AxiosPromise<Array<City>> {
-            return LocationApiFp(configuration).cityGet(options)(axios, basePath);
-        },
-    };
+export const LocationApiFactory = function(
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  return {
+    /**
+     *
+     * @summary Get list of current cities
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCity(options?: any): AxiosPromise<Array<City>> {
+      return LocationApiFp(configuration).getCity(options)(axios, basePath);
+    },
+    /**
+     *
+     * @summary Get list of current cities
+     * @param {number} cityId Id of queried city
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDiscrictsByCityId(
+      cityId: number,
+      options?: any
+    ): AxiosPromise<Array<District>> {
+      return LocationApiFp(configuration).getDiscrictsByCityId(cityId, options)(
+        axios,
+        basePath
+      );
+    }
+  };
 };
 
 /**
@@ -704,383 +772,538 @@ export const LocationApiFactory = function (configuration?: Configuration, baseP
  * @extends {BaseAPI}
  */
 export class LocationApi extends BaseAPI {
-    /**
-     * 
-     * @summary Get list of current cities
-     * @param {number} cityId Id of queried city
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LocationApi
-     */
-    public cityCityIdDistrictGet(cityId: number, options?: any) {
-        return LocationApiFp(this.configuration).cityCityIdDistrictGet(cityId, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Get list of current cities
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof LocationApi
+   */
+  public getCity(options?: any) {
+    return LocationApiFp(this.configuration).getCity(options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Get list of current cities
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LocationApi
-     */
-    public cityGet(options?: any) {
-        return LocationApiFp(this.configuration).cityGet(options)(this.axios, this.basePath);
-    }
-
+  /**
+   *
+   * @summary Get list of current cities
+   * @param {number} cityId Id of queried city
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof LocationApi
+   */
+  public getDiscrictsByCityId(cityId: number, options?: any) {
+    return LocationApiFp(this.configuration).getDiscrictsByCityId(
+      cityId,
+      options
+    )(this.axios, this.basePath);
+  }
 }
-
 
 /**
  * TaskApi - axios parameter creator
  * @export
  */
-export const TaskApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Add a new task on board
-         * @param {Task} body Task object that needs to be added to the board
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addTask(body: Task, options: any = {}): RequestArgs {
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling addTask.');
-            }
-            const localVarPath = `/task`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+export const TaskApiAxiosParamCreator = function(
+  configuration?: Configuration
+) {
+  return {
+    /**
+     *
+     * @summary Add a new task on board
+     * @param {Task} body Task object that needs to be added to the board
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addTask(body: Task, options: any = {}): RequestArgs {
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          'body',
+          'Required parameter body was null or undefined when calling addTask.'
+        );
+      }
+      const localVarPath = `/task`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            // authentication levsha_auth required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("levsha_auth", ["write:tasks"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
+      // authentication levsha_auth required
+      // oauth required
+      if (configuration && configuration.accessToken) {
+        const localVarAccessTokenValue =
+          typeof configuration.accessToken === 'function'
+            ? configuration.accessToken('levsha_auth', ['write:tasks'])
+            : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] =
+          'Bearer ' + localVarAccessTokenValue;
+      }
 
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+      const needsSerialization =
+        typeof body !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(body !== undefined ? body : {})
+        : body || '';
 
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Create new task category
+     * @param {TaskCategory} body Create task category
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createTaskCategory(body: TaskCategory, options: any = {}): RequestArgs {
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          'body',
+          'Required parameter body was null or undefined when calling createTaskCategory.'
+        );
+      }
+      const localVarPath = `/task/category`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Create new task category
-         * @param {TaskCategory} body Create task category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createTaskCategory(body: TaskCategory, options: any = {}): RequestArgs {
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling createTaskCategory.');
-            }
-            const localVarPath = `/task/category`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      // authentication levsha_auth required
+      // oauth required
+      if (configuration && configuration.accessToken) {
+        const localVarAccessTokenValue =
+          typeof configuration.accessToken === 'function'
+            ? configuration.accessToken('levsha_auth', ['write:task_category'])
+            : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] =
+          'Bearer ' + localVarAccessTokenValue;
+      }
 
-            // authentication levsha_auth required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("levsha_auth", ["write:task_category"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+      const needsSerialization =
+        typeof body !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(body !== undefined ? body : {})
+        : body || '';
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     * Get list of first tasks by location id
+     * @summary Finds tasks by location
+     * @param {number} locationId Id of queried location
+     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    findTasksByLocation(
+      locationId: number,
+      page?: Array<'available' | 'pending' | 'sold'>,
+      options: any = {}
+    ): RequestArgs {
+      // verify required parameter 'locationId' is not null or undefined
+      if (locationId === null || locationId === undefined) {
+        throw new RequiredError(
+          'locationId',
+          'Required parameter locationId was null or undefined when calling findTasksByLocation.'
+        );
+      }
+      const localVarPath = `/task/findByLocation/{location_id}`.replace(
+        `{${'location_id'}}`,
+        encodeURIComponent(String(locationId))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+      if (page) {
+        localVarQueryParameter['page'] = page;
+      }
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get list of first tasks by location id
-         * @summary Finds tasks by location
-         * @param {number} locationId Id of queried location
-         * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findTasksByLocation(locationId: number, page?: Array<'available' | 'pending' | 'sold'>, options: any = {}): RequestArgs {
-            // verify required parameter 'locationId' is not null or undefined
-            if (locationId === null || locationId === undefined) {
-                throw new RequiredError('locationId','Required parameter locationId was null or undefined when calling findTasksByLocation.');
-            }
-            const localVarPath = `/task/findByLocation/{location_id}`
-                .replace(`{${"location_id"}}`, encodeURIComponent(String(locationId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-            if (page) {
-                localVarQueryParameter['page'] = page;
-            }
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Get list of tasks
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTaskCategories(options: any = {}): RequestArgs {
+      const localVarPath = `/task/category`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Get list of tasks
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTasks(options: any = {}): RequestArgs {
+      const localVarPath = `/task`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get list of tasks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTaskCategories(options: any = {}): RequestArgs {
-            const localVarPath = `/task/category`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Removes given task category
+     * @param {number} taskCategoryId Id of queried location
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeTaskCategory(taskCategoryId: number, options: any = {}): RequestArgs {
+      // verify required parameter 'taskCategoryId' is not null or undefined
+      if (taskCategoryId === null || taskCategoryId === undefined) {
+        throw new RequiredError(
+          'taskCategoryId',
+          'Required parameter taskCategoryId was null or undefined when calling removeTaskCategory.'
+        );
+      }
+      const localVarPath = `/task/category/{task_category_id}`.replace(
+        `{${'task_category_id'}}`,
+        encodeURIComponent(String(taskCategoryId))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      // authentication levsha_auth required
+      // oauth required
+      if (configuration && configuration.accessToken) {
+        const localVarAccessTokenValue =
+          typeof configuration.accessToken === 'function'
+            ? configuration.accessToken('levsha_auth', ['write:task_category'])
+            : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] =
+          'Bearer ' + localVarAccessTokenValue;
+      }
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Removes given task category
-         * @param {number} taskCategoryId Id of queried location
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeTaskCategory(taskCategoryId: number, options: any = {}): RequestArgs {
-            // verify required parameter 'taskCategoryId' is not null or undefined
-            if (taskCategoryId === null || taskCategoryId === undefined) {
-                throw new RequiredError('taskCategoryId','Required parameter taskCategoryId was null or undefined when calling removeTaskCategory.');
-            }
-            const localVarPath = `/task/category/{task_category_id}`
-                .replace(`{${"task_category_id"}}`, encodeURIComponent(String(taskCategoryId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-            // authentication levsha_auth required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("levsha_auth", ["write:task_category"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Update an existing task
+     * @param {Task} body Task object that needs to be updated
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateTask(body: Task, options: any = {}): RequestArgs {
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          'body',
+          'Required parameter body was null or undefined when calling updateTask.'
+        );
+      }
+      const localVarPath = `/task`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      // authentication levsha_auth required
+      // oauth required
+      if (configuration && configuration.accessToken) {
+        const localVarAccessTokenValue =
+          typeof configuration.accessToken === 'function'
+            ? configuration.accessToken('levsha_auth', ['write:tasks'])
+            : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] =
+          'Bearer ' + localVarAccessTokenValue;
+      }
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get list of tasks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        taskGet(options: any = {}): RequestArgs {
-            const localVarPath = `/task`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+      const needsSerialization =
+        typeof body !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(body !== undefined ? body : {})
+        : body || '';
 
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Update given task category
+     * @param {number} taskCategoryId Id of queried location
+     * @param {TaskCategory} body Create task category
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateTaskCategory(
+      taskCategoryId: number,
+      body: TaskCategory,
+      options: any = {}
+    ): RequestArgs {
+      // verify required parameter 'taskCategoryId' is not null or undefined
+      if (taskCategoryId === null || taskCategoryId === undefined) {
+        throw new RequiredError(
+          'taskCategoryId',
+          'Required parameter taskCategoryId was null or undefined when calling updateTaskCategory.'
+        );
+      }
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          'body',
+          'Required parameter body was null or undefined when calling updateTaskCategory.'
+        );
+      }
+      const localVarPath = `/task/category/{task_category_id}`.replace(
+        `{${'task_category_id'}}`,
+        encodeURIComponent(String(taskCategoryId))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      // authentication levsha_auth required
+      // oauth required
+      if (configuration && configuration.accessToken) {
+        const localVarAccessTokenValue =
+          typeof configuration.accessToken === 'function'
+            ? configuration.accessToken('levsha_auth', ['write:task_category'])
+            : configuration.accessToken;
+        localVarHeaderParameter['Authorization'] =
+          'Bearer ' + localVarAccessTokenValue;
+      }
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update an existing task
-         * @param {Task} body Task object that needs to be updated
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTask(body: Task, options: any = {}): RequestArgs {
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling updateTask.');
-            }
-            const localVarPath = `/task`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            // authentication levsha_auth required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("levsha_auth", ["write:tasks"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+      const needsSerialization =
+        typeof body !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(body !== undefined ? body : {})
+        : body || '';
 
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Update given task category
-         * @param {number} taskCategoryId Id of queried location
-         * @param {TaskCategory} body Create task category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTaskCategory(taskCategoryId: number, body: TaskCategory, options: any = {}): RequestArgs {
-            // verify required parameter 'taskCategoryId' is not null or undefined
-            if (taskCategoryId === null || taskCategoryId === undefined) {
-                throw new RequiredError('taskCategoryId','Required parameter taskCategoryId was null or undefined when calling updateTaskCategory.');
-            }
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling updateTaskCategory.');
-            }
-            const localVarPath = `/task/category/{task_category_id}`
-                .replace(`{${"task_category_id"}}`, encodeURIComponent(String(taskCategoryId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication levsha_auth required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("levsha_auth", ["write:task_category"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
+  };
 };
 
 /**
@@ -1088,209 +1311,336 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
  * @export
  */
 export const TaskApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Add a new task on board
-         * @param {Task} body Task object that needs to be added to the board
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addTask(body: Task, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).addTask(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Create new task category
-         * @param {TaskCategory} body Create task category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createTaskCategory(body: TaskCategory, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).createTaskCategory(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Get list of first tasks by location id
-         * @summary Finds tasks by location
-         * @param {number} locationId Id of queried location
-         * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findTasksByLocation(locationId: number, page?: Array<'available' | 'pending' | 'sold'>, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).findTasksByLocation(locationId, page, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Get list of tasks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTaskCategories(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TaskCategory>> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).getTaskCategories(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Removes given task category
-         * @param {number} taskCategoryId Id of queried location
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeTaskCategory(taskCategoryId: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).removeTaskCategory(taskCategoryId, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Get list of tasks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        taskGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).taskGet(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Update an existing task
-         * @param {Task} body Task object that needs to be updated
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTask(body: Task, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).updateTask(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Update given task category
-         * @param {number} taskCategoryId Id of queried location
-         * @param {TaskCategory} body Create task category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTaskCategory(taskCategoryId: number, body: TaskCategory, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).updateTaskCategory(taskCategoryId, body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
+  return {
+    /**
+     *
+     * @summary Add a new task on board
+     * @param {Task} body Task object that needs to be added to the board
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addTask(
+      body: Task,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).addTask(
+        body,
+        options
+      );
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Create new task category
+     * @param {TaskCategory} body Create task category
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createTaskCategory(
+      body: TaskCategory,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).createTaskCategory(body, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     * Get list of first tasks by location id
+     * @summary Finds tasks by location
+     * @param {number} locationId Id of queried location
+     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    findTasksByLocation(
+      locationId: number,
+      page?: Array<'available' | 'pending' | 'sold'>,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).findTasksByLocation(locationId, page, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Get list of tasks
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTaskCategories(
+      options?: any
+    ): (
+      axios?: AxiosInstance,
+      basePath?: string
+    ) => AxiosPromise<Array<TaskCategory>> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).getTaskCategories(options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Get list of tasks
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTasks(
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).getTasks(options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Removes given task category
+     * @param {number} taskCategoryId Id of queried location
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeTaskCategory(
+      taskCategoryId: number,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).removeTaskCategory(taskCategoryId, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Update an existing task
+     * @param {Task} body Task object that needs to be updated
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateTask(
+      body: Task,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).updateTask(body, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Update given task category
+     * @param {number} taskCategoryId Id of queried location
+     * @param {TaskCategory} body Create task category
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateTaskCategory(
+      taskCategoryId: number,
+      body: TaskCategory,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+        configuration
+      ).updateTaskCategory(taskCategoryId, body, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
     }
+  };
 };
 
 /**
  * TaskApi - factory interface
  * @export
  */
-export const TaskApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    return {
-        /**
-         * 
-         * @summary Add a new task on board
-         * @param {Task} body Task object that needs to be added to the board
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        addTask(body: Task, options?: any): AxiosPromise<Task> {
-            return TaskApiFp(configuration).addTask(body, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Create new task category
-         * @param {TaskCategory} body Create task category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createTaskCategory(body: TaskCategory, options?: any): AxiosPromise<void> {
-            return TaskApiFp(configuration).createTaskCategory(body, options)(axios, basePath);
-        },
-        /**
-         * Get list of first tasks by location id
-         * @summary Finds tasks by location
-         * @param {number} locationId Id of queried location
-         * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findTasksByLocation(locationId: number, page?: Array<'available' | 'pending' | 'sold'>, options?: any): AxiosPromise<Array<Task>> {
-            return TaskApiFp(configuration).findTasksByLocation(locationId, page, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Get list of tasks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTaskCategories(options?: any): AxiosPromise<Array<TaskCategory>> {
-            return TaskApiFp(configuration).getTaskCategories(options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Removes given task category
-         * @param {number} taskCategoryId Id of queried location
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeTaskCategory(taskCategoryId: number, options?: any): AxiosPromise<void> {
-            return TaskApiFp(configuration).removeTaskCategory(taskCategoryId, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Get list of tasks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        taskGet(options?: any): AxiosPromise<Task> {
-            return TaskApiFp(configuration).taskGet(options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Update an existing task
-         * @param {Task} body Task object that needs to be updated
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTask(body: Task, options?: any): AxiosPromise<void> {
-            return TaskApiFp(configuration).updateTask(body, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Update given task category
-         * @param {number} taskCategoryId Id of queried location
-         * @param {TaskCategory} body Create task category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateTaskCategory(taskCategoryId: number, body: TaskCategory, options?: any): AxiosPromise<void> {
-            return TaskApiFp(configuration).updateTaskCategory(taskCategoryId, body, options)(axios, basePath);
-        },
-    };
+export const TaskApiFactory = function(
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  return {
+    /**
+     *
+     * @summary Add a new task on board
+     * @param {Task} body Task object that needs to be added to the board
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addTask(body: Task, options?: any): AxiosPromise<Task> {
+      return TaskApiFp(configuration).addTask(body, options)(axios, basePath);
+    },
+    /**
+     *
+     * @summary Create new task category
+     * @param {TaskCategory} body Create task category
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createTaskCategory(body: TaskCategory, options?: any): AxiosPromise<void> {
+      return TaskApiFp(configuration).createTaskCategory(body, options)(
+        axios,
+        basePath
+      );
+    },
+    /**
+     * Get list of first tasks by location id
+     * @summary Finds tasks by location
+     * @param {number} locationId Id of queried location
+     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    findTasksByLocation(
+      locationId: number,
+      page?: Array<'available' | 'pending' | 'sold'>,
+      options?: any
+    ): AxiosPromise<Array<Task>> {
+      return TaskApiFp(configuration).findTasksByLocation(
+        locationId,
+        page,
+        options
+      )(axios, basePath);
+    },
+    /**
+     *
+     * @summary Get list of tasks
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTaskCategories(options?: any): AxiosPromise<Array<TaskCategory>> {
+      return TaskApiFp(configuration).getTaskCategories(options)(
+        axios,
+        basePath
+      );
+    },
+    /**
+     *
+     * @summary Get list of tasks
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTasks(options?: any): AxiosPromise<Task> {
+      return TaskApiFp(configuration).getTasks(options)(axios, basePath);
+    },
+    /**
+     *
+     * @summary Removes given task category
+     * @param {number} taskCategoryId Id of queried location
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeTaskCategory(
+      taskCategoryId: number,
+      options?: any
+    ): AxiosPromise<void> {
+      return TaskApiFp(configuration).removeTaskCategory(
+        taskCategoryId,
+        options
+      )(axios, basePath);
+    },
+    /**
+     *
+     * @summary Update an existing task
+     * @param {Task} body Task object that needs to be updated
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateTask(body: Task, options?: any): AxiosPromise<void> {
+      return TaskApiFp(configuration).updateTask(body, options)(
+        axios,
+        basePath
+      );
+    },
+    /**
+     *
+     * @summary Update given task category
+     * @param {number} taskCategoryId Id of queried location
+     * @param {TaskCategory} body Create task category
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateTaskCategory(
+      taskCategoryId: number,
+      body: TaskCategory,
+      options?: any
+    ): AxiosPromise<void> {
+      return TaskApiFp(configuration).updateTaskCategory(
+        taskCategoryId,
+        body,
+        options
+      )(axios, basePath);
+    }
+  };
 };
 
 /**
@@ -1300,346 +1650,481 @@ export const TaskApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class TaskApi extends BaseAPI {
-    /**
-     * 
-     * @summary Add a new task on board
-     * @param {Task} body Task object that needs to be added to the board
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public addTask(body: Task, options?: any) {
-        return TaskApiFp(this.configuration).addTask(body, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Add a new task on board
+   * @param {Task} body Task object that needs to be added to the board
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public addTask(body: Task, options?: any) {
+    return TaskApiFp(this.configuration).addTask(body, options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Create new task category
-     * @param {TaskCategory} body Create task category
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public createTaskCategory(body: TaskCategory, options?: any) {
-        return TaskApiFp(this.configuration).createTaskCategory(body, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Create new task category
+   * @param {TaskCategory} body Create task category
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public createTaskCategory(body: TaskCategory, options?: any) {
+    return TaskApiFp(this.configuration).createTaskCategory(body, options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * Get list of first tasks by location id
-     * @summary Finds tasks by location
-     * @param {number} locationId Id of queried location
-     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public findTasksByLocation(locationId: number, page?: Array<'available' | 'pending' | 'sold'>, options?: any) {
-        return TaskApiFp(this.configuration).findTasksByLocation(locationId, page, options)(this.axios, this.basePath);
-    }
+  /**
+   * Get list of first tasks by location id
+   * @summary Finds tasks by location
+   * @param {number} locationId Id of queried location
+   * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public findTasksByLocation(
+    locationId: number,
+    page?: Array<'available' | 'pending' | 'sold'>,
+    options?: any
+  ) {
+    return TaskApiFp(this.configuration).findTasksByLocation(
+      locationId,
+      page,
+      options
+    )(this.axios, this.basePath);
+  }
 
-    /**
-     * 
-     * @summary Get list of tasks
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public getTaskCategories(options?: any) {
-        return TaskApiFp(this.configuration).getTaskCategories(options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Get list of tasks
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public getTaskCategories(options?: any) {
+    return TaskApiFp(this.configuration).getTaskCategories(options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Removes given task category
-     * @param {number} taskCategoryId Id of queried location
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public removeTaskCategory(taskCategoryId: number, options?: any) {
-        return TaskApiFp(this.configuration).removeTaskCategory(taskCategoryId, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Get list of tasks
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public getTasks(options?: any) {
+    return TaskApiFp(this.configuration).getTasks(options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Get list of tasks
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public taskGet(options?: any) {
-        return TaskApiFp(this.configuration).taskGet(options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Removes given task category
+   * @param {number} taskCategoryId Id of queried location
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public removeTaskCategory(taskCategoryId: number, options?: any) {
+    return TaskApiFp(this.configuration).removeTaskCategory(
+      taskCategoryId,
+      options
+    )(this.axios, this.basePath);
+  }
 
-    /**
-     * 
-     * @summary Update an existing task
-     * @param {Task} body Task object that needs to be updated
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public updateTask(body: Task, options?: any) {
-        return TaskApiFp(this.configuration).updateTask(body, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Update an existing task
+   * @param {Task} body Task object that needs to be updated
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public updateTask(body: Task, options?: any) {
+    return TaskApiFp(this.configuration).updateTask(body, options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Update given task category
-     * @param {number} taskCategoryId Id of queried location
-     * @param {TaskCategory} body Create task category
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TaskApi
-     */
-    public updateTaskCategory(taskCategoryId: number, body: TaskCategory, options?: any) {
-        return TaskApiFp(this.configuration).updateTaskCategory(taskCategoryId, body, options)(this.axios, this.basePath);
-    }
-
+  /**
+   *
+   * @summary Update given task category
+   * @param {number} taskCategoryId Id of queried location
+   * @param {TaskCategory} body Create task category
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public updateTaskCategory(
+    taskCategoryId: number,
+    body: TaskCategory,
+    options?: any
+  ) {
+    return TaskApiFp(this.configuration).updateTaskCategory(
+      taskCategoryId,
+      body,
+      options
+    )(this.axios, this.basePath);
+  }
 }
-
 
 /**
  * UserApi - axios parameter creator
  * @export
  */
-export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * This can only be done by the logged in user.
-         * @summary Create user
-         * @param {User} body Created user object
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createUser(body: User, options: any = {}): RequestArgs {
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling createUser.');
-            }
-            const localVarPath = `/user`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+export const UserApiAxiosParamCreator = function(
+  configuration?: Configuration
+) {
+  return {
+    /**
+     * This can only be done by the logged in user.
+     * @summary Create user
+     * @param {User} body Created user object
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createUser(body: User, options: any = {}): RequestArgs {
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          'body',
+          'Required parameter body was null or undefined when calling createUser.'
+        );
+      }
+      const localVarPath = `/user`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+      const needsSerialization =
+        typeof body !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(body !== undefined ? body : {})
+        : body || '';
 
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     * This can only be done by the logged in user with privilegy.
+     * @summary Delete user
+     * @param {string} username The name that needs to be deleted
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteUser(username: string, options: any = {}): RequestArgs {
+      // verify required parameter 'username' is not null or undefined
+      if (username === null || username === undefined) {
+        throw new RequiredError(
+          'username',
+          'Required parameter username was null or undefined when calling deleteUser.'
+        );
+      }
+      const localVarPath = `/user/{username}`.replace(
+        `{${'username'}}`,
+        encodeURIComponent(String(username))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * This can only be done by the logged in user with privilegy.
-         * @summary Delete user
-         * @param {string} username The name that needs to be deleted
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteUser(username: string, options: any = {}): RequestArgs {
-            // verify required parameter 'username' is not null or undefined
-            if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling deleteUser.');
-            }
-            const localVarPath = `/user/{username}`
-                .replace(`{${"username"}}`, encodeURIComponent(String(username)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Get user by user name
+     * @param {string} username The name that needs to be fetched. Use user1 for testing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserByName(username: string, options: any = {}): RequestArgs {
+      // verify required parameter 'username' is not null or undefined
+      if (username === null || username === undefined) {
+        throw new RequiredError(
+          'username',
+          'Required parameter username was null or undefined when calling getUserByName.'
+        );
+      }
+      const localVarPath = `/user/{username}`.replace(
+        `{${'username'}}`,
+        encodeURIComponent(String(username))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get user by user name
-         * @param {string} username The name that needs to be fetched. Use user1 for testing. 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserByName(username: string, options: any = {}): RequestArgs {
-            // verify required parameter 'username' is not null or undefined
-            if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling getUserByName.');
-            }
-            const localVarPath = `/user/{username}`
-                .replace(`{${"username"}}`, encodeURIComponent(String(username)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Logs user into the system
+     * @param {string} phone The phone for login
+     * @param {string} password The password for login in clear text
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    loginUser(phone: string, password: string, options: any = {}): RequestArgs {
+      // verify required parameter 'phone' is not null or undefined
+      if (phone === null || phone === undefined) {
+        throw new RequiredError(
+          'phone',
+          'Required parameter phone was null or undefined when calling loginUser.'
+        );
+      }
+      // verify required parameter 'password' is not null or undefined
+      if (password === null || password === undefined) {
+        throw new RequiredError(
+          'password',
+          'Required parameter password was null or undefined when calling loginUser.'
+        );
+      }
+      const localVarPath = `/user/login`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
+      if (phone !== undefined) {
+        localVarQueryParameter['phone'] = phone;
+      }
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      if (password !== undefined) {
+        localVarQueryParameter['password'] = password;
+      }
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Logs user into the system
-         * @param {string} username The user name for login
-         * @param {string} password The password for login in clear text
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        loginUser(username: string, password: string, options: any = {}): RequestArgs {
-            // verify required parameter 'username' is not null or undefined
-            if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling loginUser.');
-            }
-            // verify required parameter 'password' is not null or undefined
-            if (password === null || password === undefined) {
-                throw new RequiredError('password','Required parameter password was null or undefined when calling loginUser.');
-            }
-            const localVarPath = `/user/login`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
-            if (username !== undefined) {
-                localVarQueryParameter['username'] = username;
-            }
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Logs out current logged in user session
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logoutUser(options: any = {}): RequestArgs {
+      const localVarPath = `/user/logout`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-            if (password !== undefined) {
-                localVarQueryParameter['password'] = password;
-            }
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
 
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     * This can only be done by the logged in user.
+     * @summary Updated user
+     * @param {string} username name that need to be updated
+     * @param {User} body Updated user object
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateUser(username: string, body: User, options: any = {}): RequestArgs {
+      // verify required parameter 'username' is not null or undefined
+      if (username === null || username === undefined) {
+        throw new RequiredError(
+          'username',
+          'Required parameter username was null or undefined when calling updateUser.'
+        );
+      }
+      // verify required parameter 'body' is not null or undefined
+      if (body === null || body === undefined) {
+        throw new RequiredError(
+          'body',
+          'Required parameter body was null or undefined when calling updateUser.'
+        );
+      }
+      const localVarPath = `/user/{username}`.replace(
+        `{${'username'}}`,
+        encodeURIComponent(String(username))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
 
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Logs out current logged in user session
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        logoutUser(options: any = {}): RequestArgs {
-            const localVarPath = `/user/logout`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+      const needsSerialization =
+        typeof body !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(body !== undefined ? body : {})
+        : body || '';
 
-
-    
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * This can only be done by the logged in user.
-         * @summary Updated user
-         * @param {string} username name that need to be updated
-         * @param {User} body Updated user object
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUser(username: string, body: User, options: any = {}): RequestArgs {
-            // verify required parameter 'username' is not null or undefined
-            if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling updateUser.');
-            }
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling updateUser.');
-            }
-            const localVarPath = `/user/{username}`
-                .replace(`{${"username"}}`, encodeURIComponent(String(username)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
+  };
 };
 
 /**
@@ -1647,163 +2132,259 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
  * @export
  */
 export const UserApiFp = function(configuration?: Configuration) {
-    return {
-        /**
-         * This can only be done by the logged in user.
-         * @summary Create user
-         * @param {User} body Created user object
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createUser(body: User, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).createUser(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * This can only be done by the logged in user with privilegy.
-         * @summary Delete user
-         * @param {string} username The name that needs to be deleted
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteUser(username: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).deleteUser(username, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Get user by user name
-         * @param {string} username The name that needs to be fetched. Use user1 for testing. 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserByName(username: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getUserByName(username, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Logs user into the system
-         * @param {string} username The user name for login
-         * @param {string} password The password for login in clear text
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        loginUser(username: string, password: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string> {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).loginUser(username, password, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Logs out current logged in user session
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        logoutUser(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).logoutUser(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * This can only be done by the logged in user.
-         * @summary Updated user
-         * @param {string} username name that need to be updated
-         * @param {User} body Updated user object
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUser(username: string, body: User, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).updateUser(username, body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
+  return {
+    /**
+     * This can only be done by the logged in user.
+     * @summary Create user
+     * @param {User} body Created user object
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createUser(
+      body: User,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).createUser(body, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     * This can only be done by the logged in user with privilegy.
+     * @summary Delete user
+     * @param {string} username The name that needs to be deleted
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteUser(
+      username: string,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).deleteUser(username, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Get user by user name
+     * @param {string} username The name that needs to be fetched. Use user1 for testing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserByName(
+      username: string,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).getUserByName(username, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Logs user into the system
+     * @param {string} phone The phone for login
+     * @param {string} password The password for login in clear text
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    loginUser(
+      phone: string,
+      password: string,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).loginUser(phone, password, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Logs out current logged in user session
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logoutUser(
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).logoutUser(options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     * This can only be done by the logged in user.
+     * @summary Updated user
+     * @param {string} username name that need to be updated
+     * @param {User} body Updated user object
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateUser(
+      username: string,
+      body: User,
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).updateUser(username, body, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
     }
+  };
 };
 
 /**
  * UserApi - factory interface
  * @export
  */
-export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    return {
-        /**
-         * This can only be done by the logged in user.
-         * @summary Create user
-         * @param {User} body Created user object
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createUser(body: User, options?: any): AxiosPromise<void> {
-            return UserApiFp(configuration).createUser(body, options)(axios, basePath);
-        },
-        /**
-         * This can only be done by the logged in user with privilegy.
-         * @summary Delete user
-         * @param {string} username The name that needs to be deleted
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteUser(username: string, options?: any): AxiosPromise<void> {
-            return UserApiFp(configuration).deleteUser(username, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Get user by user name
-         * @param {string} username The name that needs to be fetched. Use user1 for testing. 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserByName(username: string, options?: any): AxiosPromise<User> {
-            return UserApiFp(configuration).getUserByName(username, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Logs user into the system
-         * @param {string} username The user name for login
-         * @param {string} password The password for login in clear text
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        loginUser(username: string, password: string, options?: any): AxiosPromise<string> {
-            return UserApiFp(configuration).loginUser(username, password, options)(axios, basePath);
-        },
-        /**
-         * 
-         * @summary Logs out current logged in user session
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        logoutUser(options?: any): AxiosPromise<void> {
-            return UserApiFp(configuration).logoutUser(options)(axios, basePath);
-        },
-        /**
-         * This can only be done by the logged in user.
-         * @summary Updated user
-         * @param {string} username name that need to be updated
-         * @param {User} body Updated user object
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateUser(username: string, body: User, options?: any): AxiosPromise<void> {
-            return UserApiFp(configuration).updateUser(username, body, options)(axios, basePath);
-        },
-    };
+export const UserApiFactory = function(
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  return {
+    /**
+     * This can only be done by the logged in user.
+     * @summary Create user
+     * @param {User} body Created user object
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createUser(body: User, options?: any): AxiosPromise<User> {
+      return UserApiFp(configuration).createUser(body, options)(
+        axios,
+        basePath
+      );
+    },
+    /**
+     * This can only be done by the logged in user with privilegy.
+     * @summary Delete user
+     * @param {string} username The name that needs to be deleted
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteUser(username: string, options?: any): AxiosPromise<void> {
+      return UserApiFp(configuration).deleteUser(username, options)(
+        axios,
+        basePath
+      );
+    },
+    /**
+     *
+     * @summary Get user by user name
+     * @param {string} username The name that needs to be fetched. Use user1 for testing.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserByName(username: string, options?: any): AxiosPromise<User> {
+      return UserApiFp(configuration).getUserByName(username, options)(
+        axios,
+        basePath
+      );
+    },
+    /**
+     *
+     * @summary Logs user into the system
+     * @param {string} phone The phone for login
+     * @param {string} password The password for login in clear text
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    loginUser(
+      phone: string,
+      password: string,
+      options?: any
+    ): AxiosPromise<string> {
+      return UserApiFp(configuration).loginUser(
+        phone,
+        password,
+        options
+      )(axios, basePath);
+    },
+    /**
+     *
+     * @summary Logs out current logged in user session
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logoutUser(options?: any): AxiosPromise<void> {
+      return UserApiFp(configuration).logoutUser(options)(axios, basePath);
+    },
+    /**
+     * This can only be done by the logged in user.
+     * @summary Updated user
+     * @param {string} username name that need to be updated
+     * @param {User} body Updated user object
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateUser(
+      username: string,
+      body: User,
+      options?: any
+    ): AxiosPromise<void> {
+      return UserApiFp(configuration).updateUser(
+        username,
+        body,
+        options
+      )(axios, basePath);
+    }
+  };
 };
 
 /**
@@ -1813,79 +2394,96 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class UserApi extends BaseAPI {
-    /**
-     * This can only be done by the logged in user.
-     * @summary Create user
-     * @param {User} body Created user object
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public createUser(body: User, options?: any) {
-        return UserApiFp(this.configuration).createUser(body, options)(this.axios, this.basePath);
-    }
+  /**
+   * This can only be done by the logged in user.
+   * @summary Create user
+   * @param {User} body Created user object
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public createUser(body: User, options?: any) {
+    return UserApiFp(this.configuration).createUser(body, options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * This can only be done by the logged in user with privilegy.
-     * @summary Delete user
-     * @param {string} username The name that needs to be deleted
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public deleteUser(username: string, options?: any) {
-        return UserApiFp(this.configuration).deleteUser(username, options)(this.axios, this.basePath);
-    }
+  /**
+   * This can only be done by the logged in user with privilegy.
+   * @summary Delete user
+   * @param {string} username The name that needs to be deleted
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public deleteUser(username: string, options?: any) {
+    return UserApiFp(this.configuration).deleteUser(username, options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Get user by user name
-     * @param {string} username The name that needs to be fetched. Use user1 for testing. 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public getUserByName(username: string, options?: any) {
-        return UserApiFp(this.configuration).getUserByName(username, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Get user by user name
+   * @param {string} username The name that needs to be fetched. Use user1 for testing.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public getUserByName(username: string, options?: any) {
+    return UserApiFp(this.configuration).getUserByName(username, options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * 
-     * @summary Logs user into the system
-     * @param {string} username The user name for login
-     * @param {string} password The password for login in clear text
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public loginUser(username: string, password: string, options?: any) {
-        return UserApiFp(this.configuration).loginUser(username, password, options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Logs user into the system
+   * @param {string} phone The phone for login
+   * @param {string} password The password for login in clear text
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public loginUser(phone: string, password: string, options?: any) {
+    return UserApiFp(this.configuration).loginUser(
+      phone,
+      password,
+      options
+    )(this.axios, this.basePath);
+  }
 
-    /**
-     * 
-     * @summary Logs out current logged in user session
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public logoutUser(options?: any) {
-        return UserApiFp(this.configuration).logoutUser(options)(this.axios, this.basePath);
-    }
+  /**
+   *
+   * @summary Logs out current logged in user session
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public logoutUser(options?: any) {
+    return UserApiFp(this.configuration).logoutUser(options)(
+      this.axios,
+      this.basePath
+    );
+  }
 
-    /**
-     * This can only be done by the logged in user.
-     * @summary Updated user
-     * @param {string} username name that need to be updated
-     * @param {User} body Updated user object
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public updateUser(username: string, body: User, options?: any) {
-        return UserApiFp(this.configuration).updateUser(username, body, options)(this.axios, this.basePath);
-    }
-
+  /**
+   * This can only be done by the logged in user.
+   * @summary Updated user
+   * @param {string} username name that need to be updated
+   * @param {User} body Updated user object
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public updateUser(username: string, body: User, options?: any) {
+    return UserApiFp(this.configuration).updateUser(
+      username,
+      body,
+      options
+    )(this.axios, this.basePath);
+  }
 }
-
-

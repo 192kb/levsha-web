@@ -4,4 +4,5 @@ rm -rf $output_dir
 openapi-generator generate \
   --input-spec swagger.yaml \
   --generator-name typescript-axios \
-  --output $output_dir 
+  --output $output_dir \
+  --enable-post-process-file
