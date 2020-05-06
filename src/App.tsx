@@ -7,11 +7,11 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
 import React from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
+import { AxiosRequestConfig } from 'axios';
 
 import { Configuration, User, UserApi } from './model';
 import { PagePath } from './pages';
@@ -22,6 +22,9 @@ import SignUpPage from './pages/SignUp';
 export const apiConfiguration: Configuration = new Configuration({
   basePath: 'https://192kb.ru/levsha-api',
 });
+export const axiosRequestConfig: AxiosRequestConfig = {
+  withCredentials: true,
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +48,7 @@ const App: React.FC = () => {
     const userApi = new UserApi(apiConfiguration);
     setUserLoaded(false);
     userApi
-      .getCurrentUser({ withCredentials: true })
+      .getCurrentUser(axiosRequestConfig)
       .then((response) => {
         setUser(response.data);
         setUserLoaded(true);
@@ -73,9 +76,7 @@ const App: React.FC = () => {
     handleClose();
 
     const userApi = new UserApi(apiConfiguration);
-    userApi
-      .logoutUser({ withCredentials: true })
-      .then(() => window.location.reload);
+    userApi.logoutUser(axiosRequestConfig).then(() => window.location.reload);
   };
 
   return (

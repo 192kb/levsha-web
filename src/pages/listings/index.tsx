@@ -1,11 +1,20 @@
-import * as React from 'react';
-import { ListingItem, Listing } from './ListingItem';
+import { CircularProgress, Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { Grid, Container, CircularProgress } from '@material-ui/core';
+import * as React from 'react';
+
+import { Listing, ListingItem } from './ListingItem';
 
 type ListingsPageProps = {};
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(4),
+  },
+}));
+
 const ListingsPage: React.FC<ListingsPageProps> = (props) => {
+  const classes = useStyles();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);
   const [data, setData] = React.useState<Listing[]>([]);
 
@@ -31,7 +40,7 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
     }, 3000);
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='md' className={classes.paper}>
       <Grid container spacing={4}>
         {isLoaded ? (
           data.map((item) => (

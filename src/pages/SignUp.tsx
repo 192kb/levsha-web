@@ -12,13 +12,13 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import React from 'react';
-
-import { apiConfiguration } from '../App';
-import PhoneInput from '../components/PhoneInput';
-import { City, LocationApi, UserApi, ApiResponse } from '../model';
 import { useHistory } from 'react-router-dom';
+
 import { PagePath } from '.';
+import { apiConfiguration } from '../App';
 import DisplayError from '../components/DisplayError';
+import PhoneInput from '../components/PhoneInput';
+import { ApiResponse, City, LocationApi, UserApi } from '../model';
 
 type SignUpPageProps = {};
 

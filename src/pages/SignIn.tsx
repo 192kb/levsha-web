@@ -11,7 +11,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-import { apiConfiguration } from '../App';
+import { apiConfiguration, axiosRequestConfig } from '../App';
 import DisplayError from '../components/DisplayError';
 import PhoneInput from '../components/PhoneInput';
 import { ApiResponse, User, UserApi } from '../model';
@@ -52,7 +52,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
     const userApi = new UserApi(apiConfiguration);
 
     userApi
-      .loginUser({ phone, password }, { withCredentials: true })
+      .loginUser({ phone, password }, axiosRequestConfig)
       .then((response) => props.onSignInUser(response.data))
       .catch((error) => setError(error.response.data));
   };
