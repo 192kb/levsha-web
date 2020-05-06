@@ -11,9 +11,14 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
+import { apiConfiguration } from '../App';
+import DisplayError from '../components/DisplayError';
 import PhoneInput from '../components/PhoneInput';
+import { ApiResponse, User, UserApi } from '../model';
 
-type SignInPageProps = {};
+type SignInPageProps = {
+  onSignInUser: (user: User) => void;
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +42,21 @@ const useStyles = makeStyles((theme) => ({
 
 const SignInPage: React.FC<SignInPageProps> = (props) => {
   const classes = useStyles();
+  const [phone, setPhone] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+  const [error, setError] = React.useState<ApiResponse | undefined>();
+
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const userApi = new UserApi(apiConfiguration);
+
+    userApi
+      .loginUser({ phone, password }, { withCredentials: true })
+      .then((response) => props.onSignInUser(response.data))
+      .catch((error) => setError(error.response.data));
+  };
+
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -47,7 +67,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
         <Typography component='h1' variant='h5'>
           Вход
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleLogin}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -61,6 +81,8 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
             InputProps={{
               inputComponent: PhoneInput as any,
             }}
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
           />
           <TextField
             variant='outlined'
@@ -72,11 +94,9 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
             type='password'
             id='password'
             autoComplete='current-password'
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
-          {/* <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
-          /> */}
           <Button
             type='submit'
             fullWidth
@@ -100,6 +120,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
           </Grid>
         </form>
       </div>
+      {error ? <DisplayError error={error} /> : null}
     </Container>
   );
 };
