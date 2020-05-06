@@ -237,6 +237,25 @@ export interface NotificationType {
 /**
  *
  * @export
+ * @interface SignInParameters
+ */
+export interface SignInParameters {
+  /**
+   *
+   * @type {string}
+   * @memberof SignInParameters
+   */
+  phone: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignInParameters
+   */
+  password: string;
+}
+/**
+ *
+ * @export
  * @interface Task
  */
 export interface Task {
@@ -592,6 +611,8 @@ export const LocationApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      // authentication cookieAuth required
+
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
@@ -643,6 +664,8 @@ export const LocationApiAxiosParamCreator = function(
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
 
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
@@ -813,16 +836,16 @@ export const TaskApiAxiosParamCreator = function(
     /**
      *
      * @summary Add a new task on board
-     * @param {Task} body Task object that needs to be added to the board
+     * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addTask(body: Task, options: any = {}): RequestArgs {
-      // verify required parameter 'body' is not null or undefined
-      if (body === null || body === undefined) {
+    addTask(task: Task, options: any = {}): RequestArgs {
+      // verify required parameter 'task' is not null or undefined
+      if (task === null || task === undefined) {
         throw new RequiredError(
-          'body',
-          'Required parameter body was null or undefined when calling addTask.'
+          'task',
+          'Required parameter task was null or undefined when calling addTask.'
         );
       }
       const localVarPath = `/task`;
@@ -839,16 +862,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      // authentication levsha_auth required
-      // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('levsha_auth', ['write:tasks'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] =
-          'Bearer ' + localVarAccessTokenValue;
-      }
+      // authentication cookieAuth required
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -867,11 +881,11 @@ export const TaskApiAxiosParamCreator = function(
         ...options.headers
       };
       const needsSerialization =
-        typeof body !== 'string' ||
+        typeof task !== 'string' ||
         localVarRequestOptions.headers['Content-Type'] === 'application/json';
       localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(body !== undefined ? body : {})
-        : body || '';
+        ? JSON.stringify(task !== undefined ? task : {})
+        : task || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -881,16 +895,19 @@ export const TaskApiAxiosParamCreator = function(
     /**
      *
      * @summary Create new task category
-     * @param {TaskCategory} body Create task category
+     * @param {TaskCategory} taskCategory
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createTaskCategory(body: TaskCategory, options: any = {}): RequestArgs {
-      // verify required parameter 'body' is not null or undefined
-      if (body === null || body === undefined) {
+    createTaskCategory(
+      taskCategory: TaskCategory,
+      options: any = {}
+    ): RequestArgs {
+      // verify required parameter 'taskCategory' is not null or undefined
+      if (taskCategory === null || taskCategory === undefined) {
         throw new RequiredError(
-          'body',
-          'Required parameter body was null or undefined when calling createTaskCategory.'
+          'taskCategory',
+          'Required parameter taskCategory was null or undefined when calling createTaskCategory.'
         );
       }
       const localVarPath = `/task/category`;
@@ -907,16 +924,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      // authentication levsha_auth required
-      // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('levsha_auth', ['write:task_category'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] =
-          'Bearer ' + localVarAccessTokenValue;
-      }
+      // authentication cookieAuth required
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -935,11 +943,11 @@ export const TaskApiAxiosParamCreator = function(
         ...options.headers
       };
       const needsSerialization =
-        typeof body !== 'string' ||
+        typeof taskCategory !== 'string' ||
         localVarRequestOptions.headers['Content-Type'] === 'application/json';
       localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(body !== undefined ? body : {})
-        : body || '';
+        ? JSON.stringify(taskCategory !== undefined ? taskCategory : {})
+        : taskCategory || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -950,13 +958,13 @@ export const TaskApiAxiosParamCreator = function(
      * Get list of first tasks by location id
      * @summary Finds tasks by location
      * @param {number} locationId Id of queried location
-     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+     * @param {number} [page] Status values that need to be considered for filter
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     findTasksByLocation(
       locationId: number,
-      page?: Array<'available' | 'pending' | 'sold'>,
+      page?: number,
       options: any = {}
     ): RequestArgs {
       // verify required parameter 'locationId' is not null or undefined
@@ -983,7 +991,9 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      if (page) {
+      // authentication cookieAuth required
+
+      if (page !== undefined) {
         localVarQueryParameter['page'] = page;
       }
 
@@ -1028,6 +1038,8 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      // authentication cookieAuth required
+
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
@@ -1068,6 +1080,8 @@ export const TaskApiAxiosParamCreator = function(
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
 
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
@@ -1121,16 +1135,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      // authentication levsha_auth required
-      // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('levsha_auth', ['write:task_category'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] =
-          'Bearer ' + localVarAccessTokenValue;
-      }
+      // authentication cookieAuth required
 
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
@@ -1155,16 +1160,16 @@ export const TaskApiAxiosParamCreator = function(
     /**
      *
      * @summary Update an existing task
-     * @param {Task} body Task object that needs to be updated
+     * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTask(body: Task, options: any = {}): RequestArgs {
-      // verify required parameter 'body' is not null or undefined
-      if (body === null || body === undefined) {
+    updateTask(task: Task, options: any = {}): RequestArgs {
+      // verify required parameter 'task' is not null or undefined
+      if (task === null || task === undefined) {
         throw new RequiredError(
-          'body',
-          'Required parameter body was null or undefined when calling updateTask.'
+          'task',
+          'Required parameter task was null or undefined when calling updateTask.'
         );
       }
       const localVarPath = `/task`;
@@ -1181,16 +1186,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      // authentication levsha_auth required
-      // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('levsha_auth', ['write:tasks'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] =
-          'Bearer ' + localVarAccessTokenValue;
-      }
+      // authentication cookieAuth required
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -1209,11 +1205,11 @@ export const TaskApiAxiosParamCreator = function(
         ...options.headers
       };
       const needsSerialization =
-        typeof body !== 'string' ||
+        typeof task !== 'string' ||
         localVarRequestOptions.headers['Content-Type'] === 'application/json';
       localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(body !== undefined ? body : {})
-        : body || '';
+        ? JSON.stringify(task !== undefined ? task : {})
+        : task || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -1224,13 +1220,13 @@ export const TaskApiAxiosParamCreator = function(
      *
      * @summary Update given task category
      * @param {number} taskCategoryId Id of queried location
-     * @param {TaskCategory} body Create task category
+     * @param {TaskCategory} taskCategory
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateTaskCategory(
       taskCategoryId: number,
-      body: TaskCategory,
+      taskCategory: TaskCategory,
       options: any = {}
     ): RequestArgs {
       // verify required parameter 'taskCategoryId' is not null or undefined
@@ -1240,11 +1236,11 @@ export const TaskApiAxiosParamCreator = function(
           'Required parameter taskCategoryId was null or undefined when calling updateTaskCategory.'
         );
       }
-      // verify required parameter 'body' is not null or undefined
-      if (body === null || body === undefined) {
+      // verify required parameter 'taskCategory' is not null or undefined
+      if (taskCategory === null || taskCategory === undefined) {
         throw new RequiredError(
-          'body',
-          'Required parameter body was null or undefined when calling updateTaskCategory.'
+          'taskCategory',
+          'Required parameter taskCategory was null or undefined when calling updateTaskCategory.'
         );
       }
       const localVarPath = `/task/category/{task_category_id}`.replace(
@@ -1264,16 +1260,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      // authentication levsha_auth required
-      // oauth required
-      if (configuration && configuration.accessToken) {
-        const localVarAccessTokenValue =
-          typeof configuration.accessToken === 'function'
-            ? configuration.accessToken('levsha_auth', ['write:task_category'])
-            : configuration.accessToken;
-        localVarHeaderParameter['Authorization'] =
-          'Bearer ' + localVarAccessTokenValue;
-      }
+      // authentication cookieAuth required
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -1292,11 +1279,11 @@ export const TaskApiAxiosParamCreator = function(
         ...options.headers
       };
       const needsSerialization =
-        typeof body !== 'string' ||
+        typeof taskCategory !== 'string' ||
         localVarRequestOptions.headers['Content-Type'] === 'application/json';
       localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(body !== undefined ? body : {})
-        : body || '';
+        ? JSON.stringify(taskCategory !== undefined ? taskCategory : {})
+        : taskCategory || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -1315,16 +1302,16 @@ export const TaskApiFp = function(configuration?: Configuration) {
     /**
      *
      * @summary Add a new task on board
-     * @param {Task} body Task object that needs to be added to the board
+     * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     addTask(
-      body: Task,
+      task: Task,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
       const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).addTask(
-        body,
+        task,
         options
       );
       return (
@@ -1341,17 +1328,17 @@ export const TaskApiFp = function(configuration?: Configuration) {
     /**
      *
      * @summary Create new task category
-     * @param {TaskCategory} body Create task category
+     * @param {TaskCategory} taskCategory
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     createTaskCategory(
-      body: TaskCategory,
+      taskCategory: TaskCategory,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
       const localVarAxiosArgs = TaskApiAxiosParamCreator(
         configuration
-      ).createTaskCategory(body, options);
+      ).createTaskCategory(taskCategory, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -1367,13 +1354,13 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * Get list of first tasks by location id
      * @summary Finds tasks by location
      * @param {number} locationId Id of queried location
-     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+     * @param {number} [page] Status values that need to be considered for filter
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     findTasksByLocation(
       locationId: number,
-      page?: Array<'available' | 'pending' | 'sold'>,
+      page?: number,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>> {
       const localVarAxiosArgs = TaskApiAxiosParamCreator(
@@ -1467,17 +1454,17 @@ export const TaskApiFp = function(configuration?: Configuration) {
     /**
      *
      * @summary Update an existing task
-     * @param {Task} body Task object that needs to be updated
+     * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateTask(
-      body: Task,
+      task: Task,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
       const localVarAxiosArgs = TaskApiAxiosParamCreator(
         configuration
-      ).updateTask(body, options);
+      ).updateTask(task, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -1493,18 +1480,18 @@ export const TaskApiFp = function(configuration?: Configuration) {
      *
      * @summary Update given task category
      * @param {number} taskCategoryId Id of queried location
-     * @param {TaskCategory} body Create task category
+     * @param {TaskCategory} taskCategory
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateTaskCategory(
       taskCategoryId: number,
-      body: TaskCategory,
+      taskCategory: TaskCategory,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
       const localVarAxiosArgs = TaskApiAxiosParamCreator(
         configuration
-      ).updateTaskCategory(taskCategoryId, body, options);
+      ).updateTaskCategory(taskCategoryId, taskCategory, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -1532,22 +1519,25 @@ export const TaskApiFactory = function(
     /**
      *
      * @summary Add a new task on board
-     * @param {Task} body Task object that needs to be added to the board
+     * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addTask(body: Task, options?: any): AxiosPromise<Task> {
-      return TaskApiFp(configuration).addTask(body, options)(axios, basePath);
+    addTask(task: Task, options?: any): AxiosPromise<Task> {
+      return TaskApiFp(configuration).addTask(task, options)(axios, basePath);
     },
     /**
      *
      * @summary Create new task category
-     * @param {TaskCategory} body Create task category
+     * @param {TaskCategory} taskCategory
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createTaskCategory(body: TaskCategory, options?: any): AxiosPromise<void> {
-      return TaskApiFp(configuration).createTaskCategory(body, options)(
+    createTaskCategory(
+      taskCategory: TaskCategory,
+      options?: any
+    ): AxiosPromise<void> {
+      return TaskApiFp(configuration).createTaskCategory(taskCategory, options)(
         axios,
         basePath
       );
@@ -1556,13 +1546,13 @@ export const TaskApiFactory = function(
      * Get list of first tasks by location id
      * @summary Finds tasks by location
      * @param {number} locationId Id of queried location
-     * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+     * @param {number} [page] Status values that need to be considered for filter
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     findTasksByLocation(
       locationId: number,
-      page?: Array<'available' | 'pending' | 'sold'>,
+      page?: number,
       options?: any
     ): AxiosPromise<Array<Task>> {
       return TaskApiFp(configuration).findTasksByLocation(
@@ -1611,12 +1601,12 @@ export const TaskApiFactory = function(
     /**
      *
      * @summary Update an existing task
-     * @param {Task} body Task object that needs to be updated
+     * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTask(body: Task, options?: any): AxiosPromise<void> {
-      return TaskApiFp(configuration).updateTask(body, options)(
+    updateTask(task: Task, options?: any): AxiosPromise<void> {
+      return TaskApiFp(configuration).updateTask(task, options)(
         axios,
         basePath
       );
@@ -1625,18 +1615,18 @@ export const TaskApiFactory = function(
      *
      * @summary Update given task category
      * @param {number} taskCategoryId Id of queried location
-     * @param {TaskCategory} body Create task category
+     * @param {TaskCategory} taskCategory
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateTaskCategory(
       taskCategoryId: number,
-      body: TaskCategory,
+      taskCategory: TaskCategory,
       options?: any
     ): AxiosPromise<void> {
       return TaskApiFp(configuration).updateTaskCategory(
         taskCategoryId,
-        body,
+        taskCategory,
         options
       )(axios, basePath);
     }
@@ -1653,13 +1643,13 @@ export class TaskApi extends BaseAPI {
   /**
    *
    * @summary Add a new task on board
-   * @param {Task} body Task object that needs to be added to the board
+   * @param {Task} task
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
-  public addTask(body: Task, options?: any) {
-    return TaskApiFp(this.configuration).addTask(body, options)(
+  public addTask(task: Task, options?: any) {
+    return TaskApiFp(this.configuration).addTask(task, options)(
       this.axios,
       this.basePath
     );
@@ -1668,32 +1658,28 @@ export class TaskApi extends BaseAPI {
   /**
    *
    * @summary Create new task category
-   * @param {TaskCategory} body Create task category
+   * @param {TaskCategory} taskCategory
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
-  public createTaskCategory(body: TaskCategory, options?: any) {
-    return TaskApiFp(this.configuration).createTaskCategory(body, options)(
-      this.axios,
-      this.basePath
-    );
+  public createTaskCategory(taskCategory: TaskCategory, options?: any) {
+    return TaskApiFp(this.configuration).createTaskCategory(
+      taskCategory,
+      options
+    )(this.axios, this.basePath);
   }
 
   /**
    * Get list of first tasks by location id
    * @summary Finds tasks by location
    * @param {number} locationId Id of queried location
-   * @param {Array<'available' | 'pending' | 'sold'>} [page] Status values that need to be considered for filter
+   * @param {number} [page] Status values that need to be considered for filter
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
-  public findTasksByLocation(
-    locationId: number,
-    page?: Array<'available' | 'pending' | 'sold'>,
-    options?: any
-  ) {
+  public findTasksByLocation(locationId: number, page?: number, options?: any) {
     return TaskApiFp(this.configuration).findTasksByLocation(
       locationId,
       page,
@@ -1747,13 +1733,13 @@ export class TaskApi extends BaseAPI {
   /**
    *
    * @summary Update an existing task
-   * @param {Task} body Task object that needs to be updated
+   * @param {Task} task
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
-  public updateTask(body: Task, options?: any) {
-    return TaskApiFp(this.configuration).updateTask(body, options)(
+  public updateTask(task: Task, options?: any) {
+    return TaskApiFp(this.configuration).updateTask(task, options)(
       this.axios,
       this.basePath
     );
@@ -1763,19 +1749,19 @@ export class TaskApi extends BaseAPI {
    *
    * @summary Update given task category
    * @param {number} taskCategoryId Id of queried location
-   * @param {TaskCategory} body Create task category
+   * @param {TaskCategory} taskCategory
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
   public updateTaskCategory(
     taskCategoryId: number,
-    body: TaskCategory,
+    taskCategory: TaskCategory,
     options?: any
   ) {
     return TaskApiFp(this.configuration).updateTaskCategory(
       taskCategoryId,
-      body,
+      taskCategory,
       options
     )(this.axios, this.basePath);
   }
@@ -1790,18 +1776,18 @@ export const UserApiAxiosParamCreator = function(
 ) {
   return {
     /**
-     * This can only be done by the logged in user.
+     * Registration of new user
      * @summary Create user
-     * @param {User} body Created user object
+     * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createUser(body: User, options: any = {}): RequestArgs {
-      // verify required parameter 'body' is not null or undefined
-      if (body === null || body === undefined) {
+    createUser(user: User, options: any = {}): RequestArgs {
+      // verify required parameter 'user' is not null or undefined
+      if (user === null || user === undefined) {
         throw new RequiredError(
-          'body',
-          'Required parameter body was null or undefined when calling createUser.'
+          'user',
+          'Required parameter user was null or undefined when calling createUser.'
         );
       }
       const localVarPath = `/user`;
@@ -1817,6 +1803,8 @@ export const UserApiAxiosParamCreator = function(
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
 
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -1835,11 +1823,11 @@ export const UserApiAxiosParamCreator = function(
         ...options.headers
       };
       const needsSerialization =
-        typeof body !== 'string' ||
+        typeof user !== 'string' ||
         localVarRequestOptions.headers['Content-Type'] === 'application/json';
       localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(body !== undefined ? body : {})
-        : body || '';
+        ? JSON.stringify(user !== undefined ? user : {})
+        : user || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -1877,6 +1865,51 @@ export const UserApiAxiosParamCreator = function(
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
+
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Get current user from session, eg after reload of app
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCurrentUser(options: any = {}): RequestArgs {
+      const localVarPath = `/user`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
 
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
@@ -1930,6 +1963,8 @@ export const UserApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      // authentication cookieAuth required
+
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
@@ -1953,24 +1988,19 @@ export const UserApiAxiosParamCreator = function(
     /**
      *
      * @summary Logs user into the system
-     * @param {string} phone The phone for login
-     * @param {string} password The password for login in clear text
+     * @param {SignInParameters} signInParameters
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    loginUser(phone: string, password: string, options: any = {}): RequestArgs {
-      // verify required parameter 'phone' is not null or undefined
-      if (phone === null || phone === undefined) {
+    loginUser(
+      signInParameters: SignInParameters,
+      options: any = {}
+    ): RequestArgs {
+      // verify required parameter 'signInParameters' is not null or undefined
+      if (signInParameters === null || signInParameters === undefined) {
         throw new RequiredError(
-          'phone',
-          'Required parameter phone was null or undefined when calling loginUser.'
-        );
-      }
-      // verify required parameter 'password' is not null or undefined
-      if (password === null || password === undefined) {
-        throw new RequiredError(
-          'password',
-          'Required parameter password was null or undefined when calling loginUser.'
+          'signInParameters',
+          'Required parameter signInParameters was null or undefined when calling loginUser.'
         );
       }
       const localVarPath = `/user/login`;
@@ -1980,20 +2010,16 @@ export const UserApiAxiosParamCreator = function(
         baseOptions = configuration.baseOptions;
       }
       const localVarRequestOptions = {
-        method: 'GET',
+        method: 'POST',
         ...baseOptions,
         ...options
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      if (phone !== undefined) {
-        localVarQueryParameter['phone'] = phone;
-      }
+      // authentication cookieAuth required
 
-      if (password !== undefined) {
-        localVarQueryParameter['password'] = password;
-      }
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
@@ -2009,6 +2035,12 @@ export const UserApiAxiosParamCreator = function(
         ...headersFromBaseOptions,
         ...options.headers
       };
+      const needsSerialization =
+        typeof signInParameters !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(signInParameters !== undefined ? signInParameters : {})
+        : signInParameters || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -2036,6 +2068,8 @@ export const UserApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      // authentication cookieAuth required
+
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
@@ -2060,11 +2094,11 @@ export const UserApiAxiosParamCreator = function(
      * This can only be done by the logged in user.
      * @summary Updated user
      * @param {string} username name that need to be updated
-     * @param {User} body Updated user object
+     * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateUser(username: string, body: User, options: any = {}): RequestArgs {
+    updateUser(username: string, user: User, options: any = {}): RequestArgs {
       // verify required parameter 'username' is not null or undefined
       if (username === null || username === undefined) {
         throw new RequiredError(
@@ -2072,11 +2106,11 @@ export const UserApiAxiosParamCreator = function(
           'Required parameter username was null or undefined when calling updateUser.'
         );
       }
-      // verify required parameter 'body' is not null or undefined
-      if (body === null || body === undefined) {
+      // verify required parameter 'user' is not null or undefined
+      if (user === null || user === undefined) {
         throw new RequiredError(
-          'body',
-          'Required parameter body was null or undefined when calling updateUser.'
+          'user',
+          'Required parameter user was null or undefined when calling updateUser.'
         );
       }
       const localVarPath = `/user/{username}`.replace(
@@ -2096,6 +2130,8 @@ export const UserApiAxiosParamCreator = function(
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      // authentication cookieAuth required
+
       localVarHeaderParameter['Content-Type'] = 'application/json';
 
       localVarUrlObj.query = {
@@ -2113,11 +2149,11 @@ export const UserApiAxiosParamCreator = function(
         ...options.headers
       };
       const needsSerialization =
-        typeof body !== 'string' ||
+        typeof user !== 'string' ||
         localVarRequestOptions.headers['Content-Type'] === 'application/json';
       localVarRequestOptions.data = needsSerialization
-        ? JSON.stringify(body !== undefined ? body : {})
-        : body || '';
+        ? JSON.stringify(user !== undefined ? user : {})
+        : user || '';
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
@@ -2134,19 +2170,19 @@ export const UserApiAxiosParamCreator = function(
 export const UserApiFp = function(configuration?: Configuration) {
   return {
     /**
-     * This can only be done by the logged in user.
+     * Registration of new user
      * @summary Create user
-     * @param {User} body Created user object
+     * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     createUser(
-      body: User,
+      user: User,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
       const localVarAxiosArgs = UserApiAxiosParamCreator(
         configuration
-      ).createUser(body, options);
+      ).createUser(user, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2172,6 +2208,29 @@ export const UserApiFp = function(configuration?: Configuration) {
       const localVarAxiosArgs = UserApiAxiosParamCreator(
         configuration
       ).deleteUser(username, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Get current user from session, eg after reload of app
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCurrentUser(
+      options?: any
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
+      const localVarAxiosArgs = UserApiAxiosParamCreator(
+        configuration
+      ).getCurrentUser(options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2211,19 +2270,17 @@ export const UserApiFp = function(configuration?: Configuration) {
     /**
      *
      * @summary Logs user into the system
-     * @param {string} phone The phone for login
-     * @param {string} password The password for login in clear text
+     * @param {SignInParameters} signInParameters
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     loginUser(
-      phone: string,
-      password: string,
+      signInParameters: SignInParameters,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string> {
+    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
       const localVarAxiosArgs = UserApiAxiosParamCreator(
         configuration
-      ).loginUser(phone, password, options);
+      ).loginUser(signInParameters, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2262,18 +2319,18 @@ export const UserApiFp = function(configuration?: Configuration) {
      * This can only be done by the logged in user.
      * @summary Updated user
      * @param {string} username name that need to be updated
-     * @param {User} body Updated user object
+     * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateUser(
       username: string,
-      body: User,
+      user: User,
       options?: any
     ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
       const localVarAxiosArgs = UserApiAxiosParamCreator(
         configuration
-      ).updateUser(username, body, options);
+      ).updateUser(username, user, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2299,14 +2356,14 @@ export const UserApiFactory = function(
 ) {
   return {
     /**
-     * This can only be done by the logged in user.
+     * Registration of new user
      * @summary Create user
-     * @param {User} body Created user object
+     * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createUser(body: User, options?: any): AxiosPromise<User> {
-      return UserApiFp(configuration).createUser(body, options)(
+    createUser(user: User, options?: any): AxiosPromise<User> {
+      return UserApiFp(configuration).createUser(user, options)(
         axios,
         basePath
       );
@@ -2326,6 +2383,15 @@ export const UserApiFactory = function(
     },
     /**
      *
+     * @summary Get current user from session, eg after reload of app
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getCurrentUser(options?: any): AxiosPromise<User> {
+      return UserApiFp(configuration).getCurrentUser(options)(axios, basePath);
+    },
+    /**
+     *
      * @summary Get user by user name
      * @param {string} username The name that needs to be fetched. Use user1 for testing.
      * @param {*} [options] Override http request option.
@@ -2340,21 +2406,18 @@ export const UserApiFactory = function(
     /**
      *
      * @summary Logs user into the system
-     * @param {string} phone The phone for login
-     * @param {string} password The password for login in clear text
+     * @param {SignInParameters} signInParameters
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     loginUser(
-      phone: string,
-      password: string,
+      signInParameters: SignInParameters,
       options?: any
-    ): AxiosPromise<string> {
-      return UserApiFp(configuration).loginUser(
-        phone,
-        password,
-        options
-      )(axios, basePath);
+    ): AxiosPromise<User> {
+      return UserApiFp(configuration).loginUser(signInParameters, options)(
+        axios,
+        basePath
+      );
     },
     /**
      *
@@ -2369,18 +2432,18 @@ export const UserApiFactory = function(
      * This can only be done by the logged in user.
      * @summary Updated user
      * @param {string} username name that need to be updated
-     * @param {User} body Updated user object
+     * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateUser(
       username: string,
-      body: User,
+      user: User,
       options?: any
     ): AxiosPromise<void> {
       return UserApiFp(configuration).updateUser(
         username,
-        body,
+        user,
         options
       )(axios, basePath);
     }
@@ -2395,15 +2458,15 @@ export const UserApiFactory = function(
  */
 export class UserApi extends BaseAPI {
   /**
-   * This can only be done by the logged in user.
+   * Registration of new user
    * @summary Create user
-   * @param {User} body Created user object
+   * @param {User} user
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public createUser(body: User, options?: any) {
-    return UserApiFp(this.configuration).createUser(body, options)(
+  public createUser(user: User, options?: any) {
+    return UserApiFp(this.configuration).createUser(user, options)(
       this.axios,
       this.basePath
     );
@@ -2419,6 +2482,20 @@ export class UserApi extends BaseAPI {
    */
   public deleteUser(username: string, options?: any) {
     return UserApiFp(this.configuration).deleteUser(username, options)(
+      this.axios,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @summary Get current user from session, eg after reload of app
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public getCurrentUser(options?: any) {
+    return UserApiFp(this.configuration).getCurrentUser(options)(
       this.axios,
       this.basePath
     );
@@ -2442,18 +2519,16 @@ export class UserApi extends BaseAPI {
   /**
    *
    * @summary Logs user into the system
-   * @param {string} phone The phone for login
-   * @param {string} password The password for login in clear text
+   * @param {SignInParameters} signInParameters
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public loginUser(phone: string, password: string, options?: any) {
-    return UserApiFp(this.configuration).loginUser(
-      phone,
-      password,
-      options
-    )(this.axios, this.basePath);
+  public loginUser(signInParameters: SignInParameters, options?: any) {
+    return UserApiFp(this.configuration).loginUser(signInParameters, options)(
+      this.axios,
+      this.basePath
+    );
   }
 
   /**
@@ -2474,15 +2549,15 @@ export class UserApi extends BaseAPI {
    * This can only be done by the logged in user.
    * @summary Updated user
    * @param {string} username name that need to be updated
-   * @param {User} body Updated user object
+   * @param {User} user
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public updateUser(username: string, body: User, options?: any) {
+  public updateUser(username: string, user: User, options?: any) {
     return UserApiFp(this.configuration).updateUser(
       username,
-      body,
+      user,
       options
     )(this.axios, this.basePath);
   }

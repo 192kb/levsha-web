@@ -1,4 +1,5 @@
-swagger: '2.0'
+openapi: 3.0.0
+
 info:
   description: 'Levsha is open small work listing project'
   version: '1.0.0'
@@ -7,8 +8,8 @@ info:
     email: 'v.tyrin@icloud.com'
   license:
     name: 'MIT'
-host: 'levsha.192kb.ru'
-basePath: '/levsha-api/'
+servers:
+  - url: https://192kb.ru/levsha-api/
 tags:
   - name: 'task'
     description: 'Access to task orders'
@@ -16,9 +17,249 @@ tags:
     description: 'Operations about user'
   - name: 'location'
     description: 'Location-related options'
-schemes:
-  - 'https'
-  - 'http'
+components:
+  schemas:
+    User:
+      type: 'object'
+      properties:
+        uuid:
+          type: 'string'
+        firstname:
+          type: 'string'
+        secondname:
+          type: 'string'
+        lastname:
+          type: 'string'
+        date_created:
+          type: 'string'
+        last_change:
+          type: 'string'
+        date_deleted:
+          type: 'string'
+        is_deleted:
+          type: 'boolean'
+          default: false
+        login:
+          type: 'string'
+        password:
+          type: 'string'
+        phone:
+          type: 'string'
+        email:
+          type: 'string'
+        vk_profile:
+          type: 'string'
+        ok_profile:
+          type: 'string'
+        fb_profile:
+          type: 'string'
+        ig_profile:
+          type: 'string'
+        tw_profile:
+          type: 'string'
+        yt_profile:
+          type: 'string'
+        be_profile:
+          type: 'string'
+        li_profile:
+          type: 'string'
+        hh_profile:
+          type: 'string'
+        phone_comfirmed:
+          type: 'boolean'
+          default: false
+        email_confirmed:
+          type: 'boolean'
+          default: false
+        photo_url:
+          type: 'string'
+        city:
+          $ref: '#/components/schemas/City'
+        starred_users:
+          type: 'array'
+          items:
+            $ref: '#/components/schemas/User'
+        hidden_users:
+          type: 'array'
+          items:
+            $ref: '#/components/schemas/User'
+      required:
+        - uuid
+        - firstname
+        - lastname
+        - password
+        - phone
+
+    TaskCategory:
+      type: 'object'
+      properties:
+        id:
+          type: 'number'
+        name:
+          type: 'string'
+        sorting:
+          type: 'number'
+        is_deprecated:
+          type: 'boolean'
+
+    Task:
+      type: 'object'
+      properties:
+        id:
+          type: 'number'
+        user:
+          $ref: '#/components/schemas/User'
+        date_created:
+          type: 'string'
+        is_active:
+          type: 'boolean'
+        title:
+          type: 'string'
+        description:
+          type: 'string'
+        price:
+          type: 'integer'
+        have_constant_price:
+          type: 'boolean'
+        date_start:
+          type: 'string'
+        date_finish:
+          type: 'string'
+        district:
+          $ref: '#/components/schemas/District'
+        category:
+          $ref: '#/components/schemas/TaskCategory'
+        images:
+          type: 'array'
+          items:
+            type: 'object'
+            properties:
+              id:
+                type: 'number'
+              date_created:
+                type: 'string'
+              date_delete:
+                type: 'string'
+              is_deleted:
+                type: 'boolean'
+              url:
+                type: 'string'
+              task_id:
+                type: 'number'
+
+    Message:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+          required: ['true']
+        user_from:
+          type: 'integer'
+          required: ['true']
+        user_to:
+          type: 'integer'
+          required: ['true']
+        task_id:
+          type: 'integer'
+        message:
+          type: 'string'
+        date_created:
+          type: 'string'
+        date_read:
+          type: 'string'
+        is_deleted:
+          type: 'boolean'
+
+    Notification:
+      type: 'object'
+      properties:
+        id:
+          type: 'number'
+        user_id:
+          type: 'number'
+        title:
+          type: 'string'
+        message:
+          type: 'string'
+        date_created:
+          type: 'string'
+        date_read:
+          type: 'string'
+        payload:
+          type: 'string'
+        notification_type_id:
+          type: 'number'
+
+    NotificationType:
+      type: object
+      properties:
+        id:
+          type: 'number'
+        name:
+          type: 'string'
+
+    City:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+          format: 'int32'
+        name:
+          type: 'string'
+        is_deleted:
+          type: 'boolean'
+          default: false
+      required:
+        - id
+        - name
+        - is_deleted
+
+    District:
+      type: 'object'
+      properties:
+        id:
+          type: 'integer'
+        name:
+          type: 'string'
+        city_id:
+          type: 'integer'
+        is_deleted:
+          type: 'boolean'
+          default: false
+      required:
+        - id
+        - name
+        - city_id
+        - is_deleted
+
+    SignInParameters:
+      type: object
+      properties:
+        phone:
+          type: string
+        password:
+          type: string
+      required:
+        - phone
+        - password
+
+    ApiResponse:
+      type: 'object'
+      properties:
+        code:
+          type: 'integer'
+          format: 'int32'
+        type:
+          type: 'string'
+        message:
+          type: 'string'
+  securitySchemes:
+    cookieAuth: # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: JSESSIONID # cookie name
+security:
+  - cookieAuth: []
 paths:
   /city:
     get:
@@ -29,14 +270,18 @@ paths:
       responses:
         200:
           description: OK
-          schema:
-            type: 'array'
-            items:
-              $ref: '#/definitions/City'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/City'
         400:
           description: 'Server error'
-          schema:
-            $ref: '#/definitions/ApiResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
 
   /city/{city_id}/district:
     get:
@@ -45,20 +290,27 @@ paths:
       summary: 'Get list of current cities'
       operationId: 'getDiscrictsByCityId'
       parameters:
-        - name: 'city_id'
+        - name: city_id
           in: 'path'
-          description: 'Id of queried city'
-          type: 'integer'
           required: true
+          description: 'Id of queried city'
+          schema:
+            type: 'integer'
       responses:
         200:
           description: OK
-          schema:
-            type: 'array'
-            items:
-              $ref: '#/definitions/District'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/District'
         400:
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
 
   /task:
     get:
@@ -69,8 +321,10 @@ paths:
       responses:
         200:
           description: OK
-          schema:
-            $ref: '#/definitions/Task'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
         400:
           description: 'Server error'
     post:
@@ -79,45 +333,34 @@ paths:
       summary: 'Add a new task on board'
       description: ''
       operationId: 'addTask'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Task object that needs to be added to the board'
-          required: true
-          schema:
-            $ref: '#/definitions/Task'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
       responses:
         200:
           description: OK
-          schema:
-            $ref: '#/definitions/Task'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
 
         405:
           description: 'Invalid input'
-      security:
-        - levsha_auth:
-            - 'write:tasks'
     put:
       tags:
         - 'task'
       summary: 'Update an existing task'
       description: ''
       operationId: 'updateTask'
-      consumes:
-        - 'application/json'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Task object that needs to be updated'
-          required: true
-          schema:
-            $ref: '#/definitions/Task'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
       responses:
         400:
           description: 'Invalid ID supplied'
@@ -125,9 +368,6 @@ paths:
           description: 'Task not found'
         405:
           description: 'Validation exception'
-      security:
-        - levsha_auth:
-            - 'write:tasks'
   /task/findByLocation/{location_id}:
     get:
       tags:
@@ -135,34 +375,28 @@ paths:
       summary: 'Finds tasks by location'
       description: 'Get list of first tasks by location id'
       operationId: 'findTasksByLocation'
-      produces:
-        - 'application/json'
       parameters:
         - name: 'location_id'
           in: 'path'
           description: 'Id of queried location'
-          type: 'integer'
           required: true
+          schema:
+            type: 'integer'
         - name: 'page'
           in: 'query'
           description: 'Status values that need to be considered for filter'
           required: false
-          type: 'array'
-          items:
-            type: 'string'
-            enum:
-              - 'available'
-              - 'pending'
-              - 'sold'
-            default: 'available'
-          collectionFormat: 'multi'
+          schema:
+            type: integer
       responses:
         200:
           description: 'successful operation'
-          schema:
-            type: 'array'
-            items:
-              $ref: '#/definitions/Task'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Task'
         400:
           description: 'Invalid status value'
   /task/category:
@@ -171,35 +405,29 @@ paths:
         - 'task'
       summary: 'Get list of tasks'
       operationId: 'getTaskCategories'
-      produces:
-        - 'application/json'
       responses:
         200:
           description: 'Get list of existing task categories'
-          schema:
-            type: 'array'
-            items:
-              $ref: '#/definitions/TaskCategory'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/TaskCategory'
     post:
       tags:
         - 'task'
       summary: 'Create new task category'
       operationId: 'createTaskCategory'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Create task category'
-          required: true
-          schema:
-            $ref: '#/definitions/TaskCategory'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCategory'
       responses:
         default:
           description: 'successful operation'
-      security:
-        - levsha_auth:
-            - 'write:task_category'
 
   /task/category/{task_category_id}:
     put:
@@ -207,28 +435,24 @@ paths:
         - 'task'
       summary: 'Update given task category'
       operationId: 'updateTaskCategory'
-      produces:
-        - 'application/json'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCategory'
       parameters:
         - name: 'task_category_id'
           in: 'path'
           description: 'Id of queried location'
-          type: 'integer'
-          required: true
-        - in: 'body'
-          name: 'body'
-          description: 'Create task category'
           required: true
           schema:
-            $ref: '#/definitions/TaskCategory'
+            type: 'integer'
       responses:
         default:
           description: 'successful operation'
         404:
           description: 'Not found'
-      security:
-        - levsha_auth:
-            - 'write:task_category'
     delete:
       tags:
         - 'task'
@@ -238,68 +462,91 @@ paths:
         - name: 'task_category_id'
           in: 'path'
           description: 'Id of queried location'
-          type: 'integer'
           required: true
+          schema:
+            type: 'integer'
       responses:
         200:
           description: OK
-      security:
-        - levsha_auth:
-            - 'write:task_category'
 
   /user:
+    get:
+      tags:
+        - 'user'
+      summary: 'Get current user from session, eg after reload of app'
+      description: ''
+      operationId: 'getCurrentUser'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        404:
+          description: 'Session not found / invalid / expired'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
     post:
       tags:
         - 'user'
       summary: 'Create user'
-      description: 'This can only be done by the logged in user.'
+      description: 'Registration of new user'
       operationId: 'createUser'
-      produces:
-        - 'application/json'
-      parameters:
-        - in: 'body'
-          name: 'body'
-          description: 'Created user object'
-          required: true
-          schema:
-            $ref: '#/definitions/User'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
       responses:
         200:
           description: OK
-          schema:
-            $ref: '#/definitions/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         400:
           description: 'Form invalid'
-          schema:
-            $ref: '#/definitions/ApiResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
 
   /user/login:
-    get:
+    post:
       tags:
         - 'user'
       summary: 'Logs user into the system'
       description: ''
       operationId: 'loginUser'
-      produces:
-        - 'application/json'
-      parameters:
-        - name: 'phone'
-          in: 'query'
-          description: 'The phone for login'
-          required: true
-          type: 'string'
-        - name: 'password'
-          in: 'query'
-          description: 'The password for login in clear text'
-          required: true
-          type: 'string'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInParameters'
       responses:
         200:
           description: 'successful operation'
-          schema:
-            type: 'string'
-        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
           description: 'Invalid username/password supplied'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   /user/logout:
     get:
       tags:
@@ -307,12 +554,12 @@ paths:
       summary: 'Logs out current logged in user session'
       description: ''
       operationId: 'logoutUser'
-      produces:
-        - 'application/json'
       parameters: []
       responses:
         default:
           description: 'successful operation'
+        400:
+          description: 'server error'
   /user/{username}:
     get:
       tags:
@@ -320,19 +567,20 @@ paths:
       summary: 'Get user by user name'
       description: ''
       operationId: 'getUserByName'
-      produces:
-        - 'application/json'
       parameters:
         - name: 'username'
           in: 'path'
           description: 'The name that needs to be fetched. Use user1 for testing. '
           required: true
-          type: 'string'
+          schema:
+            type: 'string'
       responses:
         200:
           description: 'successful operation'
-          schema:
-            $ref: '#/definitions/User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         400:
           description: 'Invalid username supplied'
         404:
@@ -343,20 +591,19 @@ paths:
       summary: 'Updated user'
       description: 'This can only be done by the logged in user.'
       operationId: 'updateUser'
-      produces:
-        - 'application/json'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
       parameters:
         - name: 'username'
           in: 'path'
           description: 'name that need to be updated'
           required: true
-          type: 'string'
-        - in: 'body'
-          name: 'body'
-          description: 'Updated user object'
-          required: true
           schema:
-            $ref: '#/definitions/User'
+            type: 'string'
       responses:
         400:
           description: 'Invalid user supplied'
@@ -368,260 +615,18 @@ paths:
       summary: 'Delete user'
       description: 'This can only be done by the logged in user with privilegy.'
       operationId: 'deleteUser'
-      produces:
-        - 'application/json'
       parameters:
         - name: 'username'
           in: 'path'
           description: 'The name that needs to be deleted'
           required: true
-          type: 'string'
+          schema:
+            type: 'string'
       responses:
         400:
           description: 'Invalid username supplied'
         404:
           description: 'User not found'
-securityDefinitions:
-  levsha_auth:
-    type: 'oauth2'
-    authorizationUrl: 'https://levsha.192kb.ru/oauth/dialog'
-    flow: 'implicit'
-    scopes:
-      write:tasks: 'create tasks'
-      delete:tasks: 'delete tasks'
-      write:user: 'modify users'
-      delete:user: 'delete users'
-      write:task_category: 'create/update/delete task category'
-      write:location: 'create/update/delete location'
-      write:message: 'create message'
-  api_key:
-    type: 'apiKey'
-    name: 'api_key'
-    in: 'header'
-definitions:
-  User:
-    type: 'object'
-    properties:
-      uuid:
-        type: 'string'
-      firstname:
-        type: 'string'
-      secondname:
-        type: 'string'
-      lastname:
-        type: 'string'
-      date_created:
-        type: 'string'
-      last_change:
-        type: 'string'
-      date_deleted:
-        type: 'string'
-      is_deleted:
-        type: 'boolean'
-        default: false
-      login:
-        type: 'string'
-      password:
-        type: 'string'
-      phone:
-        type: 'string'
-      email:
-        type: 'string'
-      vk_profile:
-        type: 'string'
-      ok_profile:
-        type: 'string'
-      fb_profile:
-        type: 'string'
-      ig_profile:
-        type: 'string'
-      tw_profile:
-        type: 'string'
-      yt_profile:
-        type: 'string'
-      be_profile:
-        type: 'string'
-      li_profile:
-        type: 'string'
-      hh_profile:
-        type: 'string'
-      phone_comfirmed:
-        type: 'boolean'
-        default: false
-      email_confirmed:
-        type: 'boolean'
-        default: false
-      photo_url:
-        type: 'string'
-      city:
-        $ref: '#/definitions/City'
-      starred_users:
-        type: 'array'
-        items:
-          $ref: '#/definitions/User'
-      hidden_users:
-        type: 'array'
-        items:
-          $ref: '#/definitions/User'
-    required:
-      - uuid
-      - firstname
-      - lastname
-      - password
-      - phone
-
-  TaskCategory:
-    type: 'object'
-    properties:
-      id:
-        type: 'number'
-      name:
-        type: 'string'
-      sorting:
-        type: 'number'
-      is_deprecated:
-        type: 'boolean'
-
-  Task:
-    type: 'object'
-    properties:
-      id:
-        type: 'number'
-      user:
-        $ref: '#/definitions/User'
-      date_created:
-        type: 'string'
-      is_active:
-        type: 'boolean'
-      title:
-        type: 'string'
-      description:
-        type: 'string'
-      price:
-        type: 'integer'
-      have_constant_price:
-        type: 'boolean'
-      date_start:
-        type: 'string'
-      date_finish:
-        type: 'string'
-      district:
-        $ref: '#/definitions/District'
-      category:
-        $ref: '#/definitions/TaskCategory'
-      images:
-        type: 'array'
-        items:
-          type: 'object'
-          properties:
-            id:
-              type: 'number'
-            date_created:
-              type: 'string'
-            date_delete:
-              type: 'string'
-            is_deleted:
-              type: 'boolean'
-            url:
-              type: 'string'
-            task_id:
-              type: 'number'
-
-  Message:
-    type: 'object'
-    properties:
-      id:
-        type: 'integer'
-        required: ['true']
-      user_from:
-        type: 'integer'
-        required: ['true']
-      user_to:
-        type: 'integer'
-        required: ['true']
-      task_id:
-        type: 'integer'
-      message:
-        type: 'string'
-      date_created:
-        type: 'string'
-      date_read:
-        type: 'string'
-      is_deleted:
-        type: 'boolean'
-
-  Notification:
-    type: 'object'
-    properties:
-      id:
-        type: 'number'
-      user_id:
-        type: 'number'
-      title:
-        type: 'string'
-      message:
-        type: 'string'
-      date_created:
-        type: 'string'
-      date_read:
-        type: 'string'
-      payload:
-        type: 'string'
-      notification_type_id:
-        type: 'number'
-
-  NotificationType:
-    type: object
-    properties:
-      id:
-        type: 'number'
-      name:
-        type: 'string'
-
-  City:
-    type: 'object'
-    properties:
-      id:
-        type: 'integer'
-        format: 'int32'
-      name:
-        type: 'string'
-      is_deleted:
-        type: 'boolean'
-        default: false
-    required:
-      - id
-      - name
-      - is_deleted
-
-  District:
-    type: 'object'
-    properties:
-      id:
-        type: 'integer'
-      name:
-        type: 'string'
-      city_id:
-        type: 'integer'
-      is_deleted:
-        type: 'boolean'
-        default: false
-    required:
-      - id
-      - name
-      - city_id
-      - is_deleted
-
-  ApiResponse:
-    type: 'object'
-    properties:
-      code:
-        type: 'integer'
-        format: 'int32'
-      type:
-        type: 'string'
-      message:
-        type: 'string'
 
 externalDocs:
   description: 'Find out more about Swagger'
