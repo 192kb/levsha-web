@@ -76,7 +76,7 @@ const App: React.FC = () => {
     handleClose();
 
     const userApi = new UserApi(apiConfiguration);
-    userApi.logoutUser(axiosRequestConfig).then(() => window.location.reload);
+    userApi.logoutUser(axiosRequestConfig).then(() => setUser(undefined));
   };
 
   return (
