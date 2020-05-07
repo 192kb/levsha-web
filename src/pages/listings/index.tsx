@@ -1,9 +1,10 @@
 import { CircularProgress, Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment';
 import * as React from 'react';
 
-import { Listing, ListingItem } from './ListingItem';
+import { ListingItem } from './ListingItem';
+import { apiConfiguration, axiosRequestConfig } from '../../App';
+import { TaskApi, Task } from '../../model';
 
 type ListingsPageProps = {};
 
@@ -22,35 +23,22 @@ const useStyles = makeStyles((theme) => ({
 const ListingsPage: React.FC<ListingsPageProps> = (props) => {
   const classes = useStyles();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);
-  const [data, setData] = React.useState<Listing[]>([]);
+  const [tasks, setTasks] = React.useState<Task[]>([]);
 
   React.useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () =>
-    setTimeout(() => {
-      setData([
-        {
-          image: 'https://source.unsplash.com/random',
-          title: 'Отремонтировать телевизор',
-          price: 5000,
-          location: {
-            city: 'Бийск',
-            district: 'Детский мир',
-          },
-          date: moment().subtract(3, 'days').toISOString(),
-        },
-      ]);
+    const taskApi = new TaskApi(apiConfiguration);
+    taskApi.getTasks(axiosRequestConfig).then((response) => {
+      setTasks(response.data);
       setLoaded(true);
-    }, 3000);
+    });
+  }, []);
 
   return (
     <Container maxWidth='md' className={classes.paper}>
       {isLoaded ? (
         <Grid container spacing={4}>
-          {data.map((item) => (
-            <Grid item key={item.date} xs={12} sm={6} md={6}>
+          {tasks.map((item) => (
+            <Grid item key={item.uuid} xs={12} sm={6} md={6}>
               <ListingItem item={item} />
             </Grid>
           ))}

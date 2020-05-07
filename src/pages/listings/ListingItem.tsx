@@ -1,32 +1,29 @@
 // @flow
-import * as React from 'react';
 import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+import * as React from 'react';
+
 import { getPriceToRender } from '../../formatter/price';
+import { Task } from '../../model';
+import { getUserIdFromStorage } from '../../storage/userId';
+import { useHistory } from 'react-router-dom';
+import { PagePath } from '..';
 
 export type ListingLocation = {
   city: string;
   district: string;
 };
 
-export type Listing = {
-  image: string;
-  title: string;
-  price: number;
-  location: ListingLocation;
-  date: string;
-};
-
 type ListingItemProps = {
-  item: Listing;
+  item: Task;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(0),
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -52,32 +51,57 @@ const useStyles = makeStyles((theme) => ({
 }));
 export const ListingItem: React.FC<ListingItemProps> = ({
   item: {
-    image,
+    uuid,
+    images,
     title,
     price,
-    location: { district },
-    date,
+    district,
+    date_start,
+    date_created,
+    user,
   },
 }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const userId = getUserIdFromStorage();
+
   return (
     <Card>
-      <CardMedia className={classes.cardMedia} image={image} title={title} />
-      <CardContent>
-        <Typography gutterBottom variant='h5' component='h2'>
+      <CardMedia
+        className={classes.cardMedia}
+        image={images && images[0] && images[0].url}
+        title={title}
+      />
+      <CardContent className={classes.cardContent}>
+        <Typography gutterBottom variant='h5' component='h2' noWrap>
           {title}
         </Typography>
-        <Typography>{getPriceToRender(price)}</Typography>
-        <Typography>{district}</Typography>
-        <Typography>{moment(date).fromNow()}</Typography>
+        {price && (
+          <Typography variant='h4' component='h2'>
+            {getPriceToRender(price)}
+          </Typography>
+        )}
+        <Typography>{district?.name}</Typography>
+        <Typography>{moment(date_start || date_created).fromNow()}</Typography>
       </CardContent>
       <CardActions>
-        <Button size='small' color='primary'>
+        <Button
+          size='small'
+          color='primary'
+          onClick={() => history.push(PagePath.Task + '/' + uuid)}
+        >
           Просмотреть
         </Button>
-        <Button size='small' color='primary'>
-          Редактировать
-        </Button>
+        {user?.uuid === userId && (
+          <Button
+            size='small'
+            color='primary'
+            onClick={() => history.push(PagePath.TaskEdit + '/' + uuid)}
+          >
+            Редактировать
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

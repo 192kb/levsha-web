@@ -1533,7 +1533,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
     async getTasks(
       options?: any
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>
     > {
       const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
@@ -1720,7 +1720,7 @@ export const TaskApiFactory = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getTasks(options?: any): AxiosPromise<Task> {
+    getTasks(options?: any): AxiosPromise<Array<Task>> {
       return TaskApiFp(configuration)
         .getTasks(options)
         .then(request => request(axios, basePath));

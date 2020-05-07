@@ -3,6 +3,7 @@ export enum PagePath {
   SignIn = '/signin',
   SignUp = '/signup',
   CreateTask = '/task/create',
-  Task = '/task/item/',
-  User = '/user/item/',
+  Task = '/task/view/',
+  TaskEdit = '/task/edit/',
+  User = '/user/view/',
 }

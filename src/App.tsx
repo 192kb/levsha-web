@@ -18,6 +18,7 @@ import { PagePath } from './pages';
 import ListingsPage from './pages/listings';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
+import { storeUserId } from './storage/userId';
 
 export const apiConfiguration: Configuration = new Configuration({
   basePath: 'https://192kb.ru/levsha-api',
@@ -68,6 +69,7 @@ const App: React.FC = () => {
 
   const handleSignInUser = (user: User) => {
     setUser(user);
+    storeUserId(user.uuid);
     setUserLoaded(true);
     history.push(PagePath.Tasks);
   };
