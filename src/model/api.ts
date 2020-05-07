@@ -261,10 +261,10 @@ export interface SignInParameters {
 export interface Task {
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof Task
    */
-  id?: number;
+  uuid?: string;
   /**
    *
    * @type {User}
@@ -301,6 +301,12 @@ export interface Task {
    * @memberof Task
    */
   price?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof Task
+   */
+  unit?: string;
   /**
    *
    * @type {boolean}
@@ -596,7 +602,7 @@ export const LocationApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCity(options: any = {}): RequestArgs {
+    getCity: async (options: any = {}): Promise<RequestArgs> => {
       const localVarPath = `/city`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -640,7 +646,10 @@ export const LocationApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getDiscrictsByCityId(cityId: number, options: any = {}): RequestArgs {
+    getDiscrictsByCityId: async (
+      cityId: number,
+      options: any = {}
+    ): Promise<RequestArgs> => {
       // verify required parameter 'cityId' is not null or undefined
       if (cityId === null || cityId === undefined) {
         throw new RequiredError(
@@ -702,10 +711,12 @@ export const LocationApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCity(
+    async getCity(
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<City>> {
-      const localVarAxiosArgs = LocationApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<City>>
+    > {
+      const localVarAxiosArgs = await LocationApiAxiosParamCreator(
         configuration
       ).getCity(options);
       return (
@@ -726,14 +737,16 @@ export const LocationApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getDiscrictsByCityId(
+    async getDiscrictsByCityId(
       cityId: number,
       options?: any
-    ): (
-      axios?: AxiosInstance,
-      basePath?: string
-    ) => AxiosPromise<Array<District>> {
-      const localVarAxiosArgs = LocationApiAxiosParamCreator(
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<District>>
+    > {
+      const localVarAxiosArgs = await LocationApiAxiosParamCreator(
         configuration
       ).getDiscrictsByCityId(cityId, options);
       return (
@@ -767,7 +780,9 @@ export const LocationApiFactory = function(
      * @throws {RequiredError}
      */
     getCity(options?: any): AxiosPromise<Array<City>> {
-      return LocationApiFp(configuration).getCity(options)(axios, basePath);
+      return LocationApiFp(configuration)
+        .getCity(options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -780,10 +795,9 @@ export const LocationApiFactory = function(
       cityId: number,
       options?: any
     ): AxiosPromise<Array<District>> {
-      return LocationApiFp(configuration).getDiscrictsByCityId(cityId, options)(
-        axios,
-        basePath
-      );
+      return LocationApiFp(configuration)
+        .getDiscrictsByCityId(cityId, options)
+        .then(request => request(axios, basePath));
     }
   };
 };
@@ -803,10 +817,9 @@ export class LocationApi extends BaseAPI {
    * @memberof LocationApi
    */
   public getCity(options?: any) {
-    return LocationApiFp(this.configuration).getCity(options)(
-      this.axios,
-      this.basePath
-    );
+    return LocationApiFp(this.configuration)
+      .getCity(options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -818,10 +831,9 @@ export class LocationApi extends BaseAPI {
    * @memberof LocationApi
    */
   public getDiscrictsByCityId(cityId: number, options?: any) {
-    return LocationApiFp(this.configuration).getDiscrictsByCityId(
-      cityId,
-      options
-    )(this.axios, this.basePath);
+    return LocationApiFp(this.configuration)
+      .getDiscrictsByCityId(cityId, options)
+      .then(request => request(this.axios, this.basePath));
   }
 }
 
@@ -840,7 +852,7 @@ export const TaskApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addTask(task: Task, options: any = {}): RequestArgs {
+    addTask: async (task: Task, options: any = {}): Promise<RequestArgs> => {
       // verify required parameter 'task' is not null or undefined
       if (task === null || task === undefined) {
         throw new RequiredError(
@@ -855,7 +867,7 @@ export const TaskApiAxiosParamCreator = function(
         baseOptions = configuration.baseOptions;
       }
       const localVarRequestOptions = {
-        method: 'POST',
+        method: 'PUT',
         ...baseOptions,
         ...options
       };
@@ -899,10 +911,10 @@ export const TaskApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createTaskCategory(
+    createTaskCategory: async (
       taskCategory: TaskCategory,
       options: any = {}
-    ): RequestArgs {
+    ): Promise<RequestArgs> => {
       // verify required parameter 'taskCategory' is not null or undefined
       if (taskCategory === null || taskCategory === undefined) {
         throw new RequiredError(
@@ -917,7 +929,7 @@ export const TaskApiAxiosParamCreator = function(
         baseOptions = configuration.baseOptions;
       }
       const localVarRequestOptions = {
-        method: 'POST',
+        method: 'PUT',
         ...baseOptions,
         ...options
       };
@@ -962,11 +974,11 @@ export const TaskApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    findTasksByLocation(
+    findTasksByLocation: async (
       locationId: number,
       page?: number,
       options: any = {}
-    ): RequestArgs {
+    ): Promise<RequestArgs> => {
       // verify required parameter 'locationId' is not null or undefined
       if (locationId === null || locationId === undefined) {
         throw new RequiredError(
@@ -974,7 +986,7 @@ export const TaskApiAxiosParamCreator = function(
           'Required parameter locationId was null or undefined when calling findTasksByLocation.'
         );
       }
-      const localVarPath = `/task/findByLocation/{location_id}`.replace(
+      const localVarPath = `/task/by_location/{location_id}`.replace(
         `{${'location_id'}}`,
         encodeURIComponent(String(locationId))
       );
@@ -1019,11 +1031,68 @@ export const TaskApiAxiosParamCreator = function(
     },
     /**
      *
-     * @summary Get list of tasks
+     * @summary Get an existing task detailed
+     * @param {string} taskId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getTaskCategories(options: any = {}): RequestArgs {
+    getTask: async (
+      taskId: string,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'taskId' is not null or undefined
+      if (taskId === null || taskId === undefined) {
+        throw new RequiredError(
+          'taskId',
+          'Required parameter taskId was null or undefined when calling getTask.'
+        );
+      }
+      const localVarPath = `/task/item/{task_id}`.replace(
+        `{${'task_id'}}`,
+        encodeURIComponent(String(taskId))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
+
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers
+      };
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary Get list of task categories
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTaskCategories: async (options: any = {}): Promise<RequestArgs> => {
       const localVarPath = `/task/category`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -1066,7 +1135,7 @@ export const TaskApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getTasks(options: any = {}): RequestArgs {
+    getTasks: async (options: any = {}): Promise<RequestArgs> => {
       const localVarPath = `/task`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -1110,7 +1179,10 @@ export const TaskApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeTaskCategory(taskCategoryId: number, options: any = {}): RequestArgs {
+    removeTaskCategory: async (
+      taskCategoryId: number,
+      options: any = {}
+    ): Promise<RequestArgs> => {
       // verify required parameter 'taskCategoryId' is not null or undefined
       if (taskCategoryId === null || taskCategoryId === undefined) {
         throw new RequiredError(
@@ -1160,11 +1232,23 @@ export const TaskApiAxiosParamCreator = function(
     /**
      *
      * @summary Update an existing task
+     * @param {string} taskId
      * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTask(task: Task, options: any = {}): RequestArgs {
+    updateTask: async (
+      taskId: string,
+      task: Task,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'taskId' is not null or undefined
+      if (taskId === null || taskId === undefined) {
+        throw new RequiredError(
+          'taskId',
+          'Required parameter taskId was null or undefined when calling updateTask.'
+        );
+      }
       // verify required parameter 'task' is not null or undefined
       if (task === null || task === undefined) {
         throw new RequiredError(
@@ -1172,14 +1256,17 @@ export const TaskApiAxiosParamCreator = function(
           'Required parameter task was null or undefined when calling updateTask.'
         );
       }
-      const localVarPath = `/task`;
+      const localVarPath = `/task/item/{task_id}`.replace(
+        `{${'task_id'}}`,
+        encodeURIComponent(String(taskId))
+      );
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
       if (configuration) {
         baseOptions = configuration.baseOptions;
       }
       const localVarRequestOptions = {
-        method: 'PUT',
+        method: 'POST',
         ...baseOptions,
         ...options
       };
@@ -1224,11 +1311,11 @@ export const TaskApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTaskCategory(
+    updateTaskCategory: async (
       taskCategoryId: number,
       taskCategory: TaskCategory,
       options: any = {}
-    ): RequestArgs {
+    ): Promise<RequestArgs> => {
       // verify required parameter 'taskCategoryId' is not null or undefined
       if (taskCategoryId === null || taskCategoryId === undefined) {
         throw new RequiredError(
@@ -1253,7 +1340,7 @@ export const TaskApiAxiosParamCreator = function(
         baseOptions = configuration.baseOptions;
       }
       const localVarRequestOptions = {
-        method: 'PUT',
+        method: 'POST',
         ...baseOptions,
         ...options
       };
@@ -1306,14 +1393,15 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addTask(
+    async addTask(
       task: Task,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(configuration).addTask(
-        task,
-        options
-      );
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
+        configuration
+      ).addTask(task, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -1332,11 +1420,13 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createTaskCategory(
+    async createTaskCategory(
       taskCategory: TaskCategory,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
       ).createTaskCategory(taskCategory, options);
       return (
@@ -1358,12 +1448,14 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    findTasksByLocation(
+    async findTasksByLocation(
       locationId: number,
       page?: number,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
       ).findTasksByLocation(locationId, page, options);
       return (
@@ -1379,17 +1471,46 @@ export const TaskApiFp = function(configuration?: Configuration) {
     },
     /**
      *
-     * @summary Get list of tasks
+     * @summary Get an existing task detailed
+     * @param {string} taskId
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getTaskCategories(
+    async getTask(
+      taskId: string,
       options?: any
-    ): (
-      axios?: AxiosInstance,
-      basePath?: string
-    ) => AxiosPromise<Array<TaskCategory>> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
+        configuration
+      ).getTask(taskId, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
+     *
+     * @summary Get list of task categories
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getTaskCategories(
+      options?: any
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<TaskCategory>>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
       ).getTaskCategories(options);
       return (
@@ -1409,10 +1530,12 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getTasks(
+    async getTasks(
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
       ).getTasks(options);
       return (
@@ -1433,11 +1556,13 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeTaskCategory(
+    async removeTaskCategory(
       taskCategoryId: number,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
       ).removeTaskCategory(taskCategoryId, options);
       return (
@@ -1454,17 +1579,21 @@ export const TaskApiFp = function(configuration?: Configuration) {
     /**
      *
      * @summary Update an existing task
+     * @param {string} taskId
      * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTask(
+    async updateTask(
+      taskId: string,
       task: Task,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Task>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
-      ).updateTask(task, options);
+      ).updateTask(taskId, task, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -1484,12 +1613,14 @@ export const TaskApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTaskCategory(
+    async updateTaskCategory(
       taskCategoryId: number,
       taskCategory: TaskCategory,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = TaskApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
         configuration
       ).updateTaskCategory(taskCategoryId, taskCategory, options);
       return (
@@ -1524,7 +1655,9 @@ export const TaskApiFactory = function(
      * @throws {RequiredError}
      */
     addTask(task: Task, options?: any): AxiosPromise<Task> {
-      return TaskApiFp(configuration).addTask(task, options)(axios, basePath);
+      return TaskApiFp(configuration)
+        .addTask(task, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -1537,10 +1670,9 @@ export const TaskApiFactory = function(
       taskCategory: TaskCategory,
       options?: any
     ): AxiosPromise<void> {
-      return TaskApiFp(configuration).createTaskCategory(taskCategory, options)(
-        axios,
-        basePath
-      );
+      return TaskApiFp(configuration)
+        .createTaskCategory(taskCategory, options)
+        .then(request => request(axios, basePath));
     },
     /**
      * Get list of first tasks by location id
@@ -1555,23 +1687,32 @@ export const TaskApiFactory = function(
       page?: number,
       options?: any
     ): AxiosPromise<Array<Task>> {
-      return TaskApiFp(configuration).findTasksByLocation(
-        locationId,
-        page,
-        options
-      )(axios, basePath);
+      return TaskApiFp(configuration)
+        .findTasksByLocation(locationId, page, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
-     * @summary Get list of tasks
+     * @summary Get an existing task detailed
+     * @param {string} taskId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getTask(taskId: string, options?: any): AxiosPromise<Task> {
+      return TaskApiFp(configuration)
+        .getTask(taskId, options)
+        .then(request => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary Get list of task categories
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     getTaskCategories(options?: any): AxiosPromise<Array<TaskCategory>> {
-      return TaskApiFp(configuration).getTaskCategories(options)(
-        axios,
-        basePath
-      );
+      return TaskApiFp(configuration)
+        .getTaskCategories(options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -1580,7 +1721,9 @@ export const TaskApiFactory = function(
      * @throws {RequiredError}
      */
     getTasks(options?: any): AxiosPromise<Task> {
-      return TaskApiFp(configuration).getTasks(options)(axios, basePath);
+      return TaskApiFp(configuration)
+        .getTasks(options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -1593,23 +1736,22 @@ export const TaskApiFactory = function(
       taskCategoryId: number,
       options?: any
     ): AxiosPromise<void> {
-      return TaskApiFp(configuration).removeTaskCategory(
-        taskCategoryId,
-        options
-      )(axios, basePath);
+      return TaskApiFp(configuration)
+        .removeTaskCategory(taskCategoryId, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
      * @summary Update an existing task
+     * @param {string} taskId
      * @param {Task} task
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateTask(task: Task, options?: any): AxiosPromise<void> {
-      return TaskApiFp(configuration).updateTask(task, options)(
-        axios,
-        basePath
-      );
+    updateTask(taskId: string, task: Task, options?: any): AxiosPromise<Task> {
+      return TaskApiFp(configuration)
+        .updateTask(taskId, task, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -1624,11 +1766,9 @@ export const TaskApiFactory = function(
       taskCategory: TaskCategory,
       options?: any
     ): AxiosPromise<void> {
-      return TaskApiFp(configuration).updateTaskCategory(
-        taskCategoryId,
-        taskCategory,
-        options
-      )(axios, basePath);
+      return TaskApiFp(configuration)
+        .updateTaskCategory(taskCategoryId, taskCategory, options)
+        .then(request => request(axios, basePath));
     }
   };
 };
@@ -1649,10 +1789,9 @@ export class TaskApi extends BaseAPI {
    * @memberof TaskApi
    */
   public addTask(task: Task, options?: any) {
-    return TaskApiFp(this.configuration).addTask(task, options)(
-      this.axios,
-      this.basePath
-    );
+    return TaskApiFp(this.configuration)
+      .addTask(task, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1664,10 +1803,9 @@ export class TaskApi extends BaseAPI {
    * @memberof TaskApi
    */
   public createTaskCategory(taskCategory: TaskCategory, options?: any) {
-    return TaskApiFp(this.configuration).createTaskCategory(
-      taskCategory,
-      options
-    )(this.axios, this.basePath);
+    return TaskApiFp(this.configuration)
+      .createTaskCategory(taskCategory, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1680,25 +1818,36 @@ export class TaskApi extends BaseAPI {
    * @memberof TaskApi
    */
   public findTasksByLocation(locationId: number, page?: number, options?: any) {
-    return TaskApiFp(this.configuration).findTasksByLocation(
-      locationId,
-      page,
-      options
-    )(this.axios, this.basePath);
+    return TaskApiFp(this.configuration)
+      .findTasksByLocation(locationId, page, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
    *
-   * @summary Get list of tasks
+   * @summary Get an existing task detailed
+   * @param {string} taskId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public getTask(taskId: string, options?: any) {
+    return TaskApiFp(this.configuration)
+      .getTask(taskId, options)
+      .then(request => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary Get list of task categories
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
   public getTaskCategories(options?: any) {
-    return TaskApiFp(this.configuration).getTaskCategories(options)(
-      this.axios,
-      this.basePath
-    );
+    return TaskApiFp(this.configuration)
+      .getTaskCategories(options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1709,10 +1858,9 @@ export class TaskApi extends BaseAPI {
    * @memberof TaskApi
    */
   public getTasks(options?: any) {
-    return TaskApiFp(this.configuration).getTasks(options)(
-      this.axios,
-      this.basePath
-    );
+    return TaskApiFp(this.configuration)
+      .getTasks(options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1724,25 +1872,24 @@ export class TaskApi extends BaseAPI {
    * @memberof TaskApi
    */
   public removeTaskCategory(taskCategoryId: number, options?: any) {
-    return TaskApiFp(this.configuration).removeTaskCategory(
-      taskCategoryId,
-      options
-    )(this.axios, this.basePath);
+    return TaskApiFp(this.configuration)
+      .removeTaskCategory(taskCategoryId, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
    *
    * @summary Update an existing task
+   * @param {string} taskId
    * @param {Task} task
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof TaskApi
    */
-  public updateTask(task: Task, options?: any) {
-    return TaskApiFp(this.configuration).updateTask(task, options)(
-      this.axios,
-      this.basePath
-    );
+  public updateTask(taskId: string, task: Task, options?: any) {
+    return TaskApiFp(this.configuration)
+      .updateTask(taskId, task, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1759,11 +1906,9 @@ export class TaskApi extends BaseAPI {
     taskCategory: TaskCategory,
     options?: any
   ) {
-    return TaskApiFp(this.configuration).updateTaskCategory(
-      taskCategoryId,
-      taskCategory,
-      options
-    )(this.axios, this.basePath);
+    return TaskApiFp(this.configuration)
+      .updateTaskCategory(taskCategoryId, taskCategory, options)
+      .then(request => request(this.axios, this.basePath));
   }
 }
 
@@ -1782,7 +1927,7 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createUser(user: User, options: any = {}): RequestArgs {
+    createUser: async (user: User, options: any = {}): Promise<RequestArgs> => {
       // verify required parameter 'user' is not null or undefined
       if (user === null || user === undefined) {
         throw new RequiredError(
@@ -1841,7 +1986,10 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteUser(username: string, options: any = {}): RequestArgs {
+    deleteUser: async (
+      username: string,
+      options: any = {}
+    ): Promise<RequestArgs> => {
       // verify required parameter 'username' is not null or undefined
       if (username === null || username === undefined) {
         throw new RequiredError(
@@ -1894,7 +2042,7 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCurrentUser(options: any = {}): RequestArgs {
+    getCurrentUser: async (options: any = {}): Promise<RequestArgs> => {
       const localVarPath = `/user`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -1938,7 +2086,10 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserByName(username: string, options: any = {}): RequestArgs {
+    getUserByName: async (
+      username: string,
+      options: any = {}
+    ): Promise<RequestArgs> => {
       // verify required parameter 'username' is not null or undefined
       if (username === null || username === undefined) {
         throw new RequiredError(
@@ -1992,10 +2143,10 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    loginUser(
+    loginUser: async (
       signInParameters: SignInParameters,
       options: any = {}
-    ): RequestArgs {
+    ): Promise<RequestArgs> => {
       // verify required parameter 'signInParameters' is not null or undefined
       if (signInParameters === null || signInParameters === undefined) {
         throw new RequiredError(
@@ -2053,7 +2204,7 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    logoutUser(options: any = {}): RequestArgs {
+    logoutUser: async (options: any = {}): Promise<RequestArgs> => {
       const localVarPath = `/user/logout`;
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -2098,7 +2249,11 @@ export const UserApiAxiosParamCreator = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateUser(username: string, user: User, options: any = {}): RequestArgs {
+    updateUser: async (
+      username: string,
+      user: User,
+      options: any = {}
+    ): Promise<RequestArgs> => {
       // verify required parameter 'username' is not null or undefined
       if (username === null || username === undefined) {
         throw new RequiredError(
@@ -2123,7 +2278,7 @@ export const UserApiAxiosParamCreator = function(
         baseOptions = configuration.baseOptions;
       }
       const localVarRequestOptions = {
-        method: 'PUT',
+        method: 'POST',
         ...baseOptions,
         ...options
       };
@@ -2176,11 +2331,13 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createUser(
+    async createUser(
       user: User,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).createUser(user, options);
       return (
@@ -2201,11 +2358,13 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteUser(
+    async deleteUser(
       username: string,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).deleteUser(username, options);
       return (
@@ -2225,10 +2384,12 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getCurrentUser(
+    async getCurrentUser(
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).getCurrentUser(options);
       return (
@@ -2249,11 +2410,13 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserByName(
+    async getUserByName(
       username: string,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).getUserByName(username, options);
       return (
@@ -2274,11 +2437,13 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    loginUser(
+    async loginUser(
       signInParameters: SignInParameters,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).loginUser(signInParameters, options);
       return (
@@ -2298,10 +2463,12 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    logoutUser(
+    async logoutUser(
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiResponse>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).logoutUser(options);
       return (
@@ -2323,12 +2490,14 @@ export const UserApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateUser(
+    async updateUser(
       username: string,
       user: User,
       options?: any
-    ): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-      const localVarAxiosArgs = UserApiAxiosParamCreator(
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
       ).updateUser(username, user, options);
       return (
@@ -2363,10 +2532,9 @@ export const UserApiFactory = function(
      * @throws {RequiredError}
      */
     createUser(user: User, options?: any): AxiosPromise<User> {
-      return UserApiFp(configuration).createUser(user, options)(
-        axios,
-        basePath
-      );
+      return UserApiFp(configuration)
+        .createUser(user, options)
+        .then(request => request(axios, basePath));
     },
     /**
      * This can only be done by the logged in user with privilegy.
@@ -2376,10 +2544,9 @@ export const UserApiFactory = function(
      * @throws {RequiredError}
      */
     deleteUser(username: string, options?: any): AxiosPromise<void> {
-      return UserApiFp(configuration).deleteUser(username, options)(
-        axios,
-        basePath
-      );
+      return UserApiFp(configuration)
+        .deleteUser(username, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -2388,7 +2555,9 @@ export const UserApiFactory = function(
      * @throws {RequiredError}
      */
     getCurrentUser(options?: any): AxiosPromise<User> {
-      return UserApiFp(configuration).getCurrentUser(options)(axios, basePath);
+      return UserApiFp(configuration)
+        .getCurrentUser(options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -2398,10 +2567,9 @@ export const UserApiFactory = function(
      * @throws {RequiredError}
      */
     getUserByName(username: string, options?: any): AxiosPromise<User> {
-      return UserApiFp(configuration).getUserByName(username, options)(
-        axios,
-        basePath
-      );
+      return UserApiFp(configuration)
+        .getUserByName(username, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -2414,10 +2582,9 @@ export const UserApiFactory = function(
       signInParameters: SignInParameters,
       options?: any
     ): AxiosPromise<User> {
-      return UserApiFp(configuration).loginUser(signInParameters, options)(
-        axios,
-        basePath
-      );
+      return UserApiFp(configuration)
+        .loginUser(signInParameters, options)
+        .then(request => request(axios, basePath));
     },
     /**
      *
@@ -2425,8 +2592,10 @@ export const UserApiFactory = function(
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    logoutUser(options?: any): AxiosPromise<void> {
-      return UserApiFp(configuration).logoutUser(options)(axios, basePath);
+    logoutUser(options?: any): AxiosPromise<ApiResponse> {
+      return UserApiFp(configuration)
+        .logoutUser(options)
+        .then(request => request(axios, basePath));
     },
     /**
      * This can only be done by the logged in user.
@@ -2441,11 +2610,9 @@ export const UserApiFactory = function(
       user: User,
       options?: any
     ): AxiosPromise<void> {
-      return UserApiFp(configuration).updateUser(
-        username,
-        user,
-        options
-      )(axios, basePath);
+      return UserApiFp(configuration)
+        .updateUser(username, user, options)
+        .then(request => request(axios, basePath));
     }
   };
 };
@@ -2466,10 +2633,9 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public createUser(user: User, options?: any) {
-    return UserApiFp(this.configuration).createUser(user, options)(
-      this.axios,
-      this.basePath
-    );
+    return UserApiFp(this.configuration)
+      .createUser(user, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -2481,10 +2647,9 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public deleteUser(username: string, options?: any) {
-    return UserApiFp(this.configuration).deleteUser(username, options)(
-      this.axios,
-      this.basePath
-    );
+    return UserApiFp(this.configuration)
+      .deleteUser(username, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -2495,10 +2660,9 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public getCurrentUser(options?: any) {
-    return UserApiFp(this.configuration).getCurrentUser(options)(
-      this.axios,
-      this.basePath
-    );
+    return UserApiFp(this.configuration)
+      .getCurrentUser(options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -2510,10 +2674,9 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public getUserByName(username: string, options?: any) {
-    return UserApiFp(this.configuration).getUserByName(username, options)(
-      this.axios,
-      this.basePath
-    );
+    return UserApiFp(this.configuration)
+      .getUserByName(username, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -2525,10 +2688,9 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public loginUser(signInParameters: SignInParameters, options?: any) {
-    return UserApiFp(this.configuration).loginUser(signInParameters, options)(
-      this.axios,
-      this.basePath
-    );
+    return UserApiFp(this.configuration)
+      .loginUser(signInParameters, options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -2539,10 +2701,9 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public logoutUser(options?: any) {
-    return UserApiFp(this.configuration).logoutUser(options)(
-      this.axios,
-      this.basePath
-    );
+    return UserApiFp(this.configuration)
+      .logoutUser(options)
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -2555,10 +2716,8 @@ export class UserApi extends BaseAPI {
    * @memberof UserApi
    */
   public updateUser(username: string, user: User, options?: any) {
-    return UserApiFp(this.configuration).updateUser(
-      username,
-      user,
-      options
-    )(this.axios, this.basePath);
+    return UserApiFp(this.configuration)
+      .updateUser(username, user, options)
+      .then(request => request(this.axios, this.basePath));
   }
 }

@@ -105,8 +105,8 @@ components:
     Task:
       type: 'object'
       properties:
-        id:
-          type: 'number'
+        uuid:
+          type: 'string'
         user:
           $ref: '#/components/schemas/User'
         date_created:
@@ -119,6 +119,8 @@ components:
           type: 'string'
         price:
           type: 'integer'
+        unit:
+          type: 'string'
         have_constant_price:
           type: 'boolean'
         date_start:
@@ -327,7 +329,7 @@ paths:
                 $ref: '#/components/schemas/Task'
         400:
           description: 'Server error'
-    post:
+    put:
       tags:
         - 'task'
       summary: 'Add a new task on board'
@@ -349,26 +351,81 @@ paths:
 
         405:
           description: 'Invalid input'
-    put:
+
+  /task/item/{task_id}:
+    get:
       tags:
-        - 'task'
-      summary: 'Update an existing task'
+        - task
+      summary: Get an existing task detailed
       description: ''
-      operationId: 'updateTask'
+      operationId: getTask
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        404:
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags:
+        - task
+      summary: Update an existing task
+      description: ''
+      operationId: updateTask
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Task'
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+
       responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
         400:
-          description: 'Invalid ID supplied'
+          description: Invalid data supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         404:
-          description: 'Task not found'
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         405:
-          description: 'Validation exception'
-  /task/findByLocation/{location_id}:
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /task/by_location/{location_id}:
     get:
       tags:
         - 'task'
@@ -403,7 +460,7 @@ paths:
     get:
       tags:
         - 'task'
-      summary: 'Get list of tasks'
+      summary: 'Get list of task categories'
       operationId: 'getTaskCategories'
       responses:
         200:
@@ -414,7 +471,7 @@ paths:
                 type: 'array'
                 items:
                   $ref: '#/components/schemas/TaskCategory'
-    post:
+    put:
       tags:
         - 'task'
       summary: 'Create new task category'
@@ -430,7 +487,7 @@ paths:
           description: 'successful operation'
 
   /task/category/{task_category_id}:
-    put:
+    post:
       tags:
         - 'task'
       summary: 'Update given task category'
@@ -558,8 +615,16 @@ paths:
       responses:
         default:
           description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         400:
           description: 'server error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
   /user/{username}:
     get:
       tags:
@@ -583,9 +648,17 @@ paths:
                 $ref: '#/components/schemas/User'
         400:
           description: 'Invalid username supplied'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
         404:
           description: 'User not found'
-    put:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
       tags:
         - 'user'
       summary: 'Updated user'
