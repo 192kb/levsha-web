@@ -11,6 +11,12 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(4),
   },
+  loadingContainer: {
+    display: 'flex',
+    position: 'relative',
+    justifyContent: 'center',
+    margin: 'auto',
+  },
 }));
 
 const ListingsPage: React.FC<ListingsPageProps> = (props) => {
@@ -41,17 +47,19 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
 
   return (
     <Container maxWidth='md' className={classes.paper}>
-      <Grid container spacing={4}>
-        {isLoaded ? (
-          data.map((item) => (
+      {isLoaded ? (
+        <Grid container spacing={4}>
+          {data.map((item) => (
             <Grid item key={item.date} xs={12} sm={6} md={6}>
               <ListingItem item={item} />
             </Grid>
-          ))
-        ) : (
+          ))}
+        </Grid>
+      ) : (
+        <div className={classes.loadingContainer}>
           <CircularProgress />
-        )}
-      </Grid>
+        </div>
+      )}
     </Container>
   );
 };

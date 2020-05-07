@@ -99,8 +99,6 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
       .catch((error) => setError(error.response.data || error.data));
   };
 
-  console.log(error);
-
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
