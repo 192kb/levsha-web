@@ -1,44 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Проект Левша
 
-## Available Scripts
+Социальный эксперимент для города Бийска
 
-In the project directory, you can run:
+## Цель
+
+Дать возможность жителям города Бийск быстро решать текущие бытовые проблемы за небольшие деньги
+
+## Задача
+
+Создание бесплатного сервиса для размещения объявлений о небольших заказах частных лиц, на выполнение которых не требуется квалификации и больших трудозатрат.
+
+## Решение
+
+Для сети интернет создается веб-сайт на котором существует ряд категорий пользователей. Соотвественно, категории
+
+## Тезисы
+
+- Сервис реализуется путем ряда представлений информации и переходов между ними.
+- Представления информации могут менять визуальный внешний вид.
+- На одном экране (вкладке браузера) содержится одно представление.
+- Каждое представление состоит из компонентов. Компонент – переиспользуемый, упорядоченный набор (например, список задач) или единичный блок (например, описание задачи) отображения однотипной информации или форма для ее ввода.
+- Компонент может отображаться по-разному для разных категорий пользователей или других входных параметров. Ниже описание представлений и содержащихся в них компонентов с визуальными примерами для мобильной версии.
+
+## Что по скриптам?
+
+В директориии проекты вы можете использовать следующие команды:
 
 ### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Для запуска в режиме разработки <br />
+Откроется [http://localhost:3000](http://localhost:3000) для просмотра в браузере
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Пока не до автоматических тестов, но все может быть.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Построит в папку build версию для продакшена.
