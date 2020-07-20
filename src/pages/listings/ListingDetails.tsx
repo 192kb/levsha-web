@@ -1,6 +1,15 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { Paper, Typography, Grid, LinearProgress } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  Grid,
+  LinearProgress,
+  Button,
+  GridList,
+  GridListTile,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Task, TaskApi } from '../../model';
 import { apiConfiguration, axiosRequestConfig } from '../../App';
 import { DateFromNow } from '../../formatter/dateFromNow';
@@ -8,8 +17,23 @@ import { Price } from '../../formatter/price';
 
 type ListingDetailsProps = {};
 
+const useStyles = makeStyles((theme) => ({
+  oneRowGridList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+    transform: 'translateZ(0)',
+  },
+}));
+
 export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
   const { taskId } = useParams();
+  const classes = useStyles();
   const [task, setTask] = React.useState<Task | undefined>();
   const [loaded, setLoaded] = React.useState<boolean>(false);
 
@@ -39,6 +63,15 @@ export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
         {task.title || 'Без названия'}
       </Typography>
       <main>
+        <div className={classes.oneRowGridList}>
+          <GridList className={classes.gridList} cols={2.5}>
+            {task.images?.map((taskImage) => (
+              <GridListTile key={taskImage.url}>
+                <img src={taskImage.url} alt={task.title} />
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
         <Typography variant='body1' paragraph>
           {task?.description}
         </Typography>
@@ -46,6 +79,16 @@ export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           <Price value={task.price || 0} />
         </Typography>
       </main>
+      {task.user?.phone_comfirmed ? (
+        <Button
+          fullWidth
+          variant='contained'
+          color='primary'
+          href={'tel:' + task.user?.phone}
+        >
+          Позвонить
+        </Button>
+      ) : null}
     </Paper>
   ) : (
     <LinearProgress />
