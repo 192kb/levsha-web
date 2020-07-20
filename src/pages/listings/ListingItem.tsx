@@ -10,12 +10,12 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 
-import { getPriceToRender } from '../../formatter/price';
+import { Price } from '../../formatter/price';
 import { Task } from '../../model';
 import { getUserIdFromStorage } from '../../storage/userId';
 import { useHistory } from 'react-router-dom';
 import { PagePath } from '..';
-import { getDateFromNowToRender } from '../../formatter/dateFromNow';
+import { DateFromNow } from '../../formatter/dateFromNow';
 
 export type ListingLocation = {
   city: string;
@@ -79,12 +79,12 @@ export const ListingItem: React.FC<ListingItemProps> = ({
         </Typography>
         {price && (
           <Typography variant='h4' component='h2'>
-            {getPriceToRender(price)}
+            <Price value={price} />
           </Typography>
         )}
         <Typography>{district?.name}</Typography>
         <Typography>
-          {getDateFromNowToRender(date_start || date_created || '')}
+          <DateFromNow value={date_start || date_created || ''} />
         </Typography>
       </CardContent>
       <CardActions>

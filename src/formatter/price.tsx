@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const getPriceToRender = (value: number) => (
+export const Price: React.FC<{ value: number }> = ({ value }) => (
   <span className='price'>{value.toFixed(0)} ₽</span>
 );
 
