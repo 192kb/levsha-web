@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment';
 import * as React from 'react';
 
 import { getPriceToRender } from '../../formatter/price';
@@ -16,6 +15,7 @@ import { Task } from '../../model';
 import { getUserIdFromStorage } from '../../storage/userId';
 import { useHistory } from 'react-router-dom';
 import { PagePath } from '..';
+import { getDateFromNowToRender } from '../../formatter/dateFromNow';
 
 export type ListingLocation = {
   city: string;
@@ -83,7 +83,9 @@ export const ListingItem: React.FC<ListingItemProps> = ({
           </Typography>
         )}
         <Typography>{district?.name}</Typography>
-        <Typography>{moment(date_start || date_created).fromNow()}</Typography>
+        <Typography>
+          {getDateFromNowToRender(date_start || date_created || '')}
+        </Typography>
       </CardContent>
       <CardActions>
         <Button
