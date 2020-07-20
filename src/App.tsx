@@ -19,6 +19,7 @@ import ListingsPage from './pages/listings';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { storeUserId } from './storage/userId';
+import { ListingDetails } from './pages/listings/ListingDetails';
 import { Blank } from './pages/Blank';
 
 export const apiConfiguration: Configuration = new Configuration({
@@ -151,6 +152,9 @@ const App: React.FC = () => {
           </Route>
           <Route path={PagePath.SignUp}>
             <SignUpPage />
+          </Route>
+          <Route path={PagePath.Task + ':taskId'}>
+            <ListingDetails />
           </Route>
           <Route path={PagePath.Tasks}>
             <ListingsPage />
