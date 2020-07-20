@@ -89,7 +89,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
         <Button
           size='small'
           color='primary'
-          onClick={() => history.push(PagePath.Task + '/' + uuid)}
+          onClick={() => history.push(PagePath.Task + uuid)}
         >
           Просмотреть
         </Button>
@@ -97,7 +97,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
           <Button
             size='small'
             color='primary'
-            onClick={() => history.push(PagePath.TaskEdit + '/' + uuid)}
+            onClick={() => history.push(PagePath.TaskEdit + uuid)}
           >
             Редактировать
           </Button>
