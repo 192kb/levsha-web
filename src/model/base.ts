@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // tslint:disable
 /**
  * Проект LEVSHA
@@ -26,7 +27,7 @@ export const COLLECTION_FORMATS = {
   csv: ',',
   ssv: ' ',
   tsv: '\t',
-  pipes: '|'
+  pipes: '|',
 };
 
 /**

@@ -28,10 +28,10 @@
 
 ### `npm start`
 
-Для запуска в режиме разработки <br />
+Для запуска в режиме разработки
 Откроется [http://localhost:3000](http://localhost:3000) для просмотра в браузере
 
-The page will reload if you make edits.<br />
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `npm test`

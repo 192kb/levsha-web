@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // tslint:disable
 /**
  * Проект LEVSHA
@@ -21,7 +22,7 @@ import {
   COLLECTION_FORMATS,
   RequestArgs,
   BaseAPI,
-  RequiredError
+  RequiredError,
 } from './base';
 
 /**
@@ -592,7 +593,7 @@ export interface User {
  * LocationApi - axios parameter creator
  * @export
  */
-export const LocationApiAxiosParamCreator = function(
+export const LocationApiAxiosParamCreator = function (
   configuration?: Configuration
 ) {
   return {
@@ -612,7 +613,7 @@ export const LocationApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -622,7 +623,7 @@ export const LocationApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -631,12 +632,12 @@ export const LocationApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -669,7 +670,7 @@ export const LocationApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -679,7 +680,7 @@ export const LocationApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -688,14 +689,14 @@ export const LocationApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -703,7 +704,7 @@ export const LocationApiAxiosParamCreator = function(
  * LocationApi - functional programming interface
  * @export
  */
-export const LocationApiFp = function(configuration?: Configuration) {
+export const LocationApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -725,7 +726,7 @@ export const LocationApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -755,11 +756,11 @@ export const LocationApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
-    }
+    },
   };
 };
 
@@ -767,7 +768,7 @@ export const LocationApiFp = function(configuration?: Configuration) {
  * LocationApi - factory interface
  * @export
  */
-export const LocationApiFactory = function(
+export const LocationApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
   axios?: AxiosInstance
@@ -782,7 +783,7 @@ export const LocationApiFactory = function(
     getCity(options?: any): AxiosPromise<Array<City>> {
       return LocationApiFp(configuration)
         .getCity(options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -797,8 +798,8 @@ export const LocationApiFactory = function(
     ): AxiosPromise<Array<District>> {
       return LocationApiFp(configuration)
         .getDiscrictsByCityId(cityId, options)
-        .then(request => request(axios, basePath));
-    }
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -819,7 +820,7 @@ export class LocationApi extends BaseAPI {
   public getCity(options?: any) {
     return LocationApiFp(this.configuration)
       .getCity(options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -833,7 +834,7 @@ export class LocationApi extends BaseAPI {
   public getDiscrictsByCityId(cityId: number, options?: any) {
     return LocationApiFp(this.configuration)
       .getDiscrictsByCityId(cityId, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 }
 
@@ -841,7 +842,7 @@ export class LocationApi extends BaseAPI {
  * TaskApi - axios parameter creator
  * @export
  */
-export const TaskApiAxiosParamCreator = function(
+export const TaskApiAxiosParamCreator = function (
   configuration?: Configuration
 ) {
   return {
@@ -869,7 +870,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'PUT',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -881,7 +882,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -890,7 +891,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof task !== 'string' ||
@@ -901,7 +902,7 @@ export const TaskApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -931,7 +932,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'PUT',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -943,7 +944,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -952,7 +953,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof taskCategory !== 'string' ||
@@ -963,7 +964,7 @@ export const TaskApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -998,7 +999,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1012,7 +1013,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1021,12 +1022,12 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1059,7 +1060,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1069,7 +1070,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1078,12 +1079,12 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1102,7 +1103,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1112,7 +1113,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1121,12 +1122,12 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1145,7 +1146,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1155,7 +1156,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1164,12 +1165,12 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1202,7 +1203,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'DELETE',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1212,7 +1213,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1221,12 +1222,12 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1268,7 +1269,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'POST',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1280,7 +1281,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1289,7 +1290,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof task !== 'string' ||
@@ -1300,7 +1301,7 @@ export const TaskApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1342,7 +1343,7 @@ export const TaskApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'POST',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1354,7 +1355,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1363,7 +1364,7 @@ export const TaskApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof taskCategory !== 'string' ||
@@ -1374,9 +1375,9 @@ export const TaskApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -1384,7 +1385,7 @@ export const TaskApiAxiosParamCreator = function(
  * TaskApi - functional programming interface
  * @export
  */
-export const TaskApiFp = function(configuration?: Configuration) {
+export const TaskApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -1408,7 +1409,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1435,7 +1436,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1464,7 +1465,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1491,7 +1492,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1519,7 +1520,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1544,7 +1545,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1571,7 +1572,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1600,7 +1601,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -1629,11 +1630,11 @@ export const TaskApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
-    }
+    },
   };
 };
 
@@ -1641,7 +1642,7 @@ export const TaskApiFp = function(configuration?: Configuration) {
  * TaskApi - factory interface
  * @export
  */
-export const TaskApiFactory = function(
+export const TaskApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
   axios?: AxiosInstance
@@ -1657,7 +1658,7 @@ export const TaskApiFactory = function(
     addTask(task: Task, options?: any): AxiosPromise<Task> {
       return TaskApiFp(configuration)
         .addTask(task, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1672,7 +1673,7 @@ export const TaskApiFactory = function(
     ): AxiosPromise<void> {
       return TaskApiFp(configuration)
         .createTaskCategory(taskCategory, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      * Get list of first tasks by location id
@@ -1689,7 +1690,7 @@ export const TaskApiFactory = function(
     ): AxiosPromise<Array<Task>> {
       return TaskApiFp(configuration)
         .findTasksByLocation(locationId, page, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1701,7 +1702,7 @@ export const TaskApiFactory = function(
     getTask(taskId: string, options?: any): AxiosPromise<Task> {
       return TaskApiFp(configuration)
         .getTask(taskId, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1712,7 +1713,7 @@ export const TaskApiFactory = function(
     getTaskCategories(options?: any): AxiosPromise<Array<TaskCategory>> {
       return TaskApiFp(configuration)
         .getTaskCategories(options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1723,7 +1724,7 @@ export const TaskApiFactory = function(
     getTasks(options?: any): AxiosPromise<Array<Task>> {
       return TaskApiFp(configuration)
         .getTasks(options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1738,7 +1739,7 @@ export const TaskApiFactory = function(
     ): AxiosPromise<void> {
       return TaskApiFp(configuration)
         .removeTaskCategory(taskCategoryId, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1751,7 +1752,7 @@ export const TaskApiFactory = function(
     updateTask(taskId: string, task: Task, options?: any): AxiosPromise<Task> {
       return TaskApiFp(configuration)
         .updateTask(taskId, task, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1768,8 +1769,8 @@ export const TaskApiFactory = function(
     ): AxiosPromise<void> {
       return TaskApiFp(configuration)
         .updateTaskCategory(taskCategoryId, taskCategory, options)
-        .then(request => request(axios, basePath));
-    }
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -1791,7 +1792,7 @@ export class TaskApi extends BaseAPI {
   public addTask(task: Task, options?: any) {
     return TaskApiFp(this.configuration)
       .addTask(task, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1805,7 +1806,7 @@ export class TaskApi extends BaseAPI {
   public createTaskCategory(taskCategory: TaskCategory, options?: any) {
     return TaskApiFp(this.configuration)
       .createTaskCategory(taskCategory, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1820,7 +1821,7 @@ export class TaskApi extends BaseAPI {
   public findTasksByLocation(locationId: number, page?: number, options?: any) {
     return TaskApiFp(this.configuration)
       .findTasksByLocation(locationId, page, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1834,7 +1835,7 @@ export class TaskApi extends BaseAPI {
   public getTask(taskId: string, options?: any) {
     return TaskApiFp(this.configuration)
       .getTask(taskId, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1847,7 +1848,7 @@ export class TaskApi extends BaseAPI {
   public getTaskCategories(options?: any) {
     return TaskApiFp(this.configuration)
       .getTaskCategories(options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1860,7 +1861,7 @@ export class TaskApi extends BaseAPI {
   public getTasks(options?: any) {
     return TaskApiFp(this.configuration)
       .getTasks(options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1874,7 +1875,7 @@ export class TaskApi extends BaseAPI {
   public removeTaskCategory(taskCategoryId: number, options?: any) {
     return TaskApiFp(this.configuration)
       .removeTaskCategory(taskCategoryId, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1889,7 +1890,7 @@ export class TaskApi extends BaseAPI {
   public updateTask(taskId: string, task: Task, options?: any) {
     return TaskApiFp(this.configuration)
       .updateTask(taskId, task, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -1908,7 +1909,7 @@ export class TaskApi extends BaseAPI {
   ) {
     return TaskApiFp(this.configuration)
       .updateTaskCategory(taskCategoryId, taskCategory, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 }
 
@@ -1916,7 +1917,7 @@ export class TaskApi extends BaseAPI {
  * UserApi - axios parameter creator
  * @export
  */
-export const UserApiAxiosParamCreator = function(
+export const UserApiAxiosParamCreator = function (
   configuration?: Configuration
 ) {
   return {
@@ -1944,7 +1945,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'POST',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -1956,7 +1957,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -1965,7 +1966,7 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof user !== 'string' ||
@@ -1976,7 +1977,7 @@ export const UserApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -2009,7 +2010,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'DELETE',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -2019,7 +2020,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -2028,12 +2029,12 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -2052,7 +2053,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -2062,7 +2063,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -2071,12 +2072,12 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -2109,7 +2110,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -2119,7 +2120,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -2128,12 +2129,12 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -2163,7 +2164,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'POST',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -2175,7 +2176,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -2184,7 +2185,7 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof signInParameters !== 'string' ||
@@ -2195,7 +2196,7 @@ export const UserApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -2214,7 +2215,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'GET',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -2224,7 +2225,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -2233,12 +2234,12 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -2280,7 +2281,7 @@ export const UserApiAxiosParamCreator = function(
       const localVarRequestOptions = {
         method: 'POST',
         ...baseOptions,
-        ...options
+        ...options,
       };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
@@ -2292,7 +2293,7 @@ export const UserApiAxiosParamCreator = function(
       localVarUrlObj.query = {
         ...localVarUrlObj.query,
         ...localVarQueryParameter,
-        ...options.query
+        ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
       delete localVarUrlObj.search;
@@ -2301,7 +2302,7 @@ export const UserApiAxiosParamCreator = function(
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       const needsSerialization =
         typeof user !== 'string' ||
@@ -2312,9 +2313,9 @@ export const UserApiAxiosParamCreator = function(
 
       return {
         url: globalImportUrl.format(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -2322,7 +2323,7 @@ export const UserApiAxiosParamCreator = function(
  * UserApi - functional programming interface
  * @export
  */
-export const UserApiFp = function(configuration?: Configuration) {
+export const UserApiFp = function (configuration?: Configuration) {
   return {
     /**
      * Registration of new user
@@ -2346,7 +2347,7 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -2373,7 +2374,7 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -2398,7 +2399,7 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -2425,7 +2426,7 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -2452,7 +2453,7 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -2477,7 +2478,7 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
@@ -2506,11 +2507,11 @@ export const UserApiFp = function(configuration?: Configuration) {
       ) => {
         const axiosRequestArgs = {
           ...localVarAxiosArgs.options,
-          url: basePath + localVarAxiosArgs.url
+          url: basePath + localVarAxiosArgs.url,
         };
         return axios.request(axiosRequestArgs);
       };
-    }
+    },
   };
 };
 
@@ -2518,7 +2519,7 @@ export const UserApiFp = function(configuration?: Configuration) {
  * UserApi - factory interface
  * @export
  */
-export const UserApiFactory = function(
+export const UserApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
   axios?: AxiosInstance
@@ -2534,7 +2535,7 @@ export const UserApiFactory = function(
     createUser(user: User, options?: any): AxiosPromise<User> {
       return UserApiFp(configuration)
         .createUser(user, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      * This can only be done by the logged in user with privilegy.
@@ -2546,7 +2547,7 @@ export const UserApiFactory = function(
     deleteUser(username: string, options?: any): AxiosPromise<void> {
       return UserApiFp(configuration)
         .deleteUser(username, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2557,7 +2558,7 @@ export const UserApiFactory = function(
     getCurrentUser(options?: any): AxiosPromise<User> {
       return UserApiFp(configuration)
         .getCurrentUser(options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2569,7 +2570,7 @@ export const UserApiFactory = function(
     getUserByName(username: string, options?: any): AxiosPromise<User> {
       return UserApiFp(configuration)
         .getUserByName(username, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2584,7 +2585,7 @@ export const UserApiFactory = function(
     ): AxiosPromise<User> {
       return UserApiFp(configuration)
         .loginUser(signInParameters, options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2595,7 +2596,7 @@ export const UserApiFactory = function(
     logoutUser(options?: any): AxiosPromise<ApiResponse> {
       return UserApiFp(configuration)
         .logoutUser(options)
-        .then(request => request(axios, basePath));
+        .then((request) => request(axios, basePath));
     },
     /**
      * This can only be done by the logged in user.
@@ -2612,8 +2613,8 @@ export const UserApiFactory = function(
     ): AxiosPromise<void> {
       return UserApiFp(configuration)
         .updateUser(username, user, options)
-        .then(request => request(axios, basePath));
-    }
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -2635,7 +2636,7 @@ export class UserApi extends BaseAPI {
   public createUser(user: User, options?: any) {
     return UserApiFp(this.configuration)
       .createUser(user, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -2649,7 +2650,7 @@ export class UserApi extends BaseAPI {
   public deleteUser(username: string, options?: any) {
     return UserApiFp(this.configuration)
       .deleteUser(username, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -2662,7 +2663,7 @@ export class UserApi extends BaseAPI {
   public getCurrentUser(options?: any) {
     return UserApiFp(this.configuration)
       .getCurrentUser(options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -2676,7 +2677,7 @@ export class UserApi extends BaseAPI {
   public getUserByName(username: string, options?: any) {
     return UserApiFp(this.configuration)
       .getUserByName(username, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -2690,7 +2691,7 @@ export class UserApi extends BaseAPI {
   public loginUser(signInParameters: SignInParameters, options?: any) {
     return UserApiFp(this.configuration)
       .loginUser(signInParameters, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -2703,7 +2704,7 @@ export class UserApi extends BaseAPI {
   public logoutUser(options?: any) {
     return UserApiFp(this.configuration)
       .logoutUser(options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 
   /**
@@ -2718,6 +2719,6 @@ export class UserApi extends BaseAPI {
   public updateUser(username: string, user: User, options?: any) {
     return UserApiFp(this.configuration)
       .updateUser(username, user, options)
-      .then(request => request(this.axios, this.basePath));
+      .then((request) => request(this.axios, this.basePath));
   }
 }
