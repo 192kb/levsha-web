@@ -19,6 +19,7 @@ import ListingsPage from './pages/listings';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { storeUserId } from './storage/userId';
+import { Blank } from './pages/Blank';
 
 export const apiConfiguration: Configuration = new Configuration({
   basePath: 'https://192kb.ru/levsha-api',
@@ -154,6 +155,7 @@ const App: React.FC = () => {
           <Route path={PagePath.Tasks}>
             <ListingsPage />
           </Route>
+          <Route component={() => <Blank />} />
         </Switch>
       </main>
       <footer />
