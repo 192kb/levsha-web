@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     margin: 'auto',
   },
+  fab: {
+    position: 'absolute',
+    bottom: '2em',
+    right: '2em',
+  },
 }));
 
 const ListingsPage: React.FC<ListingsPageProps> = (props) => {
@@ -54,7 +59,11 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
           </div>
         )}
       </Container>
-      <Fab onClick={() => history.push(PagePath.CreateTask)} color='primary'>
+      <Fab
+        onClick={() => history.push(PagePath.CreateTask)}
+        color='primary'
+        className={classes.fab}
+      >
         <AddIcon />
       </Fab>
     </>
