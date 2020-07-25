@@ -9,6 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.52",
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
+    "material-ui-dropzone": "^3.3.0",
     "moment": "2.25.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
