@@ -21,9 +21,16 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: 'text-bottom',
   },
   preview: {
-    display: 'flow',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'baseline',
+    flexWrap: 'nowrap',
   },
-  previewImage: {},
+  previewImage: {
+    width: '33%',
+    height: 'auto',
+  },
 }));
 
 export const ImageDropzone: React.FC<ImageDropzoneProps> = (
@@ -33,13 +40,14 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
   const [files, setFiles] = React.useState<File[]>([]);
   const [isUploading, setIsUploading] = React.useState<boolean>(false);
 
-  const handleFileUpload = () => {
+  const handleFileUpload = (filesToUpload: File[]) => {
     setIsUploading(true);
 
     const taskApi = new TaskApi(apiConfiguration);
+
     var taskImages: TaskImage[] = [];
     Promise.all(
-      files.map(
+      filesToUpload.map(
         (file) =>
           new Promise((resolve, reject) =>
             taskApi
@@ -54,7 +62,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
           )
       )
     )
-      .then((value) => console.log('promises fullfiled', value))
+      .then((value) => console.log('promises fullfiled', value, taskImages))
       .catch((error) => console.error(error))
       .finally(() => {
         setIsUploading(false);
@@ -65,10 +73,13 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
   return (
     <Dropzone
       disabled={isUploading}
-      accept={['image/jpg', 'image/png']}
+      accept={'image/jpeg'}
       onDrop={(acceptedFiles) => {
-        setFiles(acceptedFiles);
-        handleFileUpload();
+        if (acceptedFiles) {
+          const newFiles = [...files, ...acceptedFiles].splice(-3, 3);
+          setFiles(newFiles);
+          handleFileUpload(newFiles);
+        }
       }}
     >
       {({ getRootProps, getInputProps }) => (

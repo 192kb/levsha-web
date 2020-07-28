@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   fab: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: '2em',
     right: '2em',
   },
