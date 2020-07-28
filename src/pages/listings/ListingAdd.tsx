@@ -1,27 +1,29 @@
-import * as React from 'react';
 import {
-  Task,
-  District,
-  TaskCategory,
-  TaskApi,
-  LocationApi,
-  UserApi,
-} from '../../model';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  TextField,
-  Select,
-  Snackbar,
+  Button,
+  Container,
   InputLabel,
   Paper,
-  Container,
+  Select,
+  Snackbar,
+  TextField,
   Typography,
-  Button,
 } from '@material-ui/core';
-import { apiConfiguration, axiosRequestConfig } from '../../App';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
 import { AxiosError } from 'axios';
 import _ from 'lodash';
-import Alert from '@material-ui/lab/Alert';
+import * as React from 'react';
+import { ImageDropzone } from '../../components/ImagesDropzone';
+
+import { apiConfiguration, axiosRequestConfig } from '../../App';
+import {
+  District,
+  LocationApi,
+  Task,
+  TaskApi,
+  TaskCategory,
+  UserApi,
+} from '../../model';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,12 +40,20 @@ const useStyles = makeStyles((theme) => ({
   selectInput: {
     marginBottom: theme.spacing(-2),
   },
+  dropzoneSection: {
+    padding: theme.spacing(5),
+    border: '2px dashed #ccc',
+  },
+  imageIcon: {
+    verticalAlign: 'text-bottom',
+  },
 }));
 
 export const ListingAdd: React.FC<{}> = () => {
   const classes = useStyles();
   const [task, setTask] = React.useState<Task>({});
   const [error, setError] = React.useState<AxiosError | undefined>();
+  const [isUploading, setIsUploading] = React.useState<boolean>(false);
 
   const [districts, setDistricts] = React.useState<District[]>([]);
   React.useEffect(() => {
@@ -170,6 +180,14 @@ export const ListingAdd: React.FC<{}> = () => {
                 price: isNaN(parseInt(event.target.value))
                   ? undefined
                   : parseInt(event.target.value),
+              })
+            }
+          />
+          <ImageDropzone
+            onFileArrayChange={(images) =>
+              setTask({
+                ...task,
+                images,
               })
             }
           />
