@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import ImageIcon from '@material-ui/icons/Image';
 import { TaskImage, TaskApi } from '../model';
-import { apiConfiguration } from '../App';
+import { apiConfiguration, axiosRequestConfig } from '../App';
 
 type ImageDropzoneProps = {
   onFileArrayChange: (uuids: TaskImage[]) => void;
@@ -37,14 +37,29 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
     setIsUploading(true);
 
     const taskApi = new TaskApi(apiConfiguration);
+    var taskImages: TaskImage[] = [];
     Promise.all(
       files.map(
-        (file) => new Promise((resolve, reject) => taskApi.uploadNewTaskImage())
+        (file) =>
+          new Promise((resolve, reject) =>
+            taskApi
+              .uploadTaskImage(file, axiosRequestConfig)
+              .then((response) => {
+                if (response.status === 200 && response.data) {
+                  taskImages = [...taskImages, response.data];
+                  resolve(response.data);
+                }
+              })
+              .catch(reject)
+          )
       )
-    ).finally(() => {
-      setIsUploading(false);
-      props.onFinishedUpload();
-    });
+    )
+      .then((value) => console.log('promises fullfiled', value))
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setIsUploading(false);
+        props.onFinishedUpload();
+      });
   };
 
   return (
@@ -64,6 +79,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
               <p className={classes.preview}>
                 {files.map((file) => (
                   <img
+                    key={file.size}
                     className={classes.previewImage}
                     src={URL.createObjectURL(file)}
                     alt={file.name}

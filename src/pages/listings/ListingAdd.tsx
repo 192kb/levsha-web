@@ -76,6 +76,9 @@ export const ListingAdd: React.FC<{}> = () => {
   }, []);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isUploading) {
+      return;
+    }
     throw new Error('not implemented');
   };
 
@@ -184,6 +187,8 @@ export const ListingAdd: React.FC<{}> = () => {
             }
           />
           <ImageDropzone
+            onFinishedUpload={() => setIsUploading(false)}
+            onStartUpload={() => setIsUploading(true)}
             onFileArrayChange={(images) =>
               setTask({
                 ...task,
@@ -191,7 +196,7 @@ export const ListingAdd: React.FC<{}> = () => {
               })
             }
           />
-          <Button variant='contained' color='primary'>
+          <Button variant='contained' color='primary' disabled={isUploading}>
             Создать
           </Button>
           <Snackbar
