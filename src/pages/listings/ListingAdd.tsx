@@ -24,6 +24,8 @@ import {
   TaskCategory,
   UserApi,
 } from '../../model';
+import { useHistory } from 'react-router-dom';
+import { PagePath } from '..';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,11 +53,13 @@ const useStyles = makeStyles((theme) => ({
 
 export const ListingAdd: React.FC<{}> = () => {
   const classes = useStyles();
+  const history = useHistory();
+
   const [task, setTask] = React.useState<Task>({});
   const [error, setError] = React.useState<AxiosError | undefined>();
   const [isUploading, setIsUploading] = React.useState<boolean>(false);
-
   const [districts, setDistricts] = React.useState<District[]>([]);
+
   React.useEffect(() => {
     const userApi = new UserApi(apiConfiguration);
     userApi.getCurrentUser(axiosRequestConfig).then((userResponse) => {
@@ -80,7 +84,11 @@ export const ListingAdd: React.FC<{}> = () => {
     if (isUploading) {
       return;
     }
-    throw new Error('not implemented');
+    const taskApi = new TaskApi(apiConfiguration);
+    taskApi
+      .addTask(task)
+      .then((response) => history.push(PagePath.Task + response.data?.uuid))
+      .catch((error) => setError(error));
   };
 
   return (
