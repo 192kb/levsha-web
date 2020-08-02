@@ -7,6 +7,7 @@ import {
   Snackbar,
   TextField,
   Typography,
+  MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
@@ -62,12 +63,15 @@ export const ListingAdd: React.FC<{}> = () => {
 
   React.useEffect(() => {
     const userApi = new UserApi(apiConfiguration);
-    userApi.getCurrentUser(axiosRequestConfig).then((userResponse) => {
-      const locationApi = new LocationApi(apiConfiguration);
-      locationApi
-        .getDiscrictsByCityId(userResponse.data.city?.id || 1)
-        .then((locationResponse) => setDistricts(locationResponse.data));
-    });
+    userApi
+      .getCurrentUser(axiosRequestConfig)
+      .then((userResponse) => {
+        const locationApi = new LocationApi(apiConfiguration);
+        locationApi
+          .getDiscrictsByCityId(userResponse.data.city?.id || 1)
+          .then((locationResponse) => setDistricts(locationResponse.data));
+      })
+      .catch((error) => setError(error));
   }, []);
 
   const [categories, setCategories] = React.useState<TaskCategory[]>([]);
@@ -82,8 +86,16 @@ export const ListingAdd: React.FC<{}> = () => {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isUploading) {
-      return;
+      return setError(
+        new Error('Сначала дождемся загрузки изображений') as AxiosError
+      );
     }
+
+    if (task.category?.id) {
+    } else {
+      return setError(new Error('Нужно указать категорию') as AxiosError);
+    }
+
     const taskApi = new TaskApi(apiConfiguration);
     taskApi
       .addTask(task, axiosRequestConfig)
@@ -103,7 +115,7 @@ export const ListingAdd: React.FC<{}> = () => {
             required
             label='Название'
             id='task-title'
-            value={task.title}
+            value={task.title || ''}
             variant='outlined'
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setTask({ ...task, title: event.target.value })
@@ -114,7 +126,7 @@ export const ListingAdd: React.FC<{}> = () => {
             required
             label='Описание'
             id='task-description'
-            value={task.description}
+            value={task.description || ''}
             variant='outlined'
             rows={4}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -142,13 +154,13 @@ export const ListingAdd: React.FC<{}> = () => {
               })
             }
           >
-            <option value={0}>Не выбрано</option>
+            <MenuItem value={0}>Не выбрано</MenuItem>
             {districts
               .filter((district) => !district.is_deleted)
               .map((district) => (
-                <option key={district.id} value={district.id}>
+                <MenuItem key={district.id} value={district.id}>
                   {district.name}
-                </option>
+                </MenuItem>
               ))}
           </Select>
           <InputLabel id='task-category-label' className={classes.selectInput}>
@@ -172,18 +184,18 @@ export const ListingAdd: React.FC<{}> = () => {
               })
             }
           >
-            <option value={0}>Не выбрано</option>
+            <MenuItem value={0}>Не выбрано</MenuItem>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <MenuItem key={category.id} value={category.id}>
                 {category.name}
-              </option>
+              </MenuItem>
             ))}
           </Select>
           <TextField
             required
             label='Цена'
             id='task-price'
-            value={task.price}
+            value={task.price || ''}
             variant='outlined'
             type='number'
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
