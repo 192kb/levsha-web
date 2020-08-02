@@ -7,7 +7,7 @@ import { TaskImage, TaskApi } from '../model';
 import { apiConfiguration, axiosRequestConfig } from '../App';
 
 type ImageDropzoneProps = {
-  onFileArrayChange: (uuids: TaskImage[]) => void;
+  onFileArrayChange: (takImages: TaskImage[]) => void;
   onStartUpload: () => void;
   onFinishedUpload: () => void;
 };
@@ -44,12 +44,10 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
     setIsUploading(true);
 
     const taskApi = new TaskApi(apiConfiguration);
-
-    var taskImages: TaskImage[] = [];
     Promise.all(
       filesToUpload.map(
         (file) =>
-          new Promise((resolve, reject) => {
+          new Promise<TaskImage>((resolve, reject) => {
             Resizer.imageFileResizer(
               file,
               500,
@@ -62,7 +60,6 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
                   .uploadTaskImage(blob, axiosRequestConfig)
                   .then((response) => {
                     if (response.status === 200 && response.data) {
-                      taskImages = [...taskImages, response.data];
                       resolve(response.data);
                     }
                   })
@@ -72,7 +69,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
           })
       )
     )
-      .then((value) => console.log('promises fullfiled', value, taskImages))
+      .then((taskImages) => props.onFileArrayChange(taskImages))
       .catch((error) => console.error(error))
       .finally(() => {
         setIsUploading(false);
