@@ -49,7 +49,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
     Promise.all(
       filesToUpload.map(
         (file) =>
-          new Promise((resolve, reject) =>
+          new Promise((resolve, reject) => {
             taskApi
               .uploadTaskImage(file, axiosRequestConfig)
               .then((response) => {
@@ -58,8 +58,8 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
                   resolve(response.data);
                 }
               })
-              .catch(reject)
-          )
+              .catch(reject);
+          })
       )
     )
       .then((value) => console.log('promises fullfiled', value, taskImages))
@@ -76,7 +76,17 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
       accept={'image/jpeg'}
       onDrop={(acceptedFiles) => {
         if (acceptedFiles) {
-          const newFiles = [...files, ...acceptedFiles].splice(-3, 3);
+          let uniqueFiles: number[] = [];
+          const newFiles = [...files, ...acceptedFiles]
+            .filter((file) => {
+              if (uniqueFiles.includes(file.size)) {
+                return false;
+              }
+
+              uniqueFiles = [...uniqueFiles, file.size];
+              return true;
+            })
+            .splice(-3, 3);
           setFiles(newFiles);
           handleFileUpload(newFiles);
         }

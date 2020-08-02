@@ -569,10 +569,13 @@ paths:
       operationId: uploadTaskImage"
       requestBody:
         content:
-          image/png:
+          multipart/form-data:
             schema:
-              type: string
-              format: binary
+              type: object
+              properties:
+                taskImage:
+                  type: string
+                  format: binary
       responses:
         200:
           description: OK
@@ -580,7 +583,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TaskImage"
-        400:
+        500:
           description: Server error
           content:
             application/json:
