@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // tslint:disable
 /**
  * Проект LEVSHA
@@ -15,7 +14,7 @@
 import { Configuration } from './configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosInstance } from 'axios';
 
 export const BASE_PATH = 'https://192kb.ru/levsha-api'.replace(/\/+$/, '');
 

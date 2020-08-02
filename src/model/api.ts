@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // tslint:disable
 /**
  * Проект LEVSHA
@@ -17,13 +16,7 @@ import { Configuration } from './configuration';
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import {
-  BASE_PATH,
-  COLLECTION_FORMATS,
-  RequestArgs,
-  BaseAPI,
-  RequiredError,
-} from './base';
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
  *
@@ -105,6 +98,19 @@ export interface District {
    * @memberof District
    */
   is_deleted: boolean;
+}
+/**
+ *
+ * @export
+ * @interface InlineObject
+ */
+export interface InlineObject {
+  /**
+   *
+   * @type {any}
+   * @memberof InlineObject
+   */
+  taskImage?: any;
 }
 /**
  *
@@ -340,10 +346,10 @@ export interface Task {
   category?: TaskCategory;
   /**
    *
-   * @type {Array<TaskImages>}
+   * @type {Array<TaskImage>}
    * @memberof Task
    */
-  images?: Array<TaskImages>;
+  images?: Array<TaskImage>;
 }
 /**
  *
@@ -379,45 +385,51 @@ export interface TaskCategory {
 /**
  *
  * @export
- * @interface TaskImages
+ * @interface TaskImage
  */
-export interface TaskImages {
-  /**
-   *
-   * @type {number}
-   * @memberof TaskImages
-   */
-  id?: number;
+export interface TaskImage {
   /**
    *
    * @type {string}
-   * @memberof TaskImages
+   * @memberof TaskImage
+   */
+  uuid?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TaskImage
    */
   date_created?: string;
   /**
    *
    * @type {string}
-   * @memberof TaskImages
+   * @memberof TaskImage
    */
-  date_delete?: string;
+  date_deleted?: string;
   /**
    *
    * @type {boolean}
-   * @memberof TaskImages
+   * @memberof TaskImage
    */
   is_deleted?: boolean;
   /**
    *
    * @type {string}
-   * @memberof TaskImages
+   * @memberof TaskImage
    */
   url?: string;
   /**
    *
-   * @type {number}
-   * @memberof TaskImages
+   * @type {string}
+   * @memberof TaskImage
    */
-  task_id?: number;
+  task_id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TaskImage
+   */
+  user_id?: string;
 }
 /**
  *
@@ -1378,6 +1390,61 @@ export const TaskApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       };
     },
+    /**
+     *
+     * @summary Upload new image to server before corresponding task is created
+     * @param {any} [taskImage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadTaskImage: async (
+      taskImage?: any,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/task/image`;
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+      const localVarFormParams = new FormData();
+
+      // authentication cookieAuth required
+
+      if (taskImage !== undefined) {
+        localVarFormParams.append('taskImage', taskImage as any);
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query,
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = localVarFormParams;
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -1635,6 +1702,33 @@ export const TaskApiFp = function (configuration?: Configuration) {
         return axios.request(axiosRequestArgs);
       };
     },
+    /**
+     *
+     * @summary Upload new image to server before corresponding task is created
+     * @param {any} [taskImage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async uploadTaskImage(
+      taskImage?: any,
+      options?: any
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TaskImage>
+    > {
+      const localVarAxiosArgs = await TaskApiAxiosParamCreator(
+        configuration
+      ).uploadTaskImage(taskImage, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
   };
 };
 
@@ -1769,6 +1863,18 @@ export const TaskApiFactory = function (
     ): AxiosPromise<void> {
       return TaskApiFp(configuration)
         .updateTaskCategory(taskCategoryId, taskCategory, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary Upload new image to server before corresponding task is created
+     * @param {any} [taskImage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uploadTaskImage(taskImage?: any, options?: any): AxiosPromise<TaskImage> {
+      return TaskApiFp(configuration)
+        .uploadTaskImage(taskImage, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -1909,6 +2015,20 @@ export class TaskApi extends BaseAPI {
   ) {
     return TaskApiFp(this.configuration)
       .updateTaskCategory(taskCategoryId, taskCategory, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary Upload new image to server before corresponding task is created
+   * @param {any} [taskImage]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof TaskApi
+   */
+  public uploadTaskImage(taskImage?: any, options?: any) {
+    return TaskApiFp(this.configuration)
+      .uploadTaskImage(taskImage, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

@@ -57,7 +57,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
     userApi
       .loginUser({ phone, password }, axiosRequestConfig)
       .then((response) => props.onSignInUser(response.data))
-      .catch((error) => setError(error.response.data));
+      .catch((error) => setError(error.response?.data));
   };
 
   return (
