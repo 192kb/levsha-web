@@ -1,7 +1,7 @@
 import Dropzone from 'react-dropzone';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Resizer from 'react-image-file-resizer';
 import ImageIcon from '@material-ui/icons/Image';
 import { TaskImage, TaskApi } from '../model';
 import { apiConfiguration, axiosRequestConfig } from '../App';
@@ -50,15 +50,25 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
       filesToUpload.map(
         (file) =>
           new Promise((resolve, reject) => {
-            taskApi
-              .uploadTaskImage(file, axiosRequestConfig)
-              .then((response) => {
-                if (response.status === 200 && response.data) {
-                  taskImages = [...taskImages, response.data];
-                  resolve(response.data);
-                }
-              })
-              .catch(reject);
+            Resizer.imageFileResizer(
+              file,
+              500,
+              500,
+              'JPEG',
+              80,
+              0,
+              (blob) =>
+                taskApi
+                  .uploadTaskImage(blob, axiosRequestConfig)
+                  .then((response) => {
+                    if (response.status === 200 && response.data) {
+                      taskImages = [...taskImages, response.data];
+                      resolve(response.data);
+                    }
+                  })
+                  .catch(reject),
+              'blob'
+            );
           })
       )
     )
