@@ -8,6 +8,7 @@ import {
   Button,
   GridList,
   GridListTile,
+  Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Task, TaskApi } from '../../model';
@@ -46,50 +47,52 @@ export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
   }, [taskId]);
 
   return loaded && task ? (
-    <Paper elevation={3}>
-      <Grid container spacing={4}>
-        <Grid item xs={6}>
-          <Typography variant='subtitle1' color='textSecondary'>
-            {task.district}
-          </Typography>
+    <Container component='main' maxWidth='md'>
+      <Paper elevation={3}>
+        <Grid container spacing={4}>
+          <Grid item xs={6}>
+            <Typography variant='subtitle1' color='textSecondary'>
+              {task.district}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant='subtitle1' color='textSecondary'>
+              <DateFromNow value={task.date_start || task.date_created || ''} />
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Typography variant='subtitle1' color='textSecondary'>
-            <DateFromNow value={task.date_start || task.date_created || ''} />
+        <Typography component='h1' variant='h2'>
+          {task.title || 'Без названия'}
+        </Typography>
+        <main>
+          <div className={classes.oneRowGridList}>
+            <GridList className={classes.gridList} cols={2.5}>
+              {task.images?.map((taskImage) => (
+                <GridListTile key={taskImage.url}>
+                  <img src={taskImage.url} alt={task.title} />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
+          <Typography variant='body1' paragraph>
+            {task?.description}
           </Typography>
-        </Grid>
-      </Grid>
-      <Typography component='h1' variant='h2'>
-        {task.title || 'Без названия'}
-      </Typography>
-      <main>
-        <div className={classes.oneRowGridList}>
-          <GridList className={classes.gridList} cols={2.5}>
-            {task.images?.map((taskImage) => (
-              <GridListTile key={taskImage.url}>
-                <img src={taskImage.url} alt={task.title} />
-              </GridListTile>
-            ))}
-          </GridList>
-        </div>
-        <Typography variant='body1' paragraph>
-          {task?.description}
-        </Typography>
-        <Typography component='h2' variant='h3' color='textPrimary'>
-          <Price value={task.price || 0} />
-        </Typography>
-      </main>
-      {task.user?.phone_comfirmed ? (
-        <Button
-          fullWidth
-          variant='contained'
-          color='primary'
-          href={'tel:' + task.user?.phone}
-        >
-          Позвонить
-        </Button>
-      ) : null}
-    </Paper>
+          <Typography component='h2' variant='h3' color='textPrimary'>
+            <Price value={task.price || 0} />
+          </Typography>
+        </main>
+        {task.user?.phone_comfirmed ? (
+          <Button
+            fullWidth
+            variant='contained'
+            color='primary'
+            href={'tel:' + task.user?.phone}
+          >
+            Позвонить
+          </Button>
+        ) : null}
+      </Paper>
+    </Container>
   ) : (
     <LinearProgress />
   );
