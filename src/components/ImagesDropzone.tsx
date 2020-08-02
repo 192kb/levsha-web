@@ -6,6 +6,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import { TaskImage, TaskApi } from '../model';
 import { apiConfiguration, axiosRequestConfig } from '../App';
 
+const maximumImagesAllowed = 3;
+
 type ImageDropzoneProps = {
   onFileArrayChange: (takImages: TaskImage[]) => void;
   onStartUpload: () => void;
@@ -93,7 +95,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
               uniqueFiles = [...uniqueFiles, file.size];
               return true;
             })
-            .splice(-3, 3);
+            .splice(-maximumImagesAllowed, maximumImagesAllowed);
           setFiles(newFiles);
           handleFileUpload(newFiles);
         }
