@@ -86,7 +86,7 @@ export const ListingAdd: React.FC<{}> = () => {
     }
     const taskApi = new TaskApi(apiConfiguration);
     taskApi
-      .addTask(task)
+      .addTask(task, axiosRequestConfig)
       .then((response) => history.push(PagePath.Task + response.data?.uuid))
       .catch((error) => setError(error));
   };
