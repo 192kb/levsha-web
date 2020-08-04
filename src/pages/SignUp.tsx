@@ -96,7 +96,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
             throw response;
         }
       })
-      .catch((error) => setError(error.response.data || error.data));
+      .catch((error) => setError(error.response.data || error));
   };
 
   return (

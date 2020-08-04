@@ -1,10 +1,4 @@
-import {
-  CircularProgress,
-  Container,
-  Fab,
-  Grid,
-  Snackbar,
-} from '@material-ui/core';
+import { CircularProgress, Container, Fab, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import * as React from 'react';
@@ -15,8 +9,7 @@ import { Task, TaskApi } from '../../model';
 import { ListingItem } from './ListingItem';
 import { useHistory } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import _ from 'lodash';
-import Alert from '@material-ui/lab/Alert';
+import DisplayError from '../../components/DisplayError';
 
 type ListingsPageProps = {};
 
@@ -72,15 +65,7 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
           </div>
         )}
       </Container>
-      <Snackbar
-        open={!_.isUndefined(error)}
-        autoHideDuration={6000}
-        onClose={() => setError(undefined)}
-      >
-        <Alert onClose={() => setError(undefined)} severity='error'>
-          {error?.message}
-        </Alert>
-      </Snackbar>
+      {error ? <DisplayError error={error} /> : null}
       <Fab
         onClick={() => history.push(PagePath.CreateTask)}
         color='primary'

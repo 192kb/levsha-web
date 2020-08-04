@@ -4,15 +4,12 @@ import {
   InputLabel,
   Paper,
   Select,
-  Snackbar,
   TextField,
   Typography,
   MenuItem,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
 import { AxiosError } from 'axios';
-import _ from 'lodash';
 import * as React from 'react';
 import { ImageDropzone } from '../../components/ImagesDropzone';
 
@@ -27,6 +24,7 @@ import {
 } from '../../model';
 import { useHistory } from 'react-router-dom';
 import { PagePath } from '..';
+import DisplayError from '../../components/DisplayError';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -227,15 +225,7 @@ export const ListingAdd: React.FC<{}> = () => {
           >
             Создать
           </Button>
-          <Snackbar
-            open={!_.isUndefined(error)}
-            autoHideDuration={6000}
-            onClose={() => setError(undefined)}
-          >
-            <Alert onClose={() => setError(undefined)} severity='error'>
-              {error?.message}
-            </Alert>
-          </Snackbar>
+          {error ? <DisplayError error={error} /> : null}
         </form>
       </Paper>
     </Container>
