@@ -786,7 +786,7 @@ paths:
               type: object
               properties:
                 code:
-                  type: number
+                  type: string
       parameters:
         - name: 'uuid'
           in: 'path'
