@@ -155,7 +155,7 @@ const App: React.FC = () => {
           <Route path={PagePath.SignUp}>
             <SignUpPage />
           </Route>
-          <Route path={PagePath.ConfirmId}>
+          <Route path={PagePath.ConfirmId + ':userId'}>
             <ConfirmIdPage onConfirmIdUser={() => null} />
           </Route>
           <Route path={PagePath.Task + ':taskId'}>

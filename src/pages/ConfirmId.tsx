@@ -10,13 +10,14 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { PagePath } from '.';
 import { apiConfiguration, axiosRequestConfig } from '../App';
 import DisplayError from '../components/DisplayError';
 import PhoneInput from '../components/PhoneInput';
 import { ApiResponse, User, UserApi } from '../model';
+import { AxiosError } from 'axios';
 
 type ConfirmIdPageProps = {
   onConfirmIdUser: (user: User) => void;
@@ -44,15 +45,36 @@ const useStyles = makeStyles((theme) => ({
 
 const ConfirmIdPage: React.FC<ConfirmIdPageProps> = (props) => {
   const classes = useStyles();
-  const [idCode, setCode] = React.useState<string>('');
-  const [error, setError] = React.useState<ApiResponse | undefined>();
+  const [code, setCode] = React.useState<string>('');
+  const [error, setError] = React.useState<
+    ApiResponse | AxiosError | undefined
+  >();
   const history = useHistory();
+  const { userId } = useParams();
 
   const handleCodeCheck = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const userApi = new UserApi(apiConfiguration);
+    userApi
+      .confirmUserId(userId as string, { code })
+      .then(() => {
+        history.push(PagePath.Tasks);
+      })
+      .catch((error) =>
+        setError((error.response?.data as ApiResponse) || error)
+      );
   };
 
-  const handleCodeSendAgain = () => {};
+  const handleCodeSendAgain = () => {
+    const userApi = new UserApi(apiConfiguration);
+    userApi
+      .sendCodeAgain(userId as string)
+      .then(() => null)
+      .catch((error) =>
+        setError((error.response?.data as ApiResponse) || error)
+      );
+  };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -62,7 +84,7 @@ const ConfirmIdPage: React.FC<ConfirmIdPageProps> = (props) => {
           <img alt='Levsha' src='/favicon-57.png' />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Код из SMS
+          Проверка телефона
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleCodeCheck}>
           <TextField
@@ -75,7 +97,7 @@ const ConfirmIdPage: React.FC<ConfirmIdPageProps> = (props) => {
             name='code'
             autoComplete='code'
             autoFocus
-            value={idCode}
+            value={code}
             onChange={(event) => setCode(event.target.value)}
           />
           <Button
