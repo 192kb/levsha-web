@@ -1,4 +1,10 @@
-import { CircularProgress, Container, Fab, Grid } from '@material-ui/core';
+import {
+  CircularProgress,
+  Container,
+  Fab,
+  Grid,
+  Snackbar,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import * as React from 'react';
@@ -8,6 +14,9 @@ import { apiConfiguration, axiosRequestConfig } from '../../App';
 import { Task, TaskApi } from '../../model';
 import { ListingItem } from './ListingItem';
 import { useHistory } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import _ from 'lodash';
+import Alert from '@material-ui/lab/Alert';
 
 type ListingsPageProps = {};
 
@@ -33,13 +42,17 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
   const history = useHistory();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);
   const [tasks, setTasks] = React.useState<Task[]>([]);
+  const [error, setError] = React.useState<AxiosError | undefined>();
 
   React.useEffect(() => {
     const taskApi = new TaskApi(apiConfiguration);
-    taskApi.getTasks(axiosRequestConfig).then((response) => {
-      setTasks(response.data);
-      setLoaded(true);
-    });
+    taskApi
+      .getTasks(axiosRequestConfig)
+      .then((response) => {
+        setTasks(response.data);
+      })
+      .catch((error) => setError((error as AxiosError).response?.data || error))
+      .finally(() => setLoaded(true));
   }, []);
 
   return (
@@ -59,6 +72,15 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
           </div>
         )}
       </Container>
+      <Snackbar
+        open={!_.isUndefined(error)}
+        autoHideDuration={6000}
+        onClose={() => setError(undefined)}
+      >
+        <Alert onClose={() => setError(undefined)} severity='error'>
+          {error?.message}
+        </Alert>
+      </Snackbar>
       <Fab
         onClick={() => history.push(PagePath.CreateTask)}
         color='primary'

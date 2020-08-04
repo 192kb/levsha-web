@@ -71,7 +71,9 @@ export const ListingAdd: React.FC<{}> = () => {
           .getDiscrictsByCityId(userResponse.data.city?.id || 1)
           .then((locationResponse) => setDistricts(locationResponse.data));
       })
-      .catch((error) => setError(error));
+      .catch((error) =>
+        setError((error as AxiosError).response?.data || error)
+      );
   }, []);
 
   const [categories, setCategories] = React.useState<TaskCategory[]>([]);
