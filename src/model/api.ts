@@ -115,6 +115,19 @@ export interface InlineObject {
 /**
  *
  * @export
+ * @interface InlineObject1
+ */
+export interface InlineObject1 {
+  /**
+   *
+   * @type {number}
+   * @memberof InlineObject1
+   */
+  code?: number;
+}
+/**
+ *
+ * @export
  * @interface Message
  */
 export interface Message {
@@ -2042,6 +2055,80 @@ export const UserApiAxiosParamCreator = function (
 ) {
   return {
     /**
+     * This is part of confirmation process
+     * @summary Confirmation try of user phone
+     * @param {string} uuid user id that need to be checked alongside with code
+     * @param {InlineObject1} inlineObject1
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    confirmUserId: async (
+      uuid: string,
+      inlineObject1: InlineObject1,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'uuid' is not null or undefined
+      if (uuid === null || uuid === undefined) {
+        throw new RequiredError(
+          'uuid',
+          'Required parameter uuid was null or undefined when calling confirmUserId.'
+        );
+      }
+      // verify required parameter 'inlineObject1' is not null or undefined
+      if (inlineObject1 === null || inlineObject1 === undefined) {
+        throw new RequiredError(
+          'inlineObject1',
+          'Required parameter inlineObject1 was null or undefined when calling confirmUserId.'
+        );
+      }
+      const localVarPath = `/user/{uuid}/confirm`.replace(
+        `{${'uuid'}}`,
+        encodeURIComponent(String(uuid))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query,
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      const needsSerialization =
+        typeof inlineObject1 !== 'string' ||
+        localVarRequestOptions.headers['Content-Type'] === 'application/json';
+      localVarRequestOptions.data = needsSerialization
+        ? JSON.stringify(inlineObject1 !== undefined ? inlineObject1 : {})
+        : inlineObject1 || '';
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Registration of new user
      * @summary Create user
      * @param {User} user
@@ -2103,24 +2190,24 @@ export const UserApiAxiosParamCreator = function (
     /**
      * This can only be done by the logged in user with privilegy.
      * @summary Delete user
-     * @param {string} username The name that needs to be deleted
+     * @param {string} uuid The name that needs to be deleted
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     deleteUser: async (
-      username: string,
+      uuid: string,
       options: any = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'username' is not null or undefined
-      if (username === null || username === undefined) {
+      // verify required parameter 'uuid' is not null or undefined
+      if (uuid === null || uuid === undefined) {
         throw new RequiredError(
-          'username',
-          'Required parameter username was null or undefined when calling deleteUser.'
+          'uuid',
+          'Required parameter uuid was null or undefined when calling deleteUser.'
         );
       }
-      const localVarPath = `/user/{username}`.replace(
-        `{${'username'}}`,
-        encodeURIComponent(String(username))
+      const localVarPath = `/user/{uuid}`.replace(
+        `{${'uuid'}}`,
+        encodeURIComponent(String(uuid))
       );
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -2203,24 +2290,24 @@ export const UserApiAxiosParamCreator = function (
     /**
      *
      * @summary Get user by user name
-     * @param {string} username The name that needs to be fetched. Use user1 for testing.
+     * @param {string} uuid The uuid that needs to be fetched
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     getUserByName: async (
-      username: string,
+      uuid: string,
       options: any = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'username' is not null or undefined
-      if (username === null || username === undefined) {
+      // verify required parameter 'uuid' is not null or undefined
+      if (uuid === null || uuid === undefined) {
         throw new RequiredError(
-          'username',
-          'Required parameter username was null or undefined when calling getUserByName.'
+          'uuid',
+          'Required parameter uuid was null or undefined when calling getUserByName.'
         );
       }
-      const localVarPath = `/user/{username}`.replace(
-        `{${'username'}}`,
-        encodeURIComponent(String(username))
+      const localVarPath = `/user/{uuid}`.replace(
+        `{${'uuid'}}`,
+        encodeURIComponent(String(uuid))
       );
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -2363,23 +2450,80 @@ export const UserApiAxiosParamCreator = function (
       };
     },
     /**
+     * This is part of confirmation process
+     * @summary Confirmation process case of SMS code was not sent
+     * @param {string} uuid user id that need to send new sms code
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    sendCodeAgain: async (
+      uuid: string,
+      options: any = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'uuid' is not null or undefined
+      if (uuid === null || uuid === undefined) {
+        throw new RequiredError(
+          'uuid',
+          'Required parameter uuid was null or undefined when calling sendCodeAgain.'
+        );
+      }
+      const localVarPath = `/user/{uuid}/repeat`.replace(
+        `{${'uuid'}}`,
+        encodeURIComponent(String(uuid))
+      );
+      const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication cookieAuth required
+
+      localVarUrlObj.query = {
+        ...localVarUrlObj.query,
+        ...localVarQueryParameter,
+        ...options.query,
+      };
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: globalImportUrl.format(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * This can only be done by the logged in user.
      * @summary Updated user
-     * @param {string} username name that need to be updated
+     * @param {string} uuid name that need to be updated
      * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateUser: async (
-      username: string,
+      uuid: string,
       user: User,
       options: any = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'username' is not null or undefined
-      if (username === null || username === undefined) {
+      // verify required parameter 'uuid' is not null or undefined
+      if (uuid === null || uuid === undefined) {
         throw new RequiredError(
-          'username',
-          'Required parameter username was null or undefined when calling updateUser.'
+          'uuid',
+          'Required parameter uuid was null or undefined when calling updateUser.'
         );
       }
       // verify required parameter 'user' is not null or undefined
@@ -2389,9 +2533,9 @@ export const UserApiAxiosParamCreator = function (
           'Required parameter user was null or undefined when calling updateUser.'
         );
       }
-      const localVarPath = `/user/{username}`.replace(
-        `{${'username'}}`,
-        encodeURIComponent(String(username))
+      const localVarPath = `/user/{uuid}`.replace(
+        `{${'uuid'}}`,
+        encodeURIComponent(String(uuid))
       );
       const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
       let baseOptions;
@@ -2446,6 +2590,35 @@ export const UserApiAxiosParamCreator = function (
 export const UserApiFp = function (configuration?: Configuration) {
   return {
     /**
+     * This is part of confirmation process
+     * @summary Confirmation try of user phone
+     * @param {string} uuid user id that need to be checked alongside with code
+     * @param {InlineObject1} inlineObject1
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async confirmUserId(
+      uuid: string,
+      inlineObject1: InlineObject1,
+      options?: any
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
+        configuration
+      ).confirmUserId(uuid, inlineObject1, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * Registration of new user
      * @summary Create user
      * @param {User} user
@@ -2475,19 +2648,19 @@ export const UserApiFp = function (configuration?: Configuration) {
     /**
      * This can only be done by the logged in user with privilegy.
      * @summary Delete user
-     * @param {string} username The name that needs to be deleted
+     * @param {string} uuid The name that needs to be deleted
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async deleteUser(
-      username: string,
+      uuid: string,
       options?: any
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
     > {
       const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
-      ).deleteUser(username, options);
+      ).deleteUser(uuid, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2527,19 +2700,19 @@ export const UserApiFp = function (configuration?: Configuration) {
     /**
      *
      * @summary Get user by user name
-     * @param {string} username The name that needs to be fetched. Use user1 for testing.
+     * @param {string} uuid The uuid that needs to be fetched
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getUserByName(
-      username: string,
+      uuid: string,
       options?: any
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
     > {
       const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
-      ).getUserByName(username, options);
+      ).getUserByName(uuid, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2604,15 +2777,42 @@ export const UserApiFp = function (configuration?: Configuration) {
       };
     },
     /**
+     * This is part of confirmation process
+     * @summary Confirmation process case of SMS code was not sent
+     * @param {string} uuid user id that need to send new sms code
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async sendCodeAgain(
+      uuid: string,
+      options?: any
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
+    > {
+      const localVarAxiosArgs = await UserApiAxiosParamCreator(
+        configuration
+      ).sendCodeAgain(uuid, options);
+      return (
+        axios: AxiosInstance = globalAxios,
+        basePath: string = BASE_PATH
+      ) => {
+        const axiosRequestArgs = {
+          ...localVarAxiosArgs.options,
+          url: basePath + localVarAxiosArgs.url,
+        };
+        return axios.request(axiosRequestArgs);
+      };
+    },
+    /**
      * This can only be done by the logged in user.
      * @summary Updated user
-     * @param {string} username name that need to be updated
+     * @param {string} uuid name that need to be updated
      * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async updateUser(
-      username: string,
+      uuid: string,
       user: User,
       options?: any
     ): Promise<
@@ -2620,7 +2820,7 @@ export const UserApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await UserApiAxiosParamCreator(
         configuration
-      ).updateUser(username, user, options);
+      ).updateUser(uuid, user, options);
       return (
         axios: AxiosInstance = globalAxios,
         basePath: string = BASE_PATH
@@ -2646,6 +2846,23 @@ export const UserApiFactory = function (
 ) {
   return {
     /**
+     * This is part of confirmation process
+     * @summary Confirmation try of user phone
+     * @param {string} uuid user id that need to be checked alongside with code
+     * @param {InlineObject1} inlineObject1
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    confirmUserId(
+      uuid: string,
+      inlineObject1: InlineObject1,
+      options?: any
+    ): AxiosPromise<void> {
+      return UserApiFp(configuration)
+        .confirmUserId(uuid, inlineObject1, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * Registration of new user
      * @summary Create user
      * @param {User} user
@@ -2660,13 +2877,13 @@ export const UserApiFactory = function (
     /**
      * This can only be done by the logged in user with privilegy.
      * @summary Delete user
-     * @param {string} username The name that needs to be deleted
+     * @param {string} uuid The name that needs to be deleted
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteUser(username: string, options?: any): AxiosPromise<void> {
+    deleteUser(uuid: string, options?: any): AxiosPromise<void> {
       return UserApiFp(configuration)
-        .deleteUser(username, options)
+        .deleteUser(uuid, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -2683,13 +2900,13 @@ export const UserApiFactory = function (
     /**
      *
      * @summary Get user by user name
-     * @param {string} username The name that needs to be fetched. Use user1 for testing.
+     * @param {string} uuid The uuid that needs to be fetched
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserByName(username: string, options?: any): AxiosPromise<User> {
+    getUserByName(uuid: string, options?: any): AxiosPromise<User> {
       return UserApiFp(configuration)
-        .getUserByName(username, options)
+        .getUserByName(uuid, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -2719,20 +2936,28 @@ export const UserApiFactory = function (
         .then((request) => request(axios, basePath));
     },
     /**
+     * This is part of confirmation process
+     * @summary Confirmation process case of SMS code was not sent
+     * @param {string} uuid user id that need to send new sms code
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    sendCodeAgain(uuid: string, options?: any): AxiosPromise<void> {
+      return UserApiFp(configuration)
+        .sendCodeAgain(uuid, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      * This can only be done by the logged in user.
      * @summary Updated user
-     * @param {string} username name that need to be updated
+     * @param {string} uuid name that need to be updated
      * @param {User} user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateUser(
-      username: string,
-      user: User,
-      options?: any
-    ): AxiosPromise<void> {
+    updateUser(uuid: string, user: User, options?: any): AxiosPromise<void> {
       return UserApiFp(configuration)
-        .updateUser(username, user, options)
+        .updateUser(uuid, user, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -2745,6 +2970,25 @@ export const UserApiFactory = function (
  * @extends {BaseAPI}
  */
 export class UserApi extends BaseAPI {
+  /**
+   * This is part of confirmation process
+   * @summary Confirmation try of user phone
+   * @param {string} uuid user id that need to be checked alongside with code
+   * @param {InlineObject1} inlineObject1
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public confirmUserId(
+    uuid: string,
+    inlineObject1: InlineObject1,
+    options?: any
+  ) {
+    return UserApiFp(this.configuration)
+      .confirmUserId(uuid, inlineObject1, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
   /**
    * Registration of new user
    * @summary Create user
@@ -2762,14 +3006,14 @@ export class UserApi extends BaseAPI {
   /**
    * This can only be done by the logged in user with privilegy.
    * @summary Delete user
-   * @param {string} username The name that needs to be deleted
+   * @param {string} uuid The name that needs to be deleted
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public deleteUser(username: string, options?: any) {
+  public deleteUser(uuid: string, options?: any) {
     return UserApiFp(this.configuration)
-      .deleteUser(username, options)
+      .deleteUser(uuid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2789,14 +3033,14 @@ export class UserApi extends BaseAPI {
   /**
    *
    * @summary Get user by user name
-   * @param {string} username The name that needs to be fetched. Use user1 for testing.
+   * @param {string} uuid The uuid that needs to be fetched
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public getUserByName(username: string, options?: any) {
+  public getUserByName(uuid: string, options?: any) {
     return UserApiFp(this.configuration)
-      .getUserByName(username, options)
+      .getUserByName(uuid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2828,17 +3072,31 @@ export class UserApi extends BaseAPI {
   }
 
   /**
+   * This is part of confirmation process
+   * @summary Confirmation process case of SMS code was not sent
+   * @param {string} uuid user id that need to send new sms code
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public sendCodeAgain(uuid: string, options?: any) {
+    return UserApiFp(this.configuration)
+      .sendCodeAgain(uuid, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * This can only be done by the logged in user.
    * @summary Updated user
-   * @param {string} username name that need to be updated
+   * @param {string} uuid name that need to be updated
    * @param {User} user
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserApi
    */
-  public updateUser(username: string, user: User, options?: any) {
+  public updateUser(uuid: string, user: User, options?: any) {
     return UserApiFp(this.configuration)
-      .updateUser(username, user, options)
+      .updateUser(uuid, user, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
