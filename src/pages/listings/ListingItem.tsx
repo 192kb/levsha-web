@@ -98,7 +98,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
         {user?.uuid === userId && (
           <Button
             size='small'
-            color='primary'
+            color='secondary'
             onClick={() => history.push(PagePath.TaskEdit + uuid)}
           >
             Редактировать

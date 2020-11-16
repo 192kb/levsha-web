@@ -65,7 +65,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <img alt='Levsha' src='/favicon-57.png' />
+          <img alt='Levsha' src='favicon-192.png' />
         </Avatar>
         <Typography component='h1' variant='h5'>
           Вход

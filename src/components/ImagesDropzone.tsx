@@ -82,7 +82,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
   return (
     <Dropzone
       disabled={isUploading}
-      accept={'image/jpeg'}
+      accept={'image/jpeg, image/png'}
       onDrop={(acceptedFiles) => {
         if (acceptedFiles) {
           let uniqueFiles: number[] = [];

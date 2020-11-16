@@ -638,7 +638,7 @@ export const LocationApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -695,7 +695,7 @@ export const LocationApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -897,7 +897,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -959,7 +959,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1028,7 +1028,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1085,7 +1085,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1128,7 +1128,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1171,7 +1171,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1228,7 +1228,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1296,7 +1296,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1370,7 +1370,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -1430,7 +1430,7 @@ export const TaskApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2080,7 +2080,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2143,7 +2143,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2186,7 +2186,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2243,7 +2243,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2299,7 +2299,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2348,7 +2348,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {
@@ -2416,7 +2416,7 @@ export const UserApiAxiosParamCreator = function (
         ...options.query,
       };
       // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
+      localVarUrlObj.search = null;
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = {

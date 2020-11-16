@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { RouteComponentProps, useParams, withRouter } from 'react-router-dom';
 import {
   Paper,
   Typography,
@@ -19,7 +19,7 @@ import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
 import Alert from '@material-ui/lab/Alert';
 
-type ListingDetailsProps = {};
+type ListingDetailsProps = {} & RouteComponentProps<{ taskId: string }>;
 
 const useStyles = makeStyles((theme) => ({
   oneRowGridList: {
@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
-  const { taskId } = useParams();
+const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
+  const { taskId } = useParams<{ taskId: string }>();
   const classes = useStyles();
   const [task, setTask] = React.useState<Task | undefined>();
   const [loaded, setLoaded] = React.useState<boolean>(false);
@@ -55,6 +55,9 @@ export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
   React.useEffect(() => {
     const taskApi = new TaskApi(apiConfiguration);
     taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
+      switch (response.status) {
+        case 200:
+      }
       setTask(response.data);
       setLoaded(response.status === 200);
     });
@@ -164,3 +167,5 @@ export const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
     <LinearProgress />
   );
 };
+
+export default withRouter(ListingDetails);

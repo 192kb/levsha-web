@@ -7,7 +7,13 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  createStyles,
+  makeStyles,
+  Theme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
@@ -19,16 +25,45 @@ import ListingsPage from './pages/listings';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { storeUserId } from './storage/userId';
-import { ListingDetails } from './pages/listings/ListingDetails';
+import ListingDetails from './pages/listings/ListingDetails';
 import { Blank } from './pages/Blank';
 import { ListingAdd } from './pages/listings/ListingAdd';
+import { red, yellow } from '@material-ui/core/colors';
 
 export const apiConfiguration: Configuration = new Configuration({
   basePath: 'https://192kb.ru/levsha-api',
 });
+
 export const axiosRequestConfig: AxiosRequestConfig = {
   withCredentials: true,
 };
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+  palette: {
+    primary: {
+      main: yellow[700],
+      contrastText: '#000',
+    },
+    secondary: {
+      main: red[700],
+      contrastText: '#000',
+    },
+  },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -85,7 +120,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <AppBar position='relative'>
         <Toolbar>
           <IconButton
@@ -167,7 +202,7 @@ const App: React.FC = () => {
         </Switch>
       </main>
       <footer />
-    </>
+    </ThemeProvider>
   );
 };
 
