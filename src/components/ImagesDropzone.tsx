@@ -16,8 +16,10 @@ type ImageDropzoneProps = {
 
 const useStyles = makeStyles((theme) => ({
   dropzoneSection: {
-    padding: theme.spacing(5),
     border: '2px dashed #ccc',
+    width: 'calc(100% - 20px)',
+    minWidth: 0,
+    padding: '10px',
   },
   imageIcon: {
     verticalAlign: 'text-bottom',
@@ -28,10 +30,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     alignItems: 'baseline',
     flexWrap: 'nowrap',
+    margin: 0,
   },
   previewImage: {
     width: '33%',
     height: 'auto',
+    margin: theme.spacing(3),
   },
 }));
 

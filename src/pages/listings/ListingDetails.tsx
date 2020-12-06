@@ -17,6 +17,7 @@ import { Task, TaskApi } from '../../model';
 import { apiConfiguration, axiosRequestConfig } from '../../App';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
+import taskDefaultImage from '../../static/task-image-default.png';
 import Alert from '@material-ui/lab/Alert';
 
 type ListingDetailsProps = {} & RouteComponentProps<{ taskId: string }>;
@@ -33,8 +34,16 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'nowrap',
     transform: 'translateZ(0)',
   },
+  container: {
+    paddingTop: '40px',
+  },
   paper: {
-    padding: theme.spacing(8),
+    padding: theme.spacing(5),
+    borderRadius: '30px',
+  },
+  defaultImage: {
+    width: '100%',
+    height: 'auto',
   },
   phoneButton: {
     margin: '10px 0',
@@ -78,8 +87,8 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
 
   return loaded && task ? (
     <>
-      <Container component='main' maxWidth='md'>
-        <Paper elevation={3} className={classes.paper}>
+      <Container component='main' maxWidth='md' className={classes.container}>
+        <Paper elevation={15} className={classes.paper}>
           <Grid container spacing={4}>
             <Grid item xs={6}>
               <Typography variant='subtitle1' color='textSecondary'>
@@ -106,13 +115,21 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           </Typography>
           <main>
             <div className={classes.oneRowGridList}>
-              <GridList className={classes.gridList} cols={2.5}>
-                {task.images?.map((taskImage) => (
-                  <GridListTile key={taskImage.url}>
-                    <img src={taskImage.url} alt={task.title} />
-                  </GridListTile>
-                ))}
-              </GridList>
+              {task.images?.length ? (
+                <GridList className={classes.gridList} cols={2.5}>
+                  {task.images?.map((taskImage) => (
+                    <GridListTile key={taskImage.url}>
+                      <img src={taskImage.url} alt={task.title} />
+                    </GridListTile>
+                  ))}
+                </GridList>
+              ) : (
+                <img
+                  className={classes.defaultImage}
+                  src={taskDefaultImage}
+                  alt={task.title}
+                />
+              )}
             </div>
             <Typography variant='body1' paragraph>
               {task?.description}

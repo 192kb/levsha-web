@@ -121,7 +121,7 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position='relative'>
+      <AppBar position='fixed' elevation={0}>
         <Toolbar>
           <IconButton
             edge='start'
@@ -181,7 +181,7 @@ const App: React.FC = () => {
           ) : null}
         </Toolbar>
       </AppBar>
-      <main>
+      <main style={{ paddingTop: '40px' }}>
         <Switch>
           <Route path={PagePath.SignIn}>
             <SignInPage onSignInUser={handleSignInUser} />

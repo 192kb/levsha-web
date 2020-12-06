@@ -36,14 +36,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    padding: theme.spacing(8),
+    padding: theme.spacing(4),
   },
   selectInput: {
     marginBottom: theme.spacing(-2),
-  },
-  dropzoneSection: {
-    padding: theme.spacing(5),
-    border: '2px dashed #ccc',
   },
   imageIcon: {
     verticalAlign: 'text-bottom',
