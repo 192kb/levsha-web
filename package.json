@@ -1,6 +1,6 @@
 {
   "name": "levsha-web",
-  "homepage": "https://levsha.work/",
+  "homepage": "/",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
