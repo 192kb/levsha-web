@@ -16,7 +16,7 @@ import { Configuration } from './configuration';
 // @ts-ignore
 import globalAxios, { AxiosInstance } from 'axios';
 
-export const BASE_PATH = 'https://192kb.ru/levsha-api'.replace(/\/+$/, '');
+export const BASE_PATH = 'https://levsha.work/levsha-api'.replace(/\/+$/, '');
 
 /**
  *

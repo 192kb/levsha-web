@@ -31,7 +31,7 @@ import { ListingAdd } from './pages/listings/ListingAdd';
 import { red, yellow } from '@material-ui/core/colors';
 
 export const apiConfiguration: Configuration = new Configuration({
-  basePath: 'https://192kb.ru/levsha-api',
+  basePath: 'https://levsha.work/levsha-api',
 });
 
 export const axiosRequestConfig: AxiosRequestConfig = {
