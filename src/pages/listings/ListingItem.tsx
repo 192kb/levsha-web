@@ -1,10 +1,8 @@
-// @flow
 import {
   Button,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +13,6 @@ import { PagePath } from '..';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
 import { Task } from '../../model';
-import taskDefaultImage from '../../static/task-image-default.png';
 import { getUserIdFromStorage } from '../../storage/userId';
 
 export type ListingLocation = {
@@ -84,18 +81,17 @@ export const ListingItem: React.FC<ListingItemProps> = ({
   const userId = getUserIdFromStorage();
 
   return (
-    <Card elevation={15} className={classes.card}>
+    <Card
+      elevation={1}
+      className={classes.card}
+      onClick={() => history.push(PagePath.Task + uuid)}
+    >
       <CardContent>
         <Typography className={classes.district}>{district?.name}</Typography>
         <Typography className={classes.date}>
           <DateFromNow value={date_start || date_created || ''} />
         </Typography>
       </CardContent>
-      <CardMedia
-        className={classes.cardMedia}
-        image={(images && images[0] && images[0].url) || taskDefaultImage}
-        title={title}
-      />
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant='h5' component='h2' noWrap>
           {title}
@@ -110,19 +106,8 @@ export const ListingItem: React.FC<ListingItemProps> = ({
         )}
       </CardContent>
       <CardActions>
-        <Button
-          size='small'
-          color='primary'
-          onClick={() => history.push(PagePath.Task + uuid)}
-        >
-          Просмотреть
-        </Button>
         {user?.uuid === userId && (
-          <Button
-            size='small'
-            color='secondary'
-            onClick={() => history.push(PagePath.TaskEdit + uuid)}
-          >
+          <Button size='small' color='secondary'>
             Редактировать
           </Button>
         )}

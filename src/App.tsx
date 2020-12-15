@@ -14,7 +14,7 @@ import {
   Theme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import { AccountCircle, Menu as MenuIcon } from '@material-ui/icons';
+import { AccountCircle, Home } from '@material-ui/icons';
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { AxiosRequestConfig } from 'axios';
@@ -128,8 +128,9 @@ const App: React.FC = () => {
             className={classes.menuButton}
             color='inherit'
             aria-label='menu'
+            onClick={() => history.push(PagePath.Tasks)}
           >
-            <MenuIcon />
+            <Home />
           </IconButton>
           <Typography
             variant='h6'
@@ -166,7 +167,7 @@ const App: React.FC = () => {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Мои заказы</MenuItem>
+                  {/* <MenuItem onClick={handleClose}>Мои заказы</MenuItem> */}
                   <MenuItem onClick={handleLogout}>Выход</MenuItem>
                 </Menu>
               </div>
