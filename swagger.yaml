@@ -1,88 +1,88 @@
 openapi: 3.0.0
 
 info:
-  description: "Levsha is open small work listing project"
-  version: "1.0.0"
-  title: "Проект LEVSHA"
+  description: 'Levsha is open small work listing project'
+  version: '1.0.0'
+  title: 'Проект LEVSHA'
   contact:
-    email: "v.tyrin@icloud.com"
+    email: 'v.tyrin@icloud.com'
   license:
-    name: "MIT"
+    name: 'MIT'
 servers:
-  - url: https://192kb.ru/levsha-api/
+  - url: https://levsha.work/levsha-api/
 tags:
-  - name: "task"
-    description: "Access to task orders"
-  - name: "user"
-    description: "Operations about user"
-  - name: "location"
-    description: "Location-related options"
+  - name: 'task'
+    description: 'Access to task orders'
+  - name: 'user'
+    description: 'Operations about user'
+  - name: 'location'
+    description: 'Location-related options'
 components:
   schemas:
     User:
-      type: "object"
+      type: 'object'
       properties:
         uuid:
-          type: "string"
+          type: 'string'
         firstname:
-          type: "string"
+          type: 'string'
         secondname:
-          type: "string"
+          type: 'string'
         lastname:
-          type: "string"
+          type: 'string'
         date_created:
-          type: "string"
+          type: 'string'
         last_change:
-          type: "string"
+          type: 'string'
         date_deleted:
-          type: "string"
+          type: 'string'
         is_deleted:
-          type: "boolean"
+          type: 'boolean'
           default: false
         login:
-          type: "string"
+          type: 'string'
         password:
-          type: "string"
+          type: 'string'
         phone:
-          type: "string"
+          type: 'string'
         email:
-          type: "string"
+          type: 'string'
         vk_profile:
-          type: "string"
+          type: 'string'
         ok_profile:
-          type: "string"
+          type: 'string'
         fb_profile:
-          type: "string"
+          type: 'string'
         ig_profile:
-          type: "string"
+          type: 'string'
         tw_profile:
-          type: "string"
+          type: 'string'
         yt_profile:
-          type: "string"
+          type: 'string'
         be_profile:
-          type: "string"
+          type: 'string'
         li_profile:
-          type: "string"
+          type: 'string'
         hh_profile:
-          type: "string"
+          type: 'string'
         phone_comfirmed:
-          type: "boolean"
+          type: 'boolean'
           default: false
         email_confirmed:
-          type: "boolean"
+          type: 'boolean'
           default: false
         photo_url:
-          type: "string"
+          type: 'string'
         city:
-          $ref: "#/components/schemas/City"
+          $ref: '#/components/schemas/City'
         starred_users:
-          type: "array"
+          type: 'array'
           items:
-            $ref: "#/components/schemas/User"
+            $ref: '#/components/schemas/User'
         hidden_users:
-          type: "array"
+          type: 'array'
           items:
-            $ref: "#/components/schemas/User"
+            $ref: '#/components/schemas/User'
       required:
         - uuid
         - firstname
@@ -91,130 +91,130 @@ components:
         - phone
 
     TaskCategory:
-      type: "object"
+      type: 'object'
       properties:
         id:
-          type: "number"
+          type: 'number'
         name:
-          type: "string"
+          type: 'string'
         sorting:
-          type: "number"
+          type: 'number'
         is_deprecated:
-          type: "boolean"
+          type: 'boolean'
 
     Task:
-      type: "object"
+      type: 'object'
       properties:
         uuid:
-          type: "string"
+          type: 'string'
         user:
-          $ref: "#/components/schemas/User"
+          $ref: '#/components/schemas/User'
         date_created:
-          type: "string"
+          type: 'string'
         is_active:
-          type: "boolean"
+          type: 'boolean'
         title:
-          type: "string"
+          type: 'string'
         description:
-          type: "string"
+          type: 'string'
         price:
-          type: "integer"
+          type: 'integer'
         unit:
-          type: "string"
+          type: 'string'
         have_constant_price:
-          type: "boolean"
+          type: 'boolean'
         date_start:
-          type: "string"
+          type: 'string'
         date_finish:
-          type: "string"
+          type: 'string'
         district:
-          $ref: "#/components/schemas/District"
+          $ref: '#/components/schemas/District'
         category:
-          $ref: "#/components/schemas/TaskCategory"
+          $ref: '#/components/schemas/TaskCategory'
         images:
-          type: "array"
+          type: 'array'
           items:
-            $ref: "#/components/schemas/TaskImage"
+            $ref: '#/components/schemas/TaskImage'
 
     TaskImage:
-      type: "object"
+      type: 'object'
       properties:
         uuid:
-          type: "string"
+          type: 'string'
         date_created:
-          type: "string"
+          type: 'string'
         date_deleted:
-          type: "string"
+          type: 'string'
         is_deleted:
-          type: "boolean"
+          type: 'boolean'
         url:
-          type: "string"
+          type: 'string'
         task_id:
-          type: "string"
+          type: 'string'
         user_id:
-          type: "string"
+          type: 'string'
 
     Message:
-      type: "object"
+      type: 'object'
       properties:
         id:
-          type: "integer"
-          required: ["true"]
+          type: 'integer'
+          required: ['true']
         user_from:
-          type: "integer"
-          required: ["true"]
+          type: 'integer'
+          required: ['true']
         user_to:
-          type: "integer"
-          required: ["true"]
+          type: 'integer'
+          required: ['true']
         task_id:
-          type: "integer"
+          type: 'integer'
         message:
-          type: "string"
+          type: 'string'
         date_created:
-          type: "string"
+          type: 'string'
         date_read:
-          type: "string"
+          type: 'string'
         is_deleted:
-          type: "boolean"
+          type: 'boolean'
 
     Notification:
-      type: "object"
+      type: 'object'
       properties:
         id:
-          type: "number"
+          type: 'number'
         user_id:
-          type: "number"
+          type: 'number'
         title:
-          type: "string"
+          type: 'string'
         message:
-          type: "string"
+          type: 'string'
         date_created:
-          type: "string"
+          type: 'string'
         date_read:
-          type: "string"
+          type: 'string'
         payload:
-          type: "string"
+          type: 'string'
         notification_type_id:
-          type: "number"
+          type: 'number'
 
     NotificationType:
       type: object
       properties:
         id:
-          type: "number"
+          type: 'number'
         name:
-          type: "string"
+          type: 'string'
 
     City:
-      type: "object"
+      type: 'object'
       properties:
         id:
-          type: "integer"
-          format: "int32"
+          type: 'integer'
+          format: 'int32'
         name:
-          type: "string"
+          type: 'string'
         is_deleted:
-          type: "boolean"
+          type: 'boolean'
           default: false
       required:
         - id
@@ -222,16 +222,16 @@ components:
         - is_deleted
 
     District:
-      type: "object"
+      type: 'object'
       properties:
         id:
-          type: "integer"
+          type: 'integer'
         name:
-          type: "string"
+          type: 'string'
         city_id:
-          type: "integer"
+          type: 'integer'
         is_deleted:
-          type: "boolean"
+          type: 'boolean'
           default: false
       required:
         - id
@@ -251,15 +251,15 @@ components:
         - password
 
     ApiResponse:
-      type: "object"
+      type: 'object'
       properties:
         code:
-          type: "integer"
-          format: "int32"
+          type: 'integer'
+          format: 'int32'
         type:
-          type: "string"
+          type: 'string'
         message:
-          type: "string"
+          type: 'string'
   securitySchemes:
     cookieAuth: # arbitrary name for the security scheme; will be used in the "security" key later
       type: apiKey
@@ -271,60 +271,60 @@ paths:
   /city:
     get:
       tags:
-        - "location"
-      summary: "Get list of current cities"
-      operationId: "getCity"
+        - 'location'
+      summary: 'Get list of current cities'
+      operationId: 'getCity'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                type: "array"
+                type: 'array'
                 items:
-                  $ref: "#/components/schemas/City"
+                  $ref: '#/components/schemas/City'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /city/{city_id}/district:
     get:
       tags:
-        - "location"
-      summary: "Get list of current cities"
-      operationId: "getDiscrictsByCityId"
+        - 'location'
+      summary: 'Get list of current cities'
+      operationId: 'getDiscrictsByCityId'
       parameters:
         - name: city_id
-          in: "path"
+          in: 'path'
           required: true
-          description: "Id of queried city"
+          description: 'Id of queried city'
           schema:
-            type: "integer"
+            type: 'integer'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                type: "array"
+                type: 'array'
                 items:
-                  $ref: "#/components/schemas/District"
+                  $ref: '#/components/schemas/District'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /task:
     get:
       tags:
-        - "task"
-      summary: "Get list of tasks"
-      operationId: "getTasks"
+        - 'task'
+      summary: 'Get list of tasks'
+      operationId: 'getTasks'
       responses:
         200:
           description: OK
@@ -333,38 +333,38 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Task"
+                  $ref: '#/components/schemas/Task'
         400:
-          description: "Server error"
+          description: 'Server error'
     put:
       tags:
-        - "task"
-      summary: "Add a new task on board"
-      description: ""
-      operationId: "addTask"
+        - 'task'
+      summary: 'Add a new task on board'
+      description: ''
+      operationId: 'addTask'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Task"
+              $ref: '#/components/schemas/Task'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Task"
+                $ref: '#/components/schemas/Task'
 
         405:
-          description: "Invalid input"
+          description: 'Invalid input'
 
   /task/item/{task_id}:
     get:
       tags:
         - task
       summary: Get an existing task detailed
-      description: ""
+      description: ''
       operationId: getTask
       parameters:
         - name: task_id
@@ -379,31 +379,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Task"
+                $ref: '#/components/schemas/Task'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         404:
           description: Task not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
     post:
       tags:
         - task
       summary: Update an existing task
-      description: ""
+      description: ''
       operationId: updateTask
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Task"
+              $ref: '#/components/schemas/Task'
       parameters:
         - name: task_id
           in: path
@@ -417,140 +417,140 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Task"
+                $ref: '#/components/schemas/Task'
 
         400:
           description: Invalid data supplied
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         404:
           description: Task not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         405:
           description: Validation exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /task/by_location/{location_id}:
     get:
       tags:
-        - "task"
-      summary: "Finds tasks by location"
-      description: "Get list of first tasks by location id"
-      operationId: "findTasksByLocation"
+        - 'task'
+      summary: 'Finds tasks by location'
+      description: 'Get list of first tasks by location id'
+      operationId: 'findTasksByLocation'
       parameters:
-        - name: "location_id"
-          in: "path"
-          description: "Id of queried location"
+        - name: 'location_id'
+          in: 'path'
+          description: 'Id of queried location'
           required: true
           schema:
-            type: "integer"
-        - name: "page"
-          in: "query"
-          description: "Status values that need to be considered for filter"
+            type: 'integer'
+        - name: 'page'
+          in: 'query'
+          description: 'Status values that need to be considered for filter'
           required: false
           schema:
             type: integer
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                type: "array"
+                type: 'array'
                 items:
-                  $ref: "#/components/schemas/Task"
+                  $ref: '#/components/schemas/Task'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
   /task/category:
     get:
       tags:
-        - "task"
-      summary: "Get list of task categories"
-      operationId: "getTaskCategories"
+        - 'task'
+      summary: 'Get list of task categories'
+      operationId: 'getTaskCategories'
       responses:
         200:
-          description: "Get list of existing task categories"
+          description: 'Get list of existing task categories'
           content:
             application/json:
               schema:
-                type: "array"
+                type: 'array'
                 items:
-                  $ref: "#/components/schemas/TaskCategory"
+                  $ref: '#/components/schemas/TaskCategory'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
     put:
       tags:
-        - "task"
-      summary: "Create new task category"
-      operationId: "createTaskCategory"
+        - 'task'
+      summary: 'Create new task category'
+      operationId: 'createTaskCategory'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TaskCategory"
+              $ref: '#/components/schemas/TaskCategory'
       responses:
         default:
-          description: "successful operation"
+          description: 'successful operation'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /task/category/{task_category_id}:
     post:
       tags:
-        - "task"
-      summary: "Update given task category"
-      operationId: "updateTaskCategory"
+        - 'task'
+      summary: 'Update given task category'
+      operationId: 'updateTaskCategory'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TaskCategory"
+              $ref: '#/components/schemas/TaskCategory'
       parameters:
-        - name: "task_category_id"
-          in: "path"
-          description: "Id of queried location"
+        - name: 'task_category_id'
+          in: 'path'
+          description: 'Id of queried location'
           required: true
           schema:
-            type: "integer"
+            type: 'integer'
       responses:
         default:
-          description: "successful operation"
+          description: 'successful operation'
         404:
-          description: "Not found"
+          description: 'Not found'
     delete:
       tags:
-        - "task"
-      summary: "Removes given task category"
-      operationId: "removeTaskCategory"
+        - 'task'
+      summary: 'Removes given task category'
+      operationId: 'removeTaskCategory'
       parameters:
-        - name: "task_category_id"
-          in: "path"
-          description: "Id of queried location"
+        - name: 'task_category_id'
+          in: 'path'
+          description: 'Id of queried location'
           required: true
           schema:
-            type: "integer"
+            type: 'integer'
       responses:
         200:
           description: OK
@@ -559,13 +559,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /task/image:
     post:
       tags:
-        - "task"
-      summary: "Upload new image to server before corresponding task is created"
+        - 'task'
+      summary: 'Upload new image to server before corresponding task is created'
       operationId: uploadTaskImage"
       requestBody:
         content:
@@ -582,195 +582,195 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TaskImage"
+                $ref: '#/components/schemas/TaskImage'
         500:
           description: Server error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         405:
           description: Invalid input
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /user:
     get:
       tags:
-        - "user"
-      summary: "Get current user from session, eg after reload of app"
-      description: ""
-      operationId: "getCurrentUser"
+        - 'user'
+      summary: 'Get current user from session, eg after reload of app'
+      description: ''
+      operationId: 'getCurrentUser'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
         400:
-          description: "Server error"
+          description: 'Server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         404:
-          description: "Session not found / invalid / expired"
+          description: 'Session not found / invalid / expired'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
-    post:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
       tags:
-        - "user"
-      summary: "Create user"
-      description: "Registration of new user"
-      operationId: "createUser"
+        - 'user'
+      summary: 'Create user'
+      description: 'Registration of new user'
+      operationId: 'createUser'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
         400:
-          description: "Form invalid"
+          description: 'Form invalid'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /user/login:
     post:
       tags:
-        - "user"
-      summary: "Logs user into the system"
-      description: ""
-      operationId: "loginUser"
+        - 'user'
+      summary: 'Logs user into the system'
+      description: ''
+      operationId: 'loginUser'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SignInParameters"
+              $ref: '#/components/schemas/SignInParameters'
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
         401:
-          description: "Invalid username/password supplied"
+          description: 'Invalid username/password supplied'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
   /user/logout:
     get:
       tags:
-        - "user"
-      summary: "Logs out current logged in user session"
-      description: ""
-      operationId: "logoutUser"
+        - 'user'
+      summary: 'Logs out current logged in user session'
+      description: ''
+      operationId: 'logoutUser'
       parameters: []
       responses:
         default:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         400:
-          description: "server error"
+          description: 'server error'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
   /user/{username}:
     get:
       tags:
-        - "user"
-      summary: "Get user by user name"
-      description: ""
-      operationId: "getUserByName"
+        - 'user'
+      summary: 'Get user by user name'
+      description: ''
+      operationId: 'getUserByName'
       parameters:
-        - name: "username"
-          in: "path"
-          description: "The name that needs to be fetched. Use user1 for testing. "
+        - name: 'username'
+          in: 'path'
+          description: 'The name that needs to be fetched. Use user1 for testing. '
           required: true
           schema:
-            type: "string"
+            type: 'string'
       responses:
         200:
-          description: "successful operation"
+          description: 'successful operation'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
         400:
-          description: "Invalid username supplied"
+          description: 'Invalid username supplied'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
         404:
-          description: "User not found"
+          description: 'User not found'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
     post:
       tags:
-        - "user"
-      summary: "Updated user"
-      description: "This can only be done by the logged in user."
-      operationId: "updateUser"
+        - 'user'
+      summary: 'Updated user'
+      description: 'This can only be done by the logged in user.'
+      operationId: 'updateUser'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: '#/components/schemas/User'
       parameters:
-        - name: "username"
-          in: "path"
-          description: "name that need to be updated"
+        - name: 'username'
+          in: 'path'
+          description: 'name that need to be updated'
           required: true
           schema:
-            type: "string"
+            type: 'string'
       responses:
         400:
-          description: "Invalid user supplied"
+          description: 'Invalid user supplied'
         404:
-          description: "User not found"
+          description: 'User not found'
     delete:
       tags:
-        - "user"
-      summary: "Delete user"
-      description: "This can only be done by the logged in user with privilegy."
-      operationId: "deleteUser"
+        - 'user'
+      summary: 'Delete user'
+      description: 'This can only be done by the logged in user with privilegy.'
+      operationId: 'deleteUser'
       parameters:
-        - name: "username"
-          in: "path"
-          description: "The name that needs to be deleted"
+        - name: 'username'
+          in: 'path'
+          description: 'The name that needs to be deleted'
           required: true
           schema:
-            type: "string"
+            type: 'string'
       responses:
         400:
-          description: "Invalid username supplied"
+          description: 'Invalid username supplied'
         404:
-          description: "User not found"
+          description: 'User not found'
 
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: 'Find out more about Swagger'
+  url: 'http://swagger.io'
