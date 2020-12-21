@@ -114,7 +114,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           </Typography>
           <main>
             <div className={classes.oneRowGridList}>
-              {task.images?.length && (
+              {task.images?.length ? (
                 <GridList className={classes.gridList} cols={2.5}>
                   {task.images?.map((taskImage) => (
                     <GridListTile key={taskImage.url}>
@@ -122,7 +122,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
                     </GridListTile>
                   ))}
                 </GridList>
-              )}
+              ) : null}
             </div>
             <Typography variant='body1' paragraph>
               {task?.description}
