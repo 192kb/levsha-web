@@ -17,7 +17,6 @@ import { Task, TaskApi } from '../../model';
 import { apiConfiguration, axiosRequestConfig } from '../../App';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
-import taskDefaultImage from '../../static/task-image-default.png';
 import Alert from '@material-ui/lab/Alert';
 
 type ListingDetailsProps = {} & RouteComponentProps<{ taskId: string }>;
@@ -115,7 +114,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           </Typography>
           <main>
             <div className={classes.oneRowGridList}>
-              {task.images?.length ? (
+              {task.images?.length && (
                 <GridList className={classes.gridList} cols={2.5}>
                   {task.images?.map((taskImage) => (
                     <GridListTile key={taskImage.url}>
@@ -123,12 +122,6 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
                     </GridListTile>
                   ))}
                 </GridList>
-              ) : (
-                <img
-                  className={classes.defaultImage}
-                  src={taskDefaultImage}
-                  alt={task.title}
-                />
               )}
             </div>
             <Typography variant='body1' paragraph>

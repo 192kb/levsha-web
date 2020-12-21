@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
+    width: 96,
+    height: 96,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -64,9 +66,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <img alt='Levsha' src='favicon-192.png' />
-        </Avatar>
+        <Avatar className={classes.avatar} src='favicon-96.png' />
         <Typography component='h1' variant='h5'>
           Вход
         </Typography>

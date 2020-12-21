@@ -44,9 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUpPage: React.FC<SignUpPageProps> = (props) => {
   const classes = useStyles();
-  const [firstname, setFirstName] = React.useState<string>('');
-  const [secondname, setSecondName] = React.useState<string>('');
-  const [lastname, setLastName] = React.useState<string>('');
+  const [name, setName] = React.useState<string>('');
   const [phone, setPhone] = React.useState<string>('');
   const [city, setCityId] = React.useState<number | ''>('');
   const [password, setPassword] = React.useState<string>('');
@@ -63,8 +61,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
   }, []);
 
   const isValidForm: boolean =
-    !_.isEmpty(firstname) &&
-    !_.isEmpty(lastname) &&
+    !_.isEmpty(name) &&
     !_.isEmpty(phone) &&
     _.isNumber(city) &&
     !_.isEmpty(password);
@@ -76,9 +73,8 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
     userApi
       .createUser({
         uuid: '',
-        firstname,
-        secondname,
-        lastname,
+        firstname: name,
+        lastname: '',
         phone,
         password,
         city: cities.find(
@@ -111,7 +107,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSignUp}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete='fname'
                 name='firstName'
@@ -121,33 +117,8 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 id='firstName'
                 label='Имя'
                 autoFocus
-                value={firstname}
-                onChange={(event) => setFirstName(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant='outlined'
-                fullWidth
-                id='secondname'
-                label='Отчетство'
-                name='secondName'
-                autoComplete='sname'
-                value={secondname}
-                onChange={(event) => setSecondName(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                required
-                fullWidth
-                id='lastName'
-                label='Фамилия'
-                name='lastName'
-                autoComplete='lname'
-                value={lastname}
-                onChange={(event) => setLastName(event.target.value)}
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
