@@ -50,17 +50,25 @@ const useStyles = makeStyles((theme) => ({
   district: {
     float: 'left',
     color: 'gray',
+    fontSize: '10pt',
   },
   date: {
     float: 'right',
     color: 'gray',
+    fontSize: '10pt',
   },
   budget: {
     color: 'gray',
   },
   price: {
     color: 'black',
-    fontWeight: 700,
+    fontWeight: 500,
+    fontSize: '24pt',
+  },
+  title: {
+    fontSize: '18pt',
+    lineHeight: '16pt',
+    fontWeight: 500,
   },
 }));
 export const ListingItem: React.FC<ListingItemProps> = ({
@@ -82,7 +90,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
 
   return (
     <Card
-      elevation={1}
+      elevation={0}
       className={classes.card}
       onClick={() => history.push(PagePath.Task + uuid)}
     >
@@ -93,13 +101,18 @@ export const ListingItem: React.FC<ListingItemProps> = ({
         </Typography>
       </CardContent>
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant='h5' component='h2' noWrap>
+        <Typography
+          gutterBottom
+          noWrap
+          component='h3'
+          className={classes.title}
+        >
           {title}
         </Typography>
         {price && (
           <Typography className={classes.budget}>
-            Бюджет
-            <Typography className={classes.price}>
+            Бюджет{' '}
+            <Typography component='span' className={classes.price}>
               <Price value={price} />
             </Typography>
           </Typography>

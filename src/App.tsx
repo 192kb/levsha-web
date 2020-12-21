@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import { green, red, yellow } from '@material-ui/core/colors';
 import {
   createMuiTheme,
   createStyles,
@@ -15,20 +16,19 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 import { AccountCircle, Home } from '@material-ui/icons';
+import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
-import { AxiosRequestConfig } from 'axios';
 
 import { Configuration, User, UserApi } from './model';
 import { PagePath } from './pages';
+import { Blank } from './pages/Blank';
 import ListingsPage from './pages/listings';
+import { ListingAdd } from './pages/listings/ListingAdd';
+import ListingDetails from './pages/listings/ListingDetails';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { storeUserId } from './storage/userId';
-import ListingDetails from './pages/listings/ListingDetails';
-import { Blank } from './pages/Blank';
-import { ListingAdd } from './pages/listings/ListingAdd';
-import { red, yellow } from '@material-ui/core/colors';
 
 export const apiConfiguration: Configuration = new Configuration({
   basePath: 'https://levsha.work/levsha-api',
@@ -40,18 +40,7 @@ export const axiosRequestConfig: AxiosRequestConfig = {
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
+    fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
   },
   palette: {
     primary: {
@@ -72,6 +61,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
+    },
+    main: {
+      fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
+      paddingTop: '40px',
+      background: 'rgb(237, 237, 237)',
+      height: '100%',
+    },
+    appBar: {
+      fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
     },
   })
 );
@@ -121,7 +119,7 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position='fixed' elevation={0}>
+      <AppBar position='fixed' elevation={0} className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge='start'
@@ -182,7 +180,7 @@ const App: React.FC = () => {
           ) : null}
         </Toolbar>
       </AppBar>
-      <main style={{ paddingTop: '40px' }}>
+      <main className={classes.main}>
         <Switch>
           <Route path={PagePath.SignIn}>
             <SignInPage onSignInUser={handleSignInUser} />

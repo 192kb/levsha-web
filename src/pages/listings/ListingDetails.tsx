@@ -18,6 +18,7 @@ import { apiConfiguration, axiosRequestConfig } from '../../App';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
 import Alert from '@material-ui/lab/Alert';
+import { green } from '@material-ui/core/colors';
 
 type ListingDetailsProps = {} & RouteComponentProps<{ taskId: string }>;
 
@@ -40,15 +41,39 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(5),
     borderRadius: '30px',
   },
-  defaultImage: {
-    width: '100%',
-    height: 'auto',
-  },
   phoneButton: {
     margin: '10px 0',
+    fontSize: '12pt',
+    fontWeight: 300,
+    background: green[600],
+  },
+  showPhoneButton: {
+    margin: '10px 0',
+    fontSize: '12pt',
+    fontWeight: 300,
   },
   copyPhoneInput: {
     textAlign: 'center',
+  },
+  district: {
+    fontSize: '10pt',
+  },
+  date: {
+    fontSize: '10pt',
+  },
+  title: {
+    fontWeight: 500,
+    fontSize: '18pt',
+    lineHeight: '16pt',
+  },
+  budget: {
+    fontWeight: 300,
+    fontSize: '24pt',
+  },
+  description: {
+    fontSize: '12pt',
+    fontWeight: 300,
+    lineHeight: '12pt',
   },
 }));
 
@@ -90,7 +115,11 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
         <Paper elevation={15} className={classes.paper}>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <Typography variant='subtitle1' color='textSecondary'>
+              <Typography
+                variant='subtitle1'
+                color='textSecondary'
+                className={classes.district}
+              >
                 {task.district?.name}
               </Typography>
             </Grid>
@@ -99,6 +128,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
                 variant='subtitle1'
                 color='textSecondary'
                 align='right'
+                className={classes.date}
               >
                 <DateFromNow
                   value={task.date_start || task.date_created || ''}
@@ -106,10 +136,15 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
               </Typography>
             </Grid>
           </Grid>
-          <Typography component='h1' variant='h2'>
+          <Typography component='h1' variant='h2' className={classes.title}>
             {task.title || 'Без названия'}
           </Typography>
-          <Typography component='h2' variant='h4' color='textPrimary'>
+          <Typography
+            component='h2'
+            variant='h4'
+            color='textPrimary'
+            className={classes.budget}
+          >
             <Price value={task.price || 0} />
           </Typography>
           <main>
@@ -133,7 +168,6 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
               fullWidth
               className={classes.phoneButton}
               variant='contained'
-              color='primary'
               href={'tel:' + task.user?.phone}
             >
               Позвонить
@@ -143,9 +177,8 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
             isPhoneHidden ? (
               <Button
                 fullWidth
-                className={classes.phoneButton}
+                className={classes.showPhoneButton}
                 variant='contained'
-                color='secondary'
                 onClick={() => setPhoneHidden(false)}
               >
                 Показать телефон
