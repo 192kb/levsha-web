@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     position: 'fixed',
     bottom: '2em',
-    left: '2em',
+    right: '2em',
   },
 }));
 

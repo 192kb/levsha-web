@@ -164,6 +164,7 @@ export const ListingEdit: React.FC<{}> = () => {
           <TextField
             fullWidth
             required
+            multiline
             label='Описание'
             id='task-description'
             value={task.description || ''}
