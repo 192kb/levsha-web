@@ -7,7 +7,7 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { green, red, yellow } from '@material-ui/core/colors';
+import { red, yellow } from '@material-ui/core/colors';
 import {
   createMuiTheme,
   createStyles,
