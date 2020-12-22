@@ -201,11 +201,11 @@ const App: React.FC = () => {
           <Route path={PagePath.CreateTask}>
             <ListingAdd />
           </Route>
-          <Route path={PagePath.Tasks}>
-            <ListingsPage />
-          </Route>
           <Route path={PagePath.UserTasks}>
-            <ListingsPageUser />
+            <ListingsPageUser key='user-tasks' />
+          </Route>
+          <Route path={PagePath.Tasks}>
+            <ListingsPage key='tasks' />
           </Route>
           <Route component={() => <Blank />} />
         </Switch>

@@ -44,7 +44,10 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
       .then((response) => {
         setTasks(response.data);
       })
-      .catch((error) => setError((error as AxiosError).response?.data || error))
+      .catch((error) => {
+        setError((error as AxiosError).response?.data || error);
+        setTasks([]);
+      })
       .finally(() => setLoaded(true));
   };
 
