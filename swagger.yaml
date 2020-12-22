@@ -111,7 +111,7 @@ components:
           $ref: '#/components/schemas/User'
         date_created:
           type: 'string'
-        is_active:
+        is_deleted:
           type: 'boolean'
         title:
           type: 'string'
@@ -358,6 +358,23 @@ paths:
 
         405:
           description: 'Invalid input'
+  /task/user:
+    get:
+      tags:
+        - 'task'
+      summary: 'Get list of tasks'
+      operationId: 'getUserTasks'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        400:
+          description: 'Server error'
 
   /task/item/{task_id}:
     get:
@@ -433,6 +450,32 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
         405:
           description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+        - task
+      summary: Hide an existing task
+      description: ''
+      operationId: deleteTask
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+        400:
+          description: Invalid data supplied
           content:
             application/json:
               schema:

@@ -27,6 +27,7 @@ import ListingsPage from './pages/listings';
 import { ListingAdd } from './pages/listings/ListingAdd';
 import ListingDetails from './pages/listings/ListingDetails';
 import { ListingEdit } from './pages/listings/ListingEdit';
+import ListingsPageUser from './pages/listings/ListingsPageUser';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { storeUserId } from './storage/userId';
@@ -166,7 +167,9 @@ const App: React.FC = () => {
                   open={open}
                   onClose={handleClose}
                 >
-                  {/* <MenuItem onClick={handleClose}>Мои заказы</MenuItem> */}
+                  <MenuItem onClick={() => history.push(PagePath.UserTasks)}>
+                    Мои задачи
+                  </MenuItem>
                   <MenuItem onClick={handleLogout}>Выход</MenuItem>
                 </Menu>
               </div>
@@ -200,6 +203,9 @@ const App: React.FC = () => {
           </Route>
           <Route path={PagePath.Tasks}>
             <ListingsPage />
+          </Route>
+          <Route path={PagePath.UserTasks}>
+            <ListingsPageUser />
           </Route>
           <Route component={() => <Blank />} />
         </Switch>

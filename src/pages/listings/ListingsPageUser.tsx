@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ListingsPage: React.FC<ListingsPageProps> = (props) => {
+const ListingsPageUser: React.FC<ListingsPageProps> = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);
@@ -40,7 +40,7 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
   const loadTasks = () => {
     const taskApi = new TaskApi(apiConfiguration);
     taskApi
-      .getTasks(axiosRequestConfig)
+      .getUserTasks(axiosRequestConfig)
       .then((response) => {
         setTasks(response.data);
       })
@@ -79,4 +79,4 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
   );
 };
 
-export default ListingsPage;
+export default ListingsPageUser;

@@ -10,9 +10,10 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { PagePath } from '..';
+import { apiConfiguration } from '../../App';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
-import { Task } from '../../model';
+import { Task, TaskApi } from '../../model';
 import { getUserIdFromStorage } from '../../storage/userId';
 
 export type ListingLocation = {
@@ -22,6 +23,7 @@ export type ListingLocation = {
 
 type ListingItemProps = {
   item: Task;
+  onUpdate: () => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -80,12 +82,24 @@ export const ListingItem: React.FC<ListingItemProps> = ({
     date_start,
     date_created,
     user,
+    is_deleted,
   },
+  onUpdate,
 }) => {
   const classes = useStyles();
   const history = useHistory();
 
   const userId = getUserIdFromStorage();
+
+  const handleHideTask = () => {
+    if (!uuid) {
+      return;
+    }
+
+    const taskApi = new TaskApi(apiConfiguration);
+
+    taskApi.deleteTask(uuid).finally(onUpdate);
+  };
 
   return (
     <Card elevation={0} className={classes.card}>
@@ -121,13 +135,24 @@ export const ListingItem: React.FC<ListingItemProps> = ({
       </CardContent>
       <CardActions>
         {user?.uuid === userId && (
-          <Button
-            size='small'
-            color='secondary'
-            onClick={() => history.push(PagePath.TaskEdit + uuid)}
-          >
-            Редактировать
-          </Button>
+          <>
+            <Button
+              size='small'
+              onClick={() => history.push(PagePath.TaskEdit + uuid)}
+            >
+              Редактировать
+            </Button>
+
+            {is_deleted ? (
+              <Button size='small' disabled>
+                Скрыто
+              </Button>
+            ) : (
+              <Button size='small' color='secondary' onClick={handleHideTask}>
+                Скрыть
+              </Button>
+            )}
+          </>
         )}
       </CardActions>
     </Card>
