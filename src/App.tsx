@@ -26,6 +26,7 @@ import { Blank } from './pages/Blank';
 import ListingsPage from './pages/listings';
 import { ListingAdd } from './pages/listings/ListingAdd';
 import ListingDetails from './pages/listings/ListingDetails';
+import { ListingEdit } from './pages/listings/ListingEdit';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import { storeUserId } from './storage/userId';
@@ -187,6 +188,9 @@ const App: React.FC = () => {
           </Route>
           <Route path={PagePath.SignUp}>
             <SignUpPage />
+          </Route>
+          <Route path={PagePath.TaskEdit + ':taskId'}>
+            <ListingEdit />
           </Route>
           <Route path={PagePath.Task + ':taskId'}>
             <ListingDetails />

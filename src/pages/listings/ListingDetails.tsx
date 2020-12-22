@@ -91,9 +91,14 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
     taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
       switch (response.status) {
         case 200:
+          setTask(response.data);
+          setLoaded(true);
+          break;
+
+        default:
+          console.info(`status ${response.status} not handled`);
+          break;
       }
-      setTask(response.data);
-      setLoaded(response.status === 200);
     });
   }, [taskId]);
 

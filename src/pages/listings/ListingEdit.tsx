@@ -7,6 +7,9 @@ import {
   TextField,
   Typography,
   MenuItem,
+  GridList,
+  GridListTile,
+  IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AxiosError } from 'axios';
@@ -22,9 +25,10 @@ import {
   TaskCategory,
   UserApi,
 } from '../../model';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { PagePath } from '..';
 import DisplayError from '../../components/DisplayError';
+import { Close } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,13 +53,31 @@ const useStyles = makeStyles((theme) => ({
   imageIcon: {
     verticalAlign: 'text-bottom',
   },
+  oneRowGridList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+    transform: 'translateZ(0)',
+  },
+  removeImage: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
 }));
 
-export const ListingAdd: React.FC<{}> = () => {
+export const ListingEdit: React.FC<{}> = () => {
+  const { taskId } = useParams<{ taskId: string }>();
   const classes = useStyles();
   const history = useHistory();
 
   const [task, setTask] = React.useState<Task>({});
+  const [loaded, setLoaded] = React.useState<boolean>(false);
   const [error, setError] = React.useState<AxiosError | undefined>();
   const [isUploading, setIsUploading] = React.useState<boolean>(false);
   const [districts, setDistricts] = React.useState<District[]>([]);
@@ -74,6 +96,23 @@ export const ListingAdd: React.FC<{}> = () => {
         setError((error as AxiosError).response?.data || error)
       );
   }, []);
+
+  React.useEffect(() => {
+    setLoaded(false);
+    const taskApi = new TaskApi(apiConfiguration);
+    taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
+      switch (response.status) {
+        case 200:
+          setTask(response.data);
+          setLoaded(true);
+          break;
+
+        default:
+          console.info(`status ${response.status} not handled`);
+          break;
+      }
+    });
+  }, [taskId]);
 
   const [categories, setCategories] = React.useState<TaskCategory[]>([]);
   React.useEffect(() => {
@@ -99,16 +138,16 @@ export const ListingAdd: React.FC<{}> = () => {
 
     const taskApi = new TaskApi(apiConfiguration);
     taskApi
-      .addTask(task, axiosRequestConfig)
+      .updateTask(taskId, task, axiosRequestConfig)
       .then((response) => history.push(PagePath.Task + response.data?.uuid))
       .catch((error) => setError(error));
   };
 
-  return (
+  return loaded && task ? (
     <Container component='main' maxWidth='sm' className={classes.container}>
       <Paper elevation={3} className={classes.paper}>
         <Typography component='h1' variant='h3'>
-          Новая работа
+          Редактирование
         </Typography>
         <form className={classes.root} onSubmit={onSubmit}>
           <TextField
@@ -208,6 +247,30 @@ export const ListingAdd: React.FC<{}> = () => {
               })
             }
           />
+          <div className={classes.oneRowGridList}>
+            {task.images?.length ? (
+              <GridList className={classes.gridList} cols={2.5}>
+                {task.images?.map(({ url, uuid }) => (
+                  <GridListTile key={uuid}>
+                    <IconButton
+                      className={classes.removeImage}
+                      onClick={() =>
+                        setTask({
+                          ...task,
+                          images: task.images?.filter(
+                            (taskImage) => taskImage.uuid !== uuid
+                          ),
+                        })
+                      }
+                    >
+                      <Close />
+                    </IconButton>
+                    <img src={url} alt={task.title} />
+                  </GridListTile>
+                ))}
+              </GridList>
+            ) : null}
+          </div>
           <ImageDropzone
             onFinishedUpload={() => setIsUploading(false)}
             onStartUpload={() => setIsUploading(true)}
@@ -224,11 +287,11 @@ export const ListingAdd: React.FC<{}> = () => {
             disabled={isUploading}
             type='submit'
           >
-            Создать
+            Готово
           </Button>
           {error ? <DisplayError error={error} /> : null}
         </form>
       </Paper>
     </Container>
-  );
+  ) : null;
 };

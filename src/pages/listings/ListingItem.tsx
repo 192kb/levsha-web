@@ -88,18 +88,17 @@ export const ListingItem: React.FC<ListingItemProps> = ({
   const userId = getUserIdFromStorage();
 
   return (
-    <Card
-      elevation={0}
-      className={classes.card}
-      onClick={() => history.push(PagePath.Task + uuid)}
-    >
+    <Card elevation={0} className={classes.card}>
       <CardContent>
         <Typography className={classes.district}>{district?.name}</Typography>
         <Typography className={classes.date}>
           <DateFromNow value={date_start || date_created || ''} />
         </Typography>
       </CardContent>
-      <CardContent className={classes.cardContent}>
+      <CardContent
+        className={classes.cardContent}
+        onClick={() => history.push(PagePath.Task + uuid)}
+      >
         <Typography
           gutterBottom
           noWrap
@@ -122,7 +121,11 @@ export const ListingItem: React.FC<ListingItemProps> = ({
       </CardContent>
       <CardActions>
         {user?.uuid === userId && (
-          <Button size='small' color='secondary'>
+          <Button
+            size='small'
+            color='secondary'
+            onClick={() => history.push(PagePath.TaskEdit + uuid)}
+          >
             Редактировать
           </Button>
         )}
