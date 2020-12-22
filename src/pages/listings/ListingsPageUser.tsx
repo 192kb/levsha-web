@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import DisplayError from '../../components/DisplayError';
 
-type ListingsPageProps = {};
+type ListingsPageUserProps = {};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ListingsPageUser: React.FC<ListingsPageProps> = (props) => {
+const ListingsPageUser: React.FC<ListingsPageUserProps> = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);

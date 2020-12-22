@@ -1115,7 +1115,7 @@ export const TaskApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         getUserTasks: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/task/user`;
+            const localVarPath = `/user/task`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;

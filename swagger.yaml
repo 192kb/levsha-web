@@ -358,7 +358,7 @@ paths:
 
         405:
           description: 'Invalid input'
-  /task/user:
+  /user/task:
     get:
       tags:
         - 'task'
