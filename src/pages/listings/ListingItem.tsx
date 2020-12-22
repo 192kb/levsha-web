@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
   price: {
     color: 'black',
     fontWeight: 500,
-    fontSize: '24pt',
   },
   title: {
     fontSize: '18pt',
@@ -110,12 +109,15 @@ export const ListingItem: React.FC<ListingItemProps> = ({
           {title}
         </Typography>
         {price && (
-          <Typography className={classes.budget}>
-            Бюджет{' '}
-            <Typography component='span' className={classes.price}>
+          <>
+            <Typography component='div' className={classes.budget}>
+              Бюджет
+            </Typography>
+
+            <Typography component='div' className={classes.price}>
               <Price value={price} />
             </Typography>
-          </Typography>
+          </>
         )}
       </CardContent>
       <CardActions>

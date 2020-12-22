@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     paddingTop: '40px',
+    paddingBlockEnd: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(5),
@@ -112,7 +113,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
   return loaded && task ? (
     <>
       <Container component='main' maxWidth='md' className={classes.container}>
-        <Paper elevation={15} className={classes.paper}>
+        <Paper elevation={0} className={classes.paper}>
           <Grid container spacing={4}>
             <Grid item xs={6}>
               <Typography

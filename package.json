@@ -13,7 +13,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
-    "react-image-file-resizer": "^0.3.8",
+    "react-image-file-resizer": "^0.3.9",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
     "react-text-mask": "^5.4.3",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired --max_old_space_size=512 build",
+    "build": "react-app-rewired build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,7 +46,7 @@
     "@testing-library/user-event": "^12.6.0",
     "@types/jest": "^26.0.19",
     "@types/lodash": "^4.14.165",
-    "@types/node": "^14.14.13",
+    "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
