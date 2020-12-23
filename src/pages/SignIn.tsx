@@ -62,6 +62,13 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
       .catch((error) => setError(error.response?.data));
   };
 
+  const transformPhoneInput = (rawPhone: string) => {
+    if (rawPhone === '+7 8__ ___-__-__') {
+      return setPhone('+7 ___ ___-__-__');
+    }
+    return setPhone(rawPhone);
+  };
+
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -85,7 +92,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
               inputComponent: PhoneInput as any,
             }}
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={(event) => transformPhoneInput(event.target.value)}
           />
           <TextField
             variant='outlined'
@@ -110,11 +117,6 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
             Войти
           </Button>
           <Grid container>
-            <Grid item xs>
-              {/* <Link href='#' variant='body2'>
-                Forgot password?
-              </Link> */}
-            </Grid>
             <Grid item>
               <Link
                 onClick={() => history.push(PagePath.SignUp)}

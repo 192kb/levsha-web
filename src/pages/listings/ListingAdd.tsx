@@ -108,7 +108,7 @@ export const ListingAdd: React.FC<{}> = () => {
     <Container component='main' maxWidth='sm' className={classes.container}>
       <Paper elevation={3} className={classes.paper}>
         <Typography component='h1' variant='h3'>
-          Новая работа
+          Новое задание
         </Typography>
         <form className={classes.root} onSubmit={onSubmit}>
           <TextField

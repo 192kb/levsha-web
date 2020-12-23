@@ -62,6 +62,13 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
       .catch((error) => setError(error.response.data));
   }, []);
 
+  const transformPhoneInput = (rawPhone: string) => {
+    if (rawPhone === '+7 8__ ___-__-__') {
+      return setPhone('+7 ___ ___-__-__');
+    }
+    return setPhone(rawPhone);
+  };
+
   const isValidForm: boolean =
     !_.isEmpty(name) &&
     !_.isEmpty(phone) &&
@@ -158,7 +165,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                   inputComponent: PhoneInput as any,
                 }}
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={(event) => transformPhoneInput(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>

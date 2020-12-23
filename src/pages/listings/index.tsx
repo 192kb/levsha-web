@@ -43,7 +43,13 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
     taskApi
       .getTasks(axiosRequestConfig)
       .then((response) => {
-        setTasks(response.data);
+        setTasks(
+          response?.data.sort((a, b) =>
+            (b.date_start || b.date_created || '').localeCompare(
+              a.date_start || a.date_created || ''
+            )
+          ) || []
+        );
       })
       .catch((error) => {
         setError((error as AxiosError).response?.data || error);

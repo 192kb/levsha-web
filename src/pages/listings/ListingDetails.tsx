@@ -65,9 +65,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 500,
     fontSize: '18pt',
-    lineHeight: '16pt',
   },
   budget: {
+    color: 'gray',
+  },
+  price: {
     fontWeight: 300,
     fontSize: '24pt',
   },
@@ -145,11 +147,14 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           <Typography component='h1' variant='h2' className={classes.title}>
             {task.title || 'Без названия'}
           </Typography>
+          <Typography component='div' className={classes.budget}>
+            Бюджет
+          </Typography>
           <Typography
             component='h2'
             variant='h4'
             color='textPrimary'
-            className={classes.budget}
+            className={classes.price}
           >
             <Price value={task.price || 0} />
           </Typography>

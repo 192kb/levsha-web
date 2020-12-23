@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
       paddingTop: '40px',
       background: 'rgb(237, 237, 237)',
-      minHeight: '100%',
+      minHeight: 'calc(100% - 40px)',
     },
     appBar: {
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
@@ -124,7 +124,6 @@ const App: React.FC = () => {
   };
 
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <ThemeProvider theme={theme}>
