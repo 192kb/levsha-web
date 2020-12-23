@@ -56,7 +56,9 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
     const locationApi = new LocationApi(apiConfiguration);
     locationApi
       .getCity()
-      .then(({ data }) => setCities(data))
+      .then((response) =>
+        response?.data ? setCities(response.data) : setCities([])
+      )
       .catch((error) => setError(error.response.data));
   }, []);
 
