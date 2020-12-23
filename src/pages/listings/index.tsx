@@ -10,6 +10,7 @@ import { ListingItem } from './ListingItem';
 import { useHistory } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import DisplayError from '../../components/DisplayError';
+import { getUserIdFromStorage } from '../../storage/userId';
 
 type ListingsPageProps = {};
 
@@ -53,6 +54,8 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
 
   React.useEffect(loadTasks, []);
 
+  const user = getUserIdFromStorage();
+
   return (
     <>
       <Container maxWidth='md' className={classes.paper}>
@@ -71,13 +74,15 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
         )}
       </Container>
       {error ? <DisplayError error={error} /> : null}
-      <Fab
-        onClick={() => history.push(PagePath.CreateTask)}
-        color='primary'
-        className={classes.fab}
-      >
-        <AddIcon />
-      </Fab>
+      {user && (
+        <Fab
+          onClick={() => history.push(PagePath.CreateTask)}
+          color='primary'
+          className={classes.fab}
+        >
+          <AddIcon />
+        </Fab>
+      )}
     </>
   );
 };

@@ -15,10 +15,10 @@ import {
   Theme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import { AccountCircle, Home } from '@material-ui/icons';
+import { AccountCircle, ArrowBack, Home } from '@material-ui/icons';
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 
 import { Configuration, User, UserApi } from './model';
 import { PagePath } from './pages';
@@ -90,9 +90,9 @@ const App: React.FC = () => {
       .getCurrentUser(axiosRequestConfig)
       .then((response) => {
         setUser(response.data);
-        setUserLoaded(true);
       })
-      .catch((error) => setUserLoaded(true));
+      .catch((error) => setUser(undefined))
+      .finally(() => setUserLoaded(true));
   }, []);
 
   const open = Boolean(anchorEl);
@@ -112,6 +112,10 @@ const App: React.FC = () => {
     history.push(PagePath.Tasks);
   };
 
+  React.useEffect(() => {
+    storeUserId(user?.uuid);
+  }, [user]);
+
   const handleLogout = () => {
     handleClose();
 
@@ -119,19 +123,35 @@ const App: React.FC = () => {
     userApi.logoutUser(axiosRequestConfig).then(() => setUser(undefined));
   };
 
+  const { pathname } = useLocation();
+  console.log(pathname);
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar position='fixed' elevation={0} className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='menu'
-            onClick={() => history.push(PagePath.Tasks)}
-          >
-            <Home />
-          </IconButton>
+          {pathname.startsWith(PagePath.Task) ? (
+            <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='menu'
+              onClick={() => history.goBack()}
+            >
+              <ArrowBack />
+            </IconButton>
+          ) : (
+            <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='menu'
+              onClick={() => history.push(PagePath.Tasks)}
+            >
+              <Home />
+            </IconButton>
+          )}
+
           <Typography
             variant='h6'
             color='inherit'
