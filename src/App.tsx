@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
       paddingTop: '40px',
       background: 'rgb(237, 237, 237)',
-      height: '100%',
+      minHeight: '100%',
     },
     appBar: {
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
