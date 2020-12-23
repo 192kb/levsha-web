@@ -145,11 +145,11 @@ export const ListingItem: React.FC<ListingItemProps> = ({
 
             {is_deleted ? (
               <Button size='small' disabled>
-                Скрыто
+                Удалено
               </Button>
             ) : (
               <Button size='small' color='secondary' onClick={handleHideTask}>
-                Скрыть
+                Удалить
               </Button>
             )}
           </>
