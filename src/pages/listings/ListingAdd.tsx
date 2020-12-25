@@ -29,9 +29,8 @@ import DisplayError from '../../components/DisplayError';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
-      maxWidth: 'calc(100% - 48px)',
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
       minWidth: '25ch',
     },
   },
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(4),
     borderRadius: '30px',
   },
   selectInput: {
@@ -107,7 +106,7 @@ export const ListingAdd: React.FC<{}> = () => {
   return (
     <Container component='main' maxWidth='sm' className={classes.container}>
       <Paper elevation={3} className={classes.paper}>
-        <Typography component='h1' variant='h3'>
+        <Typography component='h1' variant='h4'>
           Новое задание
         </Typography>
         <form className={classes.root} onSubmit={onSubmit}>
@@ -141,6 +140,7 @@ export const ListingAdd: React.FC<{}> = () => {
             value={task.district?.id || 0}
             labelId='task-discrtict-label'
             variant='outlined'
+            fullWidth
             onChange={(
               event: React.ChangeEvent<{
                 name?: string | undefined;
@@ -171,6 +171,7 @@ export const ListingAdd: React.FC<{}> = () => {
             value={task.category?.id || 0}
             labelId='task-category-label'
             variant='outlined'
+            fullWidth
             onChange={(
               event: React.ChangeEvent<{
                 name?: string | undefined;
@@ -199,6 +200,7 @@ export const ListingAdd: React.FC<{}> = () => {
             value={task.price || ''}
             variant='outlined'
             type='number'
+            fullWidth
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setTask({
                 ...task,
