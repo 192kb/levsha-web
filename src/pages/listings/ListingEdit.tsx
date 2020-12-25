@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       marginTop: theme.spacing(3),
       marginBottom: theme.spacing(3),
-      maxWidth: 'calc(100% - 48px)',
+      // maxWidth: 'calc(100% - 48px)',
       minWidth: '25ch',
     },
   },
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(4),
     borderRadius: '30px',
   },
   selectInput: {
@@ -92,10 +92,11 @@ export const ListingEdit: React.FC<{}> = () => {
           .getDiscrictsByCityId(userResponse.data.city?.id || 1)
           .then((locationResponse) => setDistricts(locationResponse.data));
       })
-      .catch((error) =>
-        setError((error as AxiosError).response?.data || error)
-      );
-  }, []);
+      .catch((error) => {
+        history.push(PagePath.SignIn);
+        setError((error as AxiosError).response?.data || error);
+      });
+  }, [history]);
 
   React.useEffect(() => {
     setLoaded(false);
@@ -146,7 +147,7 @@ export const ListingEdit: React.FC<{}> = () => {
   return loaded && task ? (
     <Container component='main' maxWidth='sm' className={classes.container}>
       <Paper elevation={3} className={classes.paper}>
-        <Typography component='h1' variant='h3'>
+        <Typography component='h1' variant='h4'>
           Редактирование
         </Typography>
         <form className={classes.root} onSubmit={onSubmit}>
@@ -181,6 +182,7 @@ export const ListingEdit: React.FC<{}> = () => {
             value={task.district?.id || 0}
             labelId='task-discrtict-label'
             variant='outlined'
+            fullWidth
             onChange={(
               event: React.ChangeEvent<{
                 name?: string | undefined;
@@ -211,6 +213,7 @@ export const ListingEdit: React.FC<{}> = () => {
             value={task.category?.id || 0}
             labelId='task-category-label'
             variant='outlined'
+            fullWidth
             onChange={(
               event: React.ChangeEvent<{
                 name?: string | undefined;
@@ -287,8 +290,17 @@ export const ListingEdit: React.FC<{}> = () => {
             color='primary'
             disabled={isUploading}
             type='submit'
+            fullWidth
           >
             Готово
+          </Button>
+          <Button
+            variant='contained'
+            color='default'
+            fullWidth
+            onClick={() => history.goBack()}
+          >
+            Отмена
           </Button>
           {error ? <DisplayError error={error} /> : null}
         </form>
