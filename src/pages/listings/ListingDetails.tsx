@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   copyPhoneInput: {
     textAlign: 'center',
+    marginTop: theme.spacing(2),
   },
   district: {
     fontSize: '10pt',
@@ -146,18 +147,10 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           <Typography component='h1' variant='h2' className={classes.title}>
             {task.title || 'Без названия'}
           </Typography>
-          <Typography component='div' className={classes.budget}>
-            Бюджет
-          </Typography>
-          <Typography
-            component='h2'
-            variant='h4'
-            color='textPrimary'
-            className={classes.price}
-          >
-            <Price value={task.price || 0} />
-          </Typography>
           <main>
+            <Typography variant='body1' paragraph>
+              {task?.description}
+            </Typography>
             <div className={classes.oneRowGridList}>
               {task.images?.length ? (
                 <GridList className={classes.gridList} cols={2.5}>
@@ -169,11 +162,19 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
                 </GridList>
               ) : null}
             </div>
-            <Typography variant='body1' paragraph>
-              {task?.description}
-            </Typography>
           </main>
-          {task.user ? (
+          <Typography component='div' className={classes.budget}>
+            Бюджет
+          </Typography>
+          <Typography
+            component='h2'
+            variant='h4'
+            color='textPrimary'
+            className={classes.price}
+          >
+            <Price value={task.price || 0} />
+          </Typography>
+          {task.user && (
             <Button
               fullWidth
               className={classes.phoneButton}
@@ -182,27 +183,25 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
             >
               Позвонить
             </Button>
-          ) : null}
-          {task.user ? (
-            isPhoneHidden ? (
-              <Button
-                fullWidth
-                className={classes.showPhoneButton}
-                variant='contained'
-                onClick={() => setPhoneHidden(false)}
-              >
-                Показать телефон
-              </Button>
-            ) : (
-              <Input
-                id='show-phone-input'
-                inputProps={{ className: classes.copyPhoneInput }}
-                fullWidth
-                value={task.user?.phone}
-                onClick={copyPhone}
-              />
-            )
-          ) : null}
+          )}
+          {task.user && isPhoneHidden ? (
+            <Button
+              fullWidth
+              className={classes.showPhoneButton}
+              variant='contained'
+              onClick={() => setPhoneHidden(false)}
+            >
+              Показать телефон
+            </Button>
+          ) : (
+            <Input
+              id='show-phone-input'
+              inputProps={{ className: classes.copyPhoneInput }}
+              fullWidth
+              value={task.user?.phone}
+              onClick={copyPhone}
+            />
+          )}
         </Paper>
       </Container>
 
