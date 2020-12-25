@@ -5,6 +5,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -53,16 +54,16 @@ const useStyles = makeStyles((theme) => ({
   },
   district: {
     float: 'left',
-    color: 'gray',
+    color: grey[500],
     fontSize: '10pt',
   },
   date: {
     float: 'right',
-    color: 'gray',
+    color: grey[500],
     fontSize: '10pt',
   },
   budget: {
-    color: 'gray',
+    color: grey[500],
   },
   price: {
     color: 'black',

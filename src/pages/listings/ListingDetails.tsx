@@ -1,24 +1,26 @@
-import * as React from 'react';
-import { RouteComponentProps, useParams, withRouter } from 'react-router-dom';
 import {
-  Paper,
-  Typography,
-  Grid,
-  LinearProgress,
   Button,
+  Container,
+  Grid,
   GridList,
   GridListTile,
-  Container,
   Input,
+  LinearProgress,
+  Paper,
   Snackbar,
+  Typography,
 } from '@material-ui/core';
+import { green, grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
-import { Task, TaskApi } from '../../model';
+import Alert from '@material-ui/lab/Alert';
+import * as React from 'react';
+import { RouteComponentProps, useParams, withRouter } from 'react-router-dom';
+
 import { apiConfiguration, axiosRequestConfig } from '../../App';
+import { UserPlate } from '../../components/UserPlate';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
-import Alert from '@material-ui/lab/Alert';
-import { green } from '@material-ui/core/colors';
+import { Task, TaskApi } from '../../model';
 
 type ListingDetailsProps = {} & RouteComponentProps<{ taskId: string }>;
 
@@ -39,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(3),
     borderRadius: '30px',
   },
   phoneButton: {
@@ -68,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18pt',
   },
   budget: {
-    color: 'gray',
+    color: grey[500],
   },
   price: {
     fontWeight: 300,
@@ -181,6 +183,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
           >
             <Price value={task.price || 0} />
           </Typography>
+          {task.user && <UserPlate user={task.user} />}
           {task.user && (
             <Button
               fullWidth
