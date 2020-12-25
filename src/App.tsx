@@ -137,6 +137,7 @@ const App: React.FC = () => {
   }, [user]);
 
   const handleLogout = () => {
+    storeUserId(undefined);
     handleClose();
 
     const userApi = new UserApi(apiConfiguration);
