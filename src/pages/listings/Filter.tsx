@@ -104,7 +104,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
 
   React.useEffect(loadCategories, []);
   return (
-    <Container component='main' maxWidth='sm' className={classes.container}>
+    <Container component='main' maxWidth='md' className={classes.container}>
       <Typography component='h1' variant='h3'>
         Фильтры
       </Typography>

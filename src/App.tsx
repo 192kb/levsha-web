@@ -150,7 +150,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppBar position='fixed' elevation={0} className={classes.appBar}>
-        <Container>
+        <Container maxWidth='md'>
           <Toolbar>
             {(pathname === PagePath.Tasks && (
               <IconButton
