@@ -257,7 +257,7 @@ const App: React.FC = () => {
                     onClose={handleClose}
                   >
                     <MenuItem onClick={() => history.push(PagePath.UserTasks)}>
-                      Мои задачи
+                      Мои задания
                     </MenuItem>
                     <MenuItem onClick={handleLogout}>Выход</MenuItem>
                   </Menu>
