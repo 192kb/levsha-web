@@ -153,7 +153,14 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
             </Typography>
             <div className={classes.oneRowGridList}>
               {task.images?.length ? (
-                <GridList className={classes.gridList} cols={2.5}>
+                <GridList
+                  className={classes.gridList}
+                  cellHeight='auto'
+                  cols={Math.min(
+                    window.innerWidth < 600 ? 1 : 3,
+                    task.images.length
+                  )}
+                >
                   {task.images?.map((taskImage) => (
                     <GridListTile key={taskImage.url}>
                       <img src={taskImage.url} alt={task.title} />
