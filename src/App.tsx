@@ -1,6 +1,7 @@
 import {
   AppBar,
   Button,
+  Container,
   IconButton,
   Menu,
   MenuItem,
@@ -15,7 +16,22 @@ import {
   Theme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import { AccountCircle, ArrowBack, Home } from '@material-ui/icons';
+import {
+  AccountCircle,
+  ArrowBack,
+  Filter1,
+  Filter2,
+  Filter3,
+  Filter4,
+  Filter5,
+  Filter6,
+  Filter7,
+  Filter8,
+  Filter9,
+  Filter9Plus,
+  FilterNone,
+  Home,
+} from '@material-ui/icons';
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
@@ -24,12 +40,14 @@ import { Configuration, User, UserApi } from './model';
 import { PagePath } from './pages';
 import { Blank } from './pages/Blank';
 import ListingsPage from './pages/listings';
+import { Filter } from './pages/listings/Filter';
 import { ListingAdd } from './pages/listings/ListingAdd';
 import ListingDetails from './pages/listings/ListingDetails';
 import { ListingEdit } from './pages/listings/ListingEdit';
 import ListingsPageUser from './pages/listings/ListingsPageUser';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
+import { useFilterValues } from './storage/filterValues';
 import { storeUserId } from './storage/userId';
 
 export const apiConfiguration: Configuration = new Configuration({
@@ -78,10 +96,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const [filterValues, setFilterValues] = useFilterValues();
   const [user, setUser] = React.useState<User | undefined>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isUserLoaded, setUserLoaded] = React.useState<boolean>(false);
-  const history = useHistory();
 
   React.useEffect(() => {
     const userApi = new UserApi(apiConfiguration);
@@ -123,85 +143,135 @@ const App: React.FC = () => {
     userApi.logoutUser(axiosRequestConfig).then(() => setUser(undefined));
   };
 
-  const { pathname } = useLocation();
+  const filterCount: number =
+    (filterValues?.categories?.length || 0) +
+    (filterValues?.districts?.length || 0);
 
   return (
     <ThemeProvider theme={theme}>
       <AppBar position='fixed' elevation={0} className={classes.appBar}>
-        <Toolbar>
-          {pathname.startsWith(PagePath.Task) ? (
-            <IconButton
-              edge='start'
-              className={classes.menuButton}
-              color='inherit'
-              aria-label='menu'
-              onClick={() => history.goBack()}
-            >
-              <ArrowBack />
-            </IconButton>
-          ) : (
-            <IconButton
-              edge='start'
-              className={classes.menuButton}
-              color='inherit'
-              aria-label='menu'
-              onClick={() => history.push(PagePath.Tasks)}
-            >
-              <Home />
-            </IconButton>
-          )}
-
-          <Typography
-            variant='h6'
-            color='inherit'
-            noWrap
-            className={classes.title}
-          >
-            Левша
-          </Typography>
-          {isUserLoaded ? (
-            user ? (
-              <div>
-                <IconButton
-                  aria-label='account of current user'
-                  aria-controls='menu-appbar'
-                  aria-haspopup='true'
-                  onClick={handleMenu}
-                  color='inherit'
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id='menu-appbar'
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={() => history.push(PagePath.UserTasks)}>
-                    Мои задачи
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Выход</MenuItem>
-                </Menu>
-              </div>
-            ) : (
-              <Button
+        <Container>
+          <Toolbar>
+            {(pathname === PagePath.Tasks && (
+              <IconButton
+                edge='start'
+                className={classes.menuButton}
                 color='inherit'
-                onClick={() => history.push(PagePath.SignIn)}
+                aria-label='menu'
+                onClick={() => history.push(PagePath.Filter)}
               >
-                Вход
-              </Button>
-            )
-          ) : null}
-        </Toolbar>
+                {(() => {
+                  switch (filterCount) {
+                    case 1:
+                      return <Filter1 />;
+
+                    case 2:
+                      return <Filter2 />;
+
+                    case 3:
+                      return <Filter3 />;
+
+                    case 4:
+                      return <Filter4 />;
+
+                    case 5:
+                      return <Filter5 />;
+
+                    case 6:
+                      return <Filter6 />;
+
+                    case 7:
+                      return <Filter7 />;
+
+                    case 8:
+                      return <Filter8 />;
+
+                    case 9:
+                      return <Filter9 />;
+
+                    case 0:
+                      return <FilterNone />;
+
+                    default:
+                      return <Filter9Plus />;
+                  }
+                })()}
+              </IconButton>
+            )) ||
+              (pathname.startsWith(PagePath.Task) && (
+                <IconButton
+                  edge='start'
+                  className={classes.menuButton}
+                  color='inherit'
+                  aria-label='menu'
+                  onClick={() => history.goBack()}
+                >
+                  <ArrowBack />
+                </IconButton>
+              )) || (
+                <IconButton
+                  edge='start'
+                  className={classes.menuButton}
+                  color='inherit'
+                  aria-label='menu'
+                  onClick={() => history.push(PagePath.Tasks)}
+                >
+                  <Home />
+                </IconButton>
+              )}
+
+            <Typography
+              variant='h6'
+              color='inherit'
+              noWrap
+              className={classes.title}
+            >
+              Левша
+            </Typography>
+            {isUserLoaded ? (
+              user ? (
+                <div>
+                  <IconButton
+                    aria-label='account of current user'
+                    aria-controls='menu-appbar'
+                    aria-haspopup='true'
+                    onClick={handleMenu}
+                    color='inherit'
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id='menu-appbar'
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={() => history.push(PagePath.UserTasks)}>
+                      Мои задачи
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>Выход</MenuItem>
+                  </Menu>
+                </div>
+              ) : (
+                <Button
+                  color='inherit'
+                  onClick={() => history.push(PagePath.SignIn)}
+                >
+                  Вход
+                </Button>
+              )
+            ) : null}
+          </Toolbar>
+        </Container>
       </AppBar>
       <main className={classes.main}>
         <Switch>
@@ -221,10 +291,19 @@ const App: React.FC = () => {
             <ListingAdd />
           </Route>
           <Route path={PagePath.UserTasks}>
-            <ListingsPageUser key='user-tasks' />
+            <ListingsPageUser />
+          </Route>
+          <Route path={PagePath.Filter}>
+            <Filter
+              filterValues={filterValues}
+              onChangeFilterValues={setFilterValues}
+            />
           </Route>
           <Route path={PagePath.Tasks}>
-            <ListingsPage key='tasks' />
+            <ListingsPage
+              filterValues={filterValues}
+              onChangeFilterValues={setFilterValues}
+            />
           </Route>
           <Route component={() => <Blank />} />
         </Switch>

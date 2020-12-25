@@ -76,7 +76,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
       )
     )
       .then((taskImages) => props.onFileArrayChange(taskImages))
-      .catch((error) => console.error(error))
+      .catch((error) => console.warn(error))
       .finally(() => {
         setIsUploading(false);
         props.onFinishedUpload();

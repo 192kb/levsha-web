@@ -7,4 +7,5 @@ export enum PagePath {
   TaskEdit = '/task/edit/',
   User = '/user/view/',
   UserTasks = '/user/my-task/',
+  Filter = '/filter/',
 }

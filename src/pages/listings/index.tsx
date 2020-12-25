@@ -1,4 +1,10 @@
-import { CircularProgress, Container, Fab, Grid } from '@material-ui/core';
+import {
+  CircularProgress,
+  Container,
+  Fab,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import * as React from 'react';
@@ -11,8 +17,14 @@ import { useHistory } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import DisplayError from '../../components/DisplayError';
 import { getUserIdFromStorage } from '../../storage/userId';
+import { FilterValues } from './Filter';
+import { Paper } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
-type ListingsPageProps = {};
+type ListingsPageProps = {
+  filterValues: FilterValues | undefined;
+  onChangeFilterValues: (filterValues: FilterValues | undefined) => void;
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,6 +40,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: '2em',
     right: '2em',
+  },
+  nothingFound: {
+    textAlign: 'center',
+    margin: '40px auto 0',
+    padding: theme.spacing(10),
+  },
+  resetFilters: {
+    margin: theme.spacing(3),
   },
 }));
 
@@ -62,16 +82,48 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
 
   const user = getUserIdFromStorage();
 
+  const filteredTasks = tasks
+    .filter((item) =>
+      props.filterValues?.categories
+        ? item.category?.id &&
+          props.filterValues?.categories?.includes(item.category?.id)
+        : true
+    )
+    .filter((item) =>
+      props.filterValues?.districts
+        ? item.district?.id &&
+          props.filterValues?.districts?.includes(item.district?.id)
+        : true
+    );
+
   return (
     <>
       <Container maxWidth='md' className={classes.paper}>
         {isLoaded ? (
           <Grid container spacing={4}>
-            {tasks.map((item) => (
-              <Grid item key={item.uuid} xs={12} sm={6} md={6}>
-                <ListingItem item={item} onUpdate={loadTasks} />
-              </Grid>
-            ))}
+            {filteredTasks.length === 0 &&
+            ((props.filterValues?.categories &&
+              props.filterValues.categories.length > 0) ||
+              (props.filterValues?.districts &&
+                props.filterValues.districts.length > 0)) ? (
+              <Paper className={classes.nothingFound}>
+                <Typography variant='h4'>Ничего не найдено</Typography>
+                <Button
+                  variant='contained'
+                  color='default'
+                  className={classes.resetFilters}
+                  onClick={() => props.onChangeFilterValues(undefined)}
+                >
+                  Сбросить фильтры
+                </Button>
+              </Paper>
+            ) : (
+              filteredTasks.map((item) => (
+                <Grid item key={item.uuid} xs={12} sm={6} md={6}>
+                  <ListingItem item={item} onUpdate={loadTasks} />
+                </Grid>
+              ))
+            )}
           </Grid>
         ) : (
           <div className={classes.loadingContainer}>

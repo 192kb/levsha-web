@@ -91,7 +91,6 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
         ),
       })
       .then((response) => {
-        console.log(response);
         switch (response.status) {
           case 200:
             history.push(PagePath.SignIn);
