@@ -127,6 +127,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 autoFocus
                 value={name}
                 onChange={(event) => setName(event.target.value)}
+                helperText='Ваше имя будут видеть другие пользователи'
               />
             </Grid>
             <Grid item xs={12}>
@@ -143,6 +144,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 onChange={(event) =>
                   setCityId(parseInt(event.target.value) || '')
                 }
+                helperText='Ваш город будут видеть другие пользователи'
               >
                 {cities.map((city) => (
                   <MenuItem key={city.id} value={city.id}>
@@ -165,6 +167,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 }}
                 value={phone}
                 onChange={(event) => transformPhoneInput(event.target.value)}
+                helperText='Ваше телефон будет указан в задании как контактный'
               />
             </Grid>
             <Grid item xs={12}>

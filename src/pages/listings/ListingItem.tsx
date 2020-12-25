@@ -42,8 +42,10 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
-    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(0),
+    paddingTop: theme.spacing(0),
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -68,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: '18pt',
-    lineHeight: '16pt',
     fontWeight: 500,
   },
 }));

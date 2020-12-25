@@ -76,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
   description: {
     fontSize: '12pt',
     fontWeight: 300,
-    lineHeight: '12pt',
   },
 }));
 
