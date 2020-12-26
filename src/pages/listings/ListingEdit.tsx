@@ -33,9 +33,8 @@ import { Close } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
-      // maxWidth: 'calc(100% - 48px)',
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
       minWidth: '25ch',
     },
   },
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '30px',
   },
   selectInput: {
-    marginBottom: theme.spacing(-2),
+    marginBottom: theme.spacing(-1),
   },
   imageIcon: {
     verticalAlign: 'text-bottom',

@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '30px',
   },
   selectInput: {
-    marginBottom: theme.spacing(-2),
+    marginBottom: theme.spacing(-1),
   },
   imageIcon: {
     verticalAlign: 'text-bottom',
