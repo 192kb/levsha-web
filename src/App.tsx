@@ -30,7 +30,7 @@ import {
   Filter9,
   Filter9Plus,
   FilterNone,
-  Home,
+  Menu as MenuIcon,
 } from '@material-ui/icons';
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
@@ -217,7 +217,7 @@ const App: React.FC = () => {
                   aria-label='menu'
                   onClick={() => history.push(PagePath.Tasks)}
                 >
-                  <Home />
+                  <MenuIcon />
                 </IconButton>
               )}
 

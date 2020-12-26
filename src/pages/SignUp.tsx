@@ -167,7 +167,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
                 }}
                 value={phone}
                 onChange={(event) => transformPhoneInput(event.target.value)}
-                helperText='Ваше телефон будет указан в задании как контактный'
+                helperText='Ваш телефон будет указан в задании как контактный'
               />
             </Grid>
             <Grid item xs={12}>

@@ -105,7 +105,7 @@ export const ListingAdd: React.FC<{}> = () => {
 
   return (
     <Container component='main' maxWidth='sm' className={classes.container}>
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={0} className={classes.paper}>
         <Typography component='h1' variant='h4'>
           Новое задание
         </Typography>
@@ -124,6 +124,7 @@ export const ListingAdd: React.FC<{}> = () => {
           <TextField
             fullWidth
             required
+            multiline
             label='Описание'
             id='task-description'
             value={task.description || ''}

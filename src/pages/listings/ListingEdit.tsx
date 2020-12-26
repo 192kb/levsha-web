@@ -146,7 +146,7 @@ export const ListingEdit: React.FC<{}> = () => {
 
   return loaded && task ? (
     <Container component='main' maxWidth='sm' className={classes.container}>
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={0} className={classes.paper}>
         <Typography component='h1' variant='h4'>
           Редактирование
         </Typography>
