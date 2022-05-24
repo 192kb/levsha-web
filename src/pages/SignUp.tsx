@@ -195,7 +195,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
           >
             Зарегистрироваться
           </Button>
-          <Grid container justify='flex-end'>
+          <Grid container justifyContent='flex-end'>
             <Grid item>
               <Link href='/#/signin' variant='body2'>
                 Уже есть аккаунт? Вход

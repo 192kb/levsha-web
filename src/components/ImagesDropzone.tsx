@@ -2,9 +2,10 @@ import Dropzone from 'react-dropzone';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Resizer from 'react-image-file-resizer';
-import ImageIcon from '@material-ui/icons/Image';
+import AddIcon from '@material-ui/icons/Add';
 import { TaskImage, TaskApi } from '../model';
 import { apiConfiguration, axiosRequestConfig } from '../App';
+import { grey } from '@material-ui/core/colors';
 
 const maximumImagesAllowed = 3;
 
@@ -16,13 +17,15 @@ type ImageDropzoneProps = {
 
 const useStyles = makeStyles((theme) => ({
   dropzoneSection: {
-    border: '2px dashed #ccc',
-    width: 'calc(100% - 20px)',
+    width: '100%',
     minWidth: 0,
-    padding: '10px',
+    padding: 0,
+    textAlign: 'center',
   },
-  imageIcon: {
-    verticalAlign: 'text-bottom',
+  addIcon: {
+    padding: 10,
+    background: grey[400],
+    borderRadius: '50%',
   },
   preview: {
     display: 'flex',
@@ -121,9 +124,10 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
                 ))}
               </p>
             ) : null}
-            <p>
-              <ImageIcon className={classes.imageIcon} /> Добавить фото
-            </p>
+            <span>
+              <AddIcon className={classes.addIcon} /> <br />
+              Добавить фото
+            </span>
           </div>
         </section>
       )}

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cityName: {
     color: grey[400],
-    fontSize: '14px',
+    fontSize: 14,
     lineHeight: '1',
   },
 }));

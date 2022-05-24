@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: 20,
+    borderRadius: 25,
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -55,25 +55,28 @@ const useStyles = makeStyles((theme) => ({
   district: {
     float: 'left',
     color: grey[500],
-    fontSize: '10pt',
+    fontSize: 10,
   },
   date: {
     float: 'right',
     color: grey[500],
-    fontSize: '10pt',
+    fontSize: 10,
   },
   budget: {
     color: grey[500],
+    fontSize: 10,
   },
   price: {
     color: 'black',
     fontWeight: 500,
+    fontSize: 10,
   },
   title: {
-    fontSize: '18pt',
+    fontSize: 18,
     fontWeight: 500,
   },
 }));
+
 export const ListingItem: React.FC<ListingItemProps> = ({
   item: {
     uuid,
@@ -104,7 +107,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
   };
 
   return (
-    <Card elevation={0} className={classes.card}>
+    <Card elevation={5} className={classes.card}>
       <CardContent>
         <Typography className={classes.district}>{district?.name}</Typography>
         <Typography className={classes.date}>

@@ -25,6 +25,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { PagePath } from '..';
 import DisplayError from '../../components/DisplayError';
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,18 +36,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: '40px',
+    paddingTop: 40,
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(4),
-    borderRadius: '30px',
+    borderRadius: 25,
   },
   selectInput: {
     marginBottom: theme.spacing(-1),
   },
   imageIcon: {
     verticalAlign: 'text-bottom',
+  },
+  publishButton: {
+    width: '100%',
+    background: green[500],
+    color: 'white',
+    borderRadius: 10,
+    textTransform: 'none',
   },
 }));
 
@@ -129,17 +137,17 @@ export const ListingAdd: React.FC<{}> = () => {
             id='task-description'
             value={task.description || ''}
             variant='outlined'
-            rows={4}
+            minRows={4}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setTask({ ...task, description: event.target.value })
             }
           />
-          <InputLabel id='task-discrtict-label' className={classes.selectInput}>
+          <InputLabel id='task-district-label' className={classes.selectInput}>
             Район
           </InputLabel>
           <Select
             value={task.district?.id || 0}
-            labelId='task-discrtict-label'
+            labelId='task-district-label'
             variant='outlined'
             fullWidth
             onChange={(
@@ -151,7 +159,7 @@ export const ListingAdd: React.FC<{}> = () => {
               setTask({
                 ...task,
                 district: districts.find(
-                  (distirct) => distirct.id === event.target.value
+                  (district) => district.id === event.target.value
                 ),
               })
             }
@@ -223,11 +231,11 @@ export const ListingAdd: React.FC<{}> = () => {
           />
           <Button
             variant='contained'
-            color='primary'
             disabled={isUploading}
             type='submit'
+            className={classes.publishButton}
           >
-            Создать
+            Опубликовать
           </Button>
           {error ? <DisplayError error={error} /> : null}
         </form>

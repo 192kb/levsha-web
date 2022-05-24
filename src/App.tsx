@@ -1,5 +1,7 @@
 import {
   AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
   Button,
   Container,
   IconButton,
@@ -8,10 +10,11 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { red, yellow } from '@material-ui/core/colors';
+import { green, grey, red, yellow } from '@material-ui/core/colors';
+import AddIcon from '@material-ui/icons/Add';
 import {
-  createMuiTheme,
   createStyles,
+  createTheme,
   makeStyles,
   Theme,
   ThemeProvider,
@@ -51,25 +54,25 @@ import { useFilterValues } from './storage/filterValues';
 import { storeUserId } from './storage/userId';
 
 export const apiConfiguration: Configuration = new Configuration({
-  basePath: 'https://levsha.work/levsha-api',
+  basePath: '/levsha-api',
 });
 
 export const axiosRequestConfig: AxiosRequestConfig = {
   withCredentials: true,
 };
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
   },
   palette: {
     primary: {
-      main: yellow[700],
-      contrastText: '#000',
+      main: green[500],
+      contrastText: 'black',
     },
     secondary: {
       main: red[700],
-      contrastText: '#000',
+      contrastText: 'black',
     },
   },
 });
@@ -77,19 +80,34 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(1),
     },
     title: {
       flexGrow: 1,
     },
     main: {
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
-      paddingTop: '40px',
-      background: 'rgb(237, 237, 237)',
+      paddingTop: 40,
+      background: grey[50],
       minHeight: 'calc(100% - 40px)',
+    },
+    footer: {
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
     },
     appBar: {
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
+      background: grey[50],
+    },
+    addIcon: {
+      padding: 10,
+      background: yellow[700],
+      borderRadius: '50%',
+    },
+    createButton: {
+      transform: 'translateY(-20px)',
     },
   })
 );
@@ -150,7 +168,7 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position='fixed' elevation={0} className={classes.appBar}>
+      <AppBar position='fixed' elevation={2} className={classes.appBar}>
         <Container maxWidth='md'>
           <Toolbar>
             {(pathname === PagePath.Tasks && (
@@ -309,7 +327,22 @@ const App: React.FC = () => {
           <Route component={() => <Blank />} />
         </Switch>
       </main>
-      <footer />
+      {PagePath.Tasks === pathname && (
+        <footer className={classes.footer}>
+          <BottomNavigation
+            value={pathname}
+            showLabels={true}
+            onChange={() => history.push(PagePath.CreateTask)}
+          >
+            <BottomNavigationAction
+              label='Создать задание'
+              value={PagePath.CreateTask}
+              className={classes.createButton}
+              icon={<AddIcon className={classes.addIcon} />}
+            />
+          </BottomNavigation>
+        </footer>
+      )}
     </ThemeProvider>
   );
 };

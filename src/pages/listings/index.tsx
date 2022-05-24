@@ -1,25 +1,20 @@
 import {
+  Button,
   CircularProgress,
   Container,
-  Fab,
   Grid,
+  Paper,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
+import { AxiosError } from 'axios';
 import * as React from 'react';
 
-import { PagePath } from '..';
 import { apiConfiguration, axiosRequestConfig } from '../../App';
-import { Task, TaskApi } from '../../model';
-import { ListingItem } from './ListingItem';
-import { useHistory } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import DisplayError from '../../components/DisplayError';
-import { getUserIdFromStorage } from '../../storage/userId';
+import { Task, TaskApi } from '../../model';
 import { FilterValues } from './Filter';
-import { Paper } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { ListingItem } from './ListingItem';
 
 type ListingsPageProps = {
   filterValues: FilterValues | undefined;
@@ -53,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ListingsPage: React.FC<ListingsPageProps> = (props) => {
   const classes = useStyles();
-  const history = useHistory();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);
   const [tasks, setTasks] = React.useState<Task[]>([]);
   const [error, setError] = React.useState<AxiosError | undefined>();
@@ -79,8 +73,6 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
   };
 
   React.useEffect(loadTasks, []);
-
-  const user = getUserIdFromStorage();
 
   const filteredTasks = tasks
     .filter((item) =>
@@ -132,15 +124,6 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
         )}
       </Container>
       {error ? <DisplayError error={error} /> : null}
-      {user && (
-        <Fab
-          onClick={() => history.push(PagePath.CreateTask)}
-          color='primary'
-          className={classes.fab}
-        >
-          <AddIcon />
-        </Fab>
-      )}
     </>
   );
 };

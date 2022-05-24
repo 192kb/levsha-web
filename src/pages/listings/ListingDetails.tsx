@@ -37,47 +37,54 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateZ(0)',
   },
   container: {
-    paddingTop: '40px',
+    paddingTop: 40,
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(3),
-    borderRadius: '30px',
+    borderRadius: 25,
   },
   phoneButton: {
     margin: '10px 0',
-    fontSize: '12pt',
+    fontSize: 12,
     fontWeight: 300,
-    background: green[600],
+    background: green[500],
+    color: 'white',
+    borderRadius: 10,
+    textTransform: 'none',
   },
   showPhoneButton: {
     margin: '10px 0',
-    fontSize: '12pt',
+    fontSize: 12,
     fontWeight: 300,
+    color: 'white',
+    background: grey[400],
+    borderRadius: 10,
+    textTransform: 'none',
   },
   copyPhoneInput: {
     textAlign: 'center',
     marginTop: theme.spacing(2),
   },
   district: {
-    fontSize: '10pt',
+    fontSize: 10,
   },
   date: {
-    fontSize: '10pt',
+    fontSize: 10,
   },
   title: {
     fontWeight: 500,
-    fontSize: '18pt',
+    fontSize: 18,
   },
   budget: {
     color: grey[500],
   },
   price: {
     fontWeight: 300,
-    fontSize: '24pt',
+    fontSize: 24,
   },
   description: {
-    fontSize: '12pt',
+    fontSize: 12,
     fontWeight: 300,
   },
 }));

@@ -1,15 +1,12 @@
-import { CircularProgress, Container, Fab, Grid } from '@material-ui/core';
+import { CircularProgress, Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
+import { AxiosError } from 'axios';
 import * as React from 'react';
 
-import { PagePath } from '..';
 import { apiConfiguration, axiosRequestConfig } from '../../App';
+import DisplayError from '../../components/DisplayError';
 import { Task, TaskApi } from '../../model';
 import { ListingItem } from './ListingItem';
-import { useHistory } from 'react-router-dom';
-import { AxiosError } from 'axios';
-import DisplayError from '../../components/DisplayError';
 
 type ListingsPageUserProps = {};
 
@@ -23,16 +20,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     margin: 'auto',
   },
-  fab: {
-    position: 'fixed',
-    bottom: '2em',
-    right: '2em',
-  },
 }));
 
 const ListingsPageUser: React.FC<ListingsPageUserProps> = (props) => {
   const classes = useStyles();
-  const history = useHistory();
   const [isLoaded, setLoaded] = React.useState<boolean>(false);
   const [tasks, setTasks] = React.useState<Task[]>([]);
   const [error, setError] = React.useState<AxiosError | undefined>();
@@ -74,13 +65,6 @@ const ListingsPageUser: React.FC<ListingsPageUserProps> = (props) => {
         )}
       </Container>
       {error ? <DisplayError error={error} /> : null}
-      <Fab
-        onClick={() => history.push(PagePath.CreateTask)}
-        color='primary'
-        className={classes.fab}
-      >
-        <AddIcon />
-      </Fab>
     </>
   );
 };

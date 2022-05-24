@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: '40px',
+    paddingTop: 40,
     paddingBlockEnd: theme.spacing(2),
   },
   filterButtons: {
@@ -136,7 +136,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
         </Grid>
         <Grid item xs={12}>
           <FormControl fullWidth>
-            <InputLabel id='task-discrtict-label'>Район</InputLabel>
+            <InputLabel id='task-district-label'>Район</InputLabel>
             <Select
               disabled={isLoadingDistricts && districts.length > 0}
               value={
@@ -144,7 +144,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
                   ? props.filterValues?.districts
                   : []
               }
-              labelId='task-discrtict-label'
+              labelId='task-district-label'
               multiple
               renderValue={(selected) => {
                 if ((selected as number[]).length === 0) {
