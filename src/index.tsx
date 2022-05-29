@@ -1,16 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
 import './index.css';
-import App from './App';
+import 'moment/locale/ru';
 
 import moment from 'moment';
-import 'moment/locale/ru';
-moment.locale('ru');
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(
-  <HashRouter>
+import App from './App';
+
+moment.locale('ru');
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
+  <BrowserRouter>
     <App />
-  </HashRouter>,
-  document.getElementById('root')
+  </BrowserRouter>
 );

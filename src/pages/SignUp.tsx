@@ -12,7 +12,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PagePath } from '.';
 import { apiConfiguration } from '../App';
@@ -50,7 +50,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
   const [password, setPassword] = React.useState<string>('');
   const [cities, setCities] = React.useState<City[]>([]);
   const [error, setError] = React.useState<ApiResponse | undefined>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const locationApi = new LocationApi(apiConfiguration);
@@ -93,7 +93,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
       .then((response) => {
         switch (response.status) {
           case 200:
-            history.push(PagePath.SignIn);
+            navigate(PagePath.SignIn);
             break;
 
           default:

@@ -25,7 +25,7 @@ import {
   TaskCategory,
   UserApi,
 } from '../../model';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { PagePath } from '..';
 import DisplayError from '../../components/DisplayError';
 import { Close } from '@material-ui/icons';
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: 40,
+    padding: '40px 0',
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 export const ListingEdit: React.FC<{}> = () => {
   const { taskId } = useParams<{ taskId: string }>();
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [task, setTask] = React.useState<Task>({});
   const [loaded, setLoaded] = React.useState<boolean>(false);
@@ -88,30 +88,31 @@ export const ListingEdit: React.FC<{}> = () => {
       .then((userResponse) => {
         const locationApi = new LocationApi(apiConfiguration);
         locationApi
-          .getDiscrictsByCityId(userResponse.data.city?.id || 1)
+          .getDistrictsByCityId(userResponse.data.city?.id || 1)
           .then((locationResponse) => setDistricts(locationResponse.data));
       })
       .catch((error) => {
-        history.push(PagePath.SignIn);
+        navigate(PagePath.SignIn);
         setError((error as AxiosError).response?.data || error);
       });
-  }, [history]);
+  }, [navigate]);
 
   React.useEffect(() => {
     setLoaded(false);
     const taskApi = new TaskApi(apiConfiguration);
-    taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
-      switch (response.status) {
-        case 200:
-          setTask(response.data);
-          setLoaded(true);
-          break;
+    taskId &&
+      taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
+        switch (response.status) {
+          case 200:
+            setTask(response.data);
+            setLoaded(true);
+            break;
 
-        default:
-          console.info(`status ${response.status} not handled`);
-          break;
-      }
-    });
+          default:
+            console.info(`status ${response.status} not handled`);
+            break;
+        }
+      });
   }, [taskId]);
 
   const [categories, setCategories] = React.useState<TaskCategory[]>([]);
@@ -137,10 +138,11 @@ export const ListingEdit: React.FC<{}> = () => {
     }
 
     const taskApi = new TaskApi(apiConfiguration);
-    taskApi
-      .updateTask(taskId, task, axiosRequestConfig)
-      .then((response) => history.push(PagePath.Task + response.data?.uuid))
-      .catch((error) => setError(error));
+    taskId &&
+      taskApi
+        .updateTask(taskId, task, axiosRequestConfig)
+        .then((response) => navigate(PagePath.Task + response.data?.uuid))
+        .catch((error) => setError(error));
   };
 
   return loaded && task ? (
@@ -297,7 +299,7 @@ export const ListingEdit: React.FC<{}> = () => {
             variant='contained'
             color='default'
             fullWidth
-            onClick={() => history.goBack()}
+            onClick={() => navigate(-1)}
           >
             Отмена
           </Button>

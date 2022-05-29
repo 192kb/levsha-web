@@ -9,7 +9,7 @@ info:
   license:
     name: 'MIT'
 servers:
-  - url: https://levsha.work/levsha-api/
+  - url: https://levsha-work.ru/levsha-api/
 tags:
   - name: 'task'
     description: 'Access to task orders'
@@ -112,6 +112,8 @@ components:
         date_created:
           type: 'string'
         is_deleted:
+          type: 'boolean'
+        is_favorite:
           type: 'boolean'
         title:
           type: 'string'
@@ -295,7 +297,7 @@ paths:
       tags:
         - 'location'
       summary: 'Get list of current cities'
-      operationId: 'getDiscrictsByCityId'
+      operationId: 'getDistrictsByCityId'
       parameters:
         - name: city_id
           in: 'path'
@@ -481,6 +483,40 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
 
+  /task/item/{task_id}/fav:
+    get:
+      tags:
+        - 'task'
+      summary: 'Adds or removes task item to favorites'
+      description: 'Set fav flag'
+      operationId: 'setFavoritesFlag'
+      parameters:
+        - name: 'task_id'
+          in: 'path'
+          description: ID of task
+          required: true
+          schema:
+            type: string
+        - name: 'value'
+          in: 'query'
+          description: To fav or not by boolean
+          required: true
+          schema: 
+            type: boolean
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        400:
+          description: Invalid data supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
   /task/by_location/{location_id}:
     get:
       tags:
@@ -599,6 +635,28 @@ paths:
           description: OK
         400:
           description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /task/by_favorites:
+    get:
+      tags:
+        - 'task'
+      summary: 'List of task favorites of current user'
+      operationId: 'getMyFavoriteTasks'
+      responses:
+        200:
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Task'
+        400:
+          description: 'Server error'
           content:
             application/json:
               schema:

@@ -8,7 +8,7 @@ import {
 import { grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PagePath } from '..';
 import { apiConfiguration } from '../../App';
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: 25,
+    borderRadius: 20,
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -48,6 +48,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(0),
     paddingTop: theme.spacing(0),
   },
+  description: {
+    maxHeight: '4em',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
@@ -55,21 +61,21 @@ const useStyles = makeStyles((theme) => ({
   district: {
     float: 'left',
     color: grey[500],
-    fontSize: 10,
+    fontSize: 14,
   },
   date: {
     float: 'right',
     color: grey[500],
-    fontSize: 10,
+    fontSize: 14,
   },
   budget: {
     color: grey[500],
-    fontSize: 10,
+    fontSize: 14,
   },
   price: {
     color: 'black',
     fontWeight: 500,
-    fontSize: 10,
+    fontSize: 14,
   },
   title: {
     fontSize: 18,
@@ -82,6 +88,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
     uuid,
     images,
     title,
+    description,
     price,
     district,
     date_start,
@@ -92,7 +99,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
   onUpdate,
 }) => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const userId = getUserIdFromStorage();
 
@@ -107,7 +114,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
   };
 
   return (
-    <Card elevation={5} className={classes.card}>
+    <Card elevation={0} className={classes.card}>
       <CardContent>
         <Typography className={classes.district}>{district?.name}</Typography>
         <Typography className={classes.date}>
@@ -116,7 +123,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
       </CardContent>
       <CardContent
         className={classes.cardContent}
-        onClick={() => history.push(PagePath.Task + uuid)}
+        onClick={() => !is_deleted && navigate(PagePath.Task + uuid)}
       >
         <Typography
           gutterBottom
@@ -125,6 +132,9 @@ export const ListingItem: React.FC<ListingItemProps> = ({
           className={classes.title}
         >
           {title}
+        </Typography>
+        <Typography variant='body1' paragraph className={classes.description}>
+          {description}
         </Typography>
         {price && (
           <>
@@ -143,7 +153,7 @@ export const ListingItem: React.FC<ListingItemProps> = ({
           <>
             <Button
               size='small'
-              onClick={() => history.push(PagePath.TaskEdit + uuid)}
+              onClick={() => navigate(PagePath.TaskEdit + uuid)}
             >
               Редактировать
             </Button>

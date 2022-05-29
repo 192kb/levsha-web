@@ -92,7 +92,7 @@ const ListingsPage: React.FC<ListingsPageProps> = (props) => {
     <>
       <Container maxWidth='md' className={classes.paper}>
         {isLoaded ? (
-          <Grid container spacing={4}>
+          <Grid container spacing={2}>
             {filteredTasks.length === 0 &&
             ((props.filterValues?.categories &&
               props.filterValues.categories.length > 0) ||

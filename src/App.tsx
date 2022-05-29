@@ -32,12 +32,12 @@ import {
   Filter8,
   Filter9,
   Filter9Plus,
-  FilterNone,
+  Tune,
   Menu as MenuIcon,
 } from '@material-ui/icons';
 import { AxiosRequestConfig } from 'axios';
 import React from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 import { Configuration, User, UserApi } from './model';
 import { PagePath } from './pages';
@@ -54,7 +54,7 @@ import { useFilterValues } from './storage/filterValues';
 import { storeUserId } from './storage/userId';
 
 export const apiConfiguration: Configuration = new Configuration({
-  basePath: '/levsha-api',
+  basePath: 'https://levsha-work.ru/levsha-api',
 });
 
 export const axiosRequestConfig: AxiosRequestConfig = {
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     main: {
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
-      paddingTop: 40,
+      padding: '40px 0',
       background: grey[50],
       minHeight: 'calc(100% - 40px)',
     },
@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [filterValues, setFilterValues] = useFilterValues();
   const [user, setUser] = React.useState<User | undefined>();
@@ -147,7 +147,7 @@ const App: React.FC = () => {
     setUser(user);
     storeUserId(user.uuid);
     setUserLoaded(true);
-    history.push(PagePath.Tasks);
+    navigate(PagePath.Tasks);
   };
 
   React.useEffect(() => {
@@ -168,7 +168,7 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position='fixed' elevation={2} className={classes.appBar}>
+      <AppBar position='fixed' elevation={0} className={classes.appBar}>
         <Container maxWidth='md'>
           <Toolbar>
             {(pathname === PagePath.Tasks && (
@@ -177,7 +177,7 @@ const App: React.FC = () => {
                 className={classes.menuButton}
                 color='inherit'
                 aria-label='menu'
-                onClick={() => history.push(PagePath.Filter)}
+                onClick={() => navigate(PagePath.Filter)}
               >
                 {(() => {
                   switch (filterCount) {
@@ -209,7 +209,7 @@ const App: React.FC = () => {
                       return <Filter9 />;
 
                     case 0:
-                      return <FilterNone />;
+                      return <Tune />;
 
                     default:
                       return <Filter9Plus />;
@@ -223,7 +223,7 @@ const App: React.FC = () => {
                   className={classes.menuButton}
                   color='inherit'
                   aria-label='menu'
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                 >
                   <ArrowBack />
                 </IconButton>
@@ -233,7 +233,7 @@ const App: React.FC = () => {
                   className={classes.menuButton}
                   color='inherit'
                   aria-label='menu'
-                  onClick={() => history.push(PagePath.Tasks)}
+                  onClick={() => navigate(PagePath.Tasks)}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -274,7 +274,7 @@ const App: React.FC = () => {
                     open={open}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={() => history.push(PagePath.UserTasks)}>
+                    <MenuItem onClick={() => navigate(PagePath.UserTasks)}>
                       Мои задания
                     </MenuItem>
                     <MenuItem onClick={handleLogout}>Выход</MenuItem>
@@ -283,7 +283,7 @@ const App: React.FC = () => {
               ) : (
                 <Button
                   color='inherit'
-                  onClick={() => history.push(PagePath.SignIn)}
+                  onClick={() => navigate(PagePath.SignIn)}
                 >
                   Вход
                 </Button>
@@ -293,46 +293,49 @@ const App: React.FC = () => {
         </Container>
       </AppBar>
       <main className={classes.main}>
-        <Switch>
-          <Route path={PagePath.SignIn}>
-            <SignInPage onSignInUser={handleSignInUser} />
-          </Route>
-          <Route path={PagePath.SignUp}>
-            <SignUpPage />
-          </Route>
-          <Route path={PagePath.TaskEdit + ':taskId'}>
-            <ListingEdit />
-          </Route>
-          <Route path={PagePath.Task + ':taskId'}>
-            <ListingDetails />
-          </Route>
-          <Route path={PagePath.CreateTask}>
-            <ListingAdd />
-          </Route>
-          <Route path={PagePath.UserTasks}>
-            <ListingsPageUser />
-          </Route>
-          <Route path={PagePath.Filter}>
-            <Filter
-              filterValues={filterValues}
-              onChangeFilterValues={setFilterValues}
-            />
-          </Route>
-          <Route path={PagePath.Tasks}>
-            <ListingsPage
-              filterValues={filterValues}
-              onChangeFilterValues={setFilterValues}
-            />
-          </Route>
-          <Route component={() => <Blank />} />
-        </Switch>
+        <Routes>
+          <Route
+            path={PagePath.SignIn}
+            element={<SignInPage onSignInUser={handleSignInUser} />}
+          />
+          <Route path={PagePath.SignUp} element={<SignUpPage />} />
+          <Route
+            path={PagePath.TaskEdit + ':taskId'}
+            element={<ListingEdit />}
+          />
+          <Route
+            path={PagePath.Task + ':taskId'}
+            element={<ListingDetails />}
+          />
+          <Route path={PagePath.CreateTask} element={<ListingAdd />} />
+          <Route path={PagePath.UserTasks} element={<ListingsPageUser />} />
+          <Route
+            path={PagePath.Filter}
+            element={
+              <Filter
+                filterValues={filterValues}
+                onChangeFilterValues={setFilterValues}
+              />
+            }
+          />
+          <Route
+            path={PagePath.Tasks}
+            element={
+              <ListingsPage
+                filterValues={filterValues}
+                onChangeFilterValues={setFilterValues}
+              />
+            }
+          />
+          <Route element={<Blank />} />
+        </Routes>
       </main>
       {PagePath.Tasks === pathname && (
         <footer className={classes.footer}>
           <BottomNavigation
             value={pathname}
             showLabels={true}
-            onChange={() => history.push(PagePath.CreateTask)}
+            onChange={() => navigate(PagePath.CreateTask)}
           >
             <BottomNavigationAction
               label='Создать задание'

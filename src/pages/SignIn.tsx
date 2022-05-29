@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PagePath } from '.';
 import { apiConfiguration, axiosRequestConfig } from '../App';
@@ -51,7 +51,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
   const [phone, setPhone] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const [error, setError] = React.useState<ApiResponse | undefined>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -120,10 +120,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
           </Button>
           <Grid container>
             <Grid item>
-              <Link
-                onClick={() => history.push(PagePath.SignUp)}
-                variant='body2'
-              >
+              <Link onClick={() => navigate(PagePath.SignUp)} variant='body2'>
                 {'Нет аккаунта? Регистрация'}
               </Link>
             </Grid>

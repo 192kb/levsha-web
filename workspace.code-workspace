@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "[192kb_levsha-web_attempt_build source archive]",
+			"uri": "codeql-zip-archive://0-171/Users/192kb/Library/Application Support/Code/User/workspaceStorage/cf3b97758cbe17180f700713bde4be17/GitHub.vscode-codeql/javascript/192kb_levsha-web_attempt_build/src.zip"
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"firstname",
+			"lastname",
+			"openapi",
+			"secondname",
+			"uuid"
+		]
+	}
+}

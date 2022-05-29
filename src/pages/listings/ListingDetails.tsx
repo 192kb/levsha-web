@@ -14,15 +14,15 @@ import { green, grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import * as React from 'react';
-import { RouteComponentProps, useParams, withRouter } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { PagePath } from '..';
 
 import { apiConfiguration, axiosRequestConfig } from '../../App';
 import { UserPlate } from '../../components/UserPlate';
 import { DateFromNow } from '../../formatter/dateFromNow';
 import { Price } from '../../formatter/price';
 import { Task, TaskApi } from '../../model';
-
-type ListingDetailsProps = {} & RouteComponentProps<{ taskId: string }>;
+import { getUserIdFromStorage } from '../../storage/userId';
 
 const useStyles = makeStyles((theme) => ({
   oneRowGridList: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateZ(0)',
   },
   container: {
-    paddingTop: 40,
+    padding: '40px 0',
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
@@ -67,10 +67,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   district: {
-    fontSize: 10,
+    fontSize: 14,
   },
   date: {
-    fontSize: 10,
+    fontSize: 14,
   },
   title: {
     fontWeight: 500,
@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
   budget: {
     color: grey[500],
+    fontSize: 14,
   },
   price: {
     fontWeight: 300,
@@ -89,34 +90,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
+const ListingDetails: React.FC = (props) => {
+  const navigate = useNavigate();
   const { taskId } = useParams<{ taskId: string }>();
   const classes = useStyles();
   const [task, setTask] = React.useState<Task | undefined>();
   const [loaded, setLoaded] = React.useState<boolean>(false);
   const [isPhoneHidden, setPhoneHidden] = React.useState<boolean>(true);
   const [isPhoneCopied, setPhoneCopied] = React.useState<boolean>(false);
+  const userId = getUserIdFromStorage();
 
   React.useEffect(() => {
     const taskApi = new TaskApi(apiConfiguration);
-    taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
-      switch (response.status) {
-        case 200:
-          setTask(response.data);
-          setLoaded(true);
-          break;
+    taskId &&
+      taskApi.getTask(taskId, axiosRequestConfig).then((response) => {
+        switch (response.status) {
+          case 200:
+            setTask(response.data);
+            setLoaded(true);
+            break;
 
-        default:
-          console.info(`status ${response.status} not handled`);
-          break;
-      }
-    });
+          default:
+            console.info(`status ${response.status} not handled`);
+            break;
+        }
+      });
+  }, [taskId]);
+
+  const handleHideTask = React.useCallback(() => {
+    if (!taskId) {
+      return;
+    }
+
+    const taskApi = new TaskApi(apiConfiguration);
+
+    taskApi.deleteTask(taskId);
   }, [taskId]);
 
   const copyPhone = () => {
-    const copyElementInput: HTMLElement | null = document.getElementById(
-      'show-phone-input'
-    );
+    const copyElementInput: HTMLElement | null =
+      document.getElementById('show-phone-input');
     if (copyElementInput) {
       (copyElementInput as HTMLInputElement).select();
       (copyElementInput as HTMLInputElement).setSelectionRange(0, 999);
@@ -191,33 +204,62 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
             <Price value={task.price || 0} />
           </Typography>
           {task.user && <UserPlate user={task.user} />}
-          {task.user && (
-            <Button
-              fullWidth
-              className={classes.phoneButton}
-              variant='contained'
-              href={'tel:' + task.user?.phone}
-            >
-              Позвонить
-            </Button>
-          )}
-          {task.user && isPhoneHidden ? (
-            <Button
-              fullWidth
-              className={classes.showPhoneButton}
-              variant='contained'
-              onClick={() => setPhoneHidden(false)}
-            >
-              Показать телефон
-            </Button>
+          {task.user?.uuid === userId ? (
+            <>
+              <Button
+                fullWidth
+                variant='contained'
+                onClick={() => navigate(PagePath.TaskEdit + taskId)}
+              >
+                Редактировать
+              </Button>
+
+              {task.is_deleted ? (
+                <Button fullWidth variant='contained' disabled>
+                  Удалено
+                </Button>
+              ) : (
+                <Button
+                  fullWidth
+                  variant='contained'
+                  color='secondary'
+                  onClick={handleHideTask}
+                >
+                  Удалить
+                </Button>
+              )}
+            </>
           ) : (
-            <Input
-              id='show-phone-input'
-              inputProps={{ className: classes.copyPhoneInput }}
-              fullWidth
-              value={task.user?.phone}
-              onClick={copyPhone}
-            />
+            <>
+              {task.user && (
+                <Button
+                  fullWidth
+                  className={classes.phoneButton}
+                  variant='contained'
+                  href={'tel:' + task.user?.phone}
+                >
+                  Позвонить
+                </Button>
+              )}
+              {task.user && isPhoneHidden ? (
+                <Button
+                  fullWidth
+                  className={classes.showPhoneButton}
+                  variant='contained'
+                  onClick={() => setPhoneHidden(false)}
+                >
+                  Показать телефон
+                </Button>
+              ) : (
+                <Input
+                  id='show-phone-input'
+                  inputProps={{ className: classes.copyPhoneInput }}
+                  fullWidth
+                  value={task.user?.phone}
+                  onClick={copyPhone}
+                />
+              )}
+            </>
           )}
         </Paper>
       </Container>
@@ -237,4 +279,4 @@ const ListingDetails: React.FC<ListingDetailsProps> = (props) => {
   );
 };
 
-export default withRouter(ListingDetails);
+export default ListingDetails;

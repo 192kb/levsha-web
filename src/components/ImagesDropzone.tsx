@@ -1,11 +1,12 @@
-import Dropzone from 'react-dropzone';
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Resizer from 'react-image-file-resizer';
-import AddIcon from '@material-ui/icons/Add';
-import { TaskImage, TaskApi } from '../model';
-import { apiConfiguration, axiosRequestConfig } from '../App';
 import { grey } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import React from 'react';
+import Dropzone from 'react-dropzone';
+import Resizer from 'react-image-file-resizer';
+
+import { apiConfiguration, axiosRequestConfig } from '../App';
+import { TaskApi, TaskImage } from '../model';
 
 const maximumImagesAllowed = 3;
 
@@ -49,87 +50,95 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
   const [files, setFiles] = React.useState<File[]>([]);
   const [isUploading, setIsUploading] = React.useState<boolean>(false);
 
-  const handleFileUpload = (filesToUpload: File[]) => {
-    setIsUploading(true);
+  const handleFileUpload = React.useCallback(
+    (filesToUpload: File[]) => {
+      setIsUploading(true);
 
-    const taskApi = new TaskApi(apiConfiguration);
-    Promise.all(
-      filesToUpload.map(
-        (file) =>
-          new Promise<TaskImage>((resolve, reject) => {
-            Resizer.imageFileResizer(
-              file,
-              500,
-              500,
-              'JPEG',
-              80,
-              0,
-              (blob) =>
-                taskApi
-                  .uploadTaskImage(blob, axiosRequestConfig)
-                  .then((response) => {
-                    if (response.status === 200 && response.data) {
-                      resolve(response.data);
-                    }
-                  })
-                  .catch(reject),
-              'blob'
-            );
-          })
+      const taskApi = new TaskApi(apiConfiguration);
+      Promise.all(
+        filesToUpload.map(
+          (file) =>
+            new Promise<TaskImage>((resolve, reject) => {
+              Resizer.imageFileResizer(
+                file,
+                500,
+                500,
+                'JPEG',
+                80,
+                0,
+                (blob) =>
+                  taskApi
+                    .uploadTaskImage(blob, axiosRequestConfig)
+                    .then((response) => {
+                      if (response.status === 200 && response.data) {
+                        resolve(response.data);
+                      }
+                    })
+                    .catch(reject),
+                'blob'
+              );
+            })
+        )
       )
-    )
-      .then((taskImages) => props.onFileArrayChange(taskImages))
-      .catch((error) => console.warn(error))
-      .finally(() => {
-        setIsUploading(false);
-        props.onFinishedUpload();
-      });
-  };
+        .then((taskImages) => props.onFileArrayChange(taskImages))
+        .catch((error) => console.warn(error))
+        .finally(() => {
+          setIsUploading(false);
+          props.onFinishedUpload();
+        });
+    },
+    [props]
+  );
+
+  const onDrop = React.useCallback(
+    (acceptedFiles: File[]) => {
+      if (acceptedFiles) {
+        let uniqueFiles: number[] = [];
+        const newFiles = [...files, ...acceptedFiles]
+          .filter((file) => {
+            if (uniqueFiles.includes(file.size)) {
+              return false;
+            }
+
+            uniqueFiles = [...uniqueFiles, file.size];
+            return true;
+          })
+          .splice(-maximumImagesAllowed, maximumImagesAllowed);
+        setFiles(newFiles);
+        handleFileUpload(newFiles);
+      }
+    },
+    [files, handleFileUpload]
+  );
 
   return (
     <Dropzone
       disabled={isUploading}
-      accept={'image/jpeg, image/png'}
-      onDrop={(acceptedFiles) => {
-        if (acceptedFiles) {
-          let uniqueFiles: number[] = [];
-          const newFiles = [...files, ...acceptedFiles]
-            .filter((file) => {
-              if (uniqueFiles.includes(file.size)) {
-                return false;
-              }
-
-              uniqueFiles = [...uniqueFiles, file.size];
-              return true;
-            })
-            .splice(-maximumImagesAllowed, maximumImagesAllowed);
-          setFiles(newFiles);
-          handleFileUpload(newFiles);
-        }
+      accept={{
+        'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
       }}
+      onDrop={onDrop}
     >
       {({ getRootProps, getInputProps }) => (
-        <section className={classes.dropzoneSection}>
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {files ? (
-              <p className={classes.preview}>
-                {files.map((file) => (
-                  <img
-                    key={file.size}
-                    className={classes.previewImage}
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
-                  />
-                ))}
-              </p>
-            ) : null}
-            <span>
-              <AddIcon className={classes.addIcon} /> <br />
-              Добавить фото
-            </span>
-          </div>
-        </section>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {files ? (
+            <p className={classes.preview}>
+              {files.map((file) => (
+                <img
+                  key={file.size}
+                  className={classes.previewImage}
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                />
+              ))}
+            </p>
+          ) : null}
+          <span>
+            <AddIcon className={classes.addIcon} /> <br />
+            Добавить фото
+          </span>
+        </div>
       )}
     </Dropzone>
   );

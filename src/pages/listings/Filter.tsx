@@ -12,7 +12,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { AxiosError } from 'axios';
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { apiConfiguration } from '../../App';
 import DisplayError from '../../components/DisplayError';
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: 40,
+    padding: '40px 0',
     paddingBlockEnd: theme.spacing(2),
   },
   filterButtons: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Filter: React.FC<FilterProps> = (props) => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [error, setError] = React.useState<AxiosError | undefined>();
   const [isLoadingCities, setLoadingCities] = React.useState(false);
   const [isLoadingDistricts, setLoadingDistricts] = React.useState(false);
@@ -93,7 +93,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
     setLoadingDistricts(true);
     const locationApi = new LocationApi(apiConfiguration);
     locationApi
-      .getDiscrictsByCityId(props.filterValues?.city || defaultCity)
+      .getDistrictsByCityId(props.filterValues?.city || defaultCity)
       .then((locationResponse) => setDistricts(locationResponse.data))
       .finally(() => setLoadingDistricts(false));
   };
@@ -233,7 +233,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
       <Button
         variant='contained'
         color='primary'
-        onClick={() => history.goBack()}
+        onClick={() => navigate(-1)}
         className={classes.filterButtons}
       >
         Применить

@@ -22,7 +22,7 @@ import {
   TaskCategory,
   UserApi,
 } from '../../model';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PagePath } from '..';
 import DisplayError from '../../components/DisplayError';
 import { green } from '@material-ui/core/colors';
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: 40,
+    padding: '40px 0',
     paddingBlockEnd: theme.spacing(2),
   },
   paper: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const ListingAdd: React.FC<{}> = () => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [task, setTask] = React.useState<Task>({});
   const [error, setError] = React.useState<AxiosError | undefined>();
@@ -74,7 +74,7 @@ export const ListingAdd: React.FC<{}> = () => {
       .then((userResponse) => {
         const locationApi = new LocationApi(apiConfiguration);
         locationApi
-          .getDiscrictsByCityId(userResponse.data.city?.id || 1)
+          .getDistrictsByCityId(userResponse.data.city?.id || 1)
           .then((locationResponse) => setDistricts(locationResponse.data));
       })
       .catch((error) =>
@@ -107,7 +107,7 @@ export const ListingAdd: React.FC<{}> = () => {
     const taskApi = new TaskApi(apiConfiguration);
     taskApi
       .addTask(task, axiosRequestConfig)
-      .then((response) => history.push(PagePath.Task + response.data?.uuid))
+      .then((response) => navigate(PagePath.Task + response.data?.uuid))
       .catch((error) => setError(error));
   };
 
