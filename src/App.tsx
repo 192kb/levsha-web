@@ -87,9 +87,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     main: {
       fontFamily: ['Roboto', '-apple-system', 'sans-serif'].join(','),
-      padding: '40px 0',
+      padding: '40px 0 70px',
       background: '#eee',
-      minHeight: 'calc(100% - 40px)',
+      minHeight: 'calc(100% - 110px)',
     },
     footer: {
       position: 'fixed',
