@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: 20,
+    borderRadius: 25,
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -49,10 +49,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(0),
   },
   description: {
-    maxHeight: '4em',
+    maxHeight: '4.5em',
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
   },
   footer: {
     backgroundColor: theme.palette.background.paper,

@@ -14,7 +14,11 @@
 			"lastname",
 			"openapi",
 			"secondname",
-			"uuid"
+			"signin",
+			"signup",
+			"uuid",
+			"найдена",
+			"Цена"
 		]
 	}
 }

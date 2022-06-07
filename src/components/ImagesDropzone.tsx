@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     background: grey[400],
     borderRadius: '50%',
   },
+  addLayer: {
+    textAlign: 'center',
+  },
   preview: {
     display: 'flex',
     flexDirection: 'row',
@@ -122,7 +125,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()}>
           <input {...getInputProps()} />
-          {files ? (
+          {files && isUploading ? (
             <p className={classes.preview}>
               {files.map((file) => (
                 <img
@@ -134,10 +137,10 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = (
               ))}
             </p>
           ) : null}
-          <span>
+          <div className={classes.addLayer}>
             <AddIcon className={classes.addIcon} /> <br />
             Добавить фото
-          </span>
+          </div>
         </div>
       )}
     </Dropzone>

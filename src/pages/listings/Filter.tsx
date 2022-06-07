@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    padding: '40px 0',
+    paddingTop: '40px',
+    paddingBottom: '40px',
     paddingBlockEnd: theme.spacing(2),
   },
   filterButtons: {
@@ -103,8 +104,13 @@ export const Filter: React.FC<FilterProps> = (props) => {
   React.useEffect(loadLocations, [props.filterValues?.city]);
 
   React.useEffect(loadCategories, []);
+
   return (
-    <Container component='main' maxWidth='md' className={classes.container}>
+    <Container
+      disableGutters={false}
+      maxWidth='md'
+      className={classes.container}
+    >
       <Typography component='h1' variant='h3'>
         Фильтры
       </Typography>
@@ -124,6 +130,7 @@ export const Filter: React.FC<FilterProps> = (props) => {
               props.onChangeFilterValues({
                 ...(props.filterValues || {}),
                 city: parseInt(event.target.value) || 0,
+                districts: [],
               })
             }
           >

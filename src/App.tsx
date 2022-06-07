@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Badge,
   BottomNavigation,
   BottomNavigationAction,
   Button,
@@ -22,16 +23,6 @@ import {
 import {
   AccountCircle,
   ArrowBack,
-  Filter1,
-  Filter2,
-  Filter3,
-  Filter4,
-  Filter5,
-  Filter6,
-  Filter7,
-  Filter8,
-  Filter9,
-  Filter9Plus,
   Tune,
   Menu as MenuIcon,
 } from '@material-ui/icons';
@@ -176,45 +167,12 @@ const App: React.FC = () => {
                 edge='start'
                 className={classes.menuButton}
                 color='inherit'
-                aria-label='menu'
+                aria-label='filter'
                 onClick={() => navigate(PagePath.Filter)}
               >
-                {(() => {
-                  switch (filterCount) {
-                    case 1:
-                      return <Filter1 />;
-
-                    case 2:
-                      return <Filter2 />;
-
-                    case 3:
-                      return <Filter3 />;
-
-                    case 4:
-                      return <Filter4 />;
-
-                    case 5:
-                      return <Filter5 />;
-
-                    case 6:
-                      return <Filter6 />;
-
-                    case 7:
-                      return <Filter7 />;
-
-                    case 8:
-                      return <Filter8 />;
-
-                    case 9:
-                      return <Filter9 />;
-
-                    case 0:
-                      return <Tune />;
-
-                    default:
-                      return <Filter9Plus />;
-                  }
-                })()}
+                <Badge badgeContent={filterCount} color='primary'>
+                  <Tune />
+                </Badge>
               </IconButton>
             )) ||
               (pathname.startsWith(PagePath.Task) && (

@@ -2,8 +2,6 @@ import {
   Button,
   Container,
   Grid,
-  GridList,
-  GridListTile,
   Input,
   LinearProgress,
   Paper,
@@ -14,6 +12,7 @@ import { green, grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import * as React from 'react';
+import Carousel from 'react-material-ui-carousel';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PagePath } from '..';
 
@@ -43,15 +42,16 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
     borderRadius: 25,
+    margin: '0 20px',
   },
   phoneButton: {
+    background: green[500],
     margin: '10px 0',
     fontSize: 12,
     fontWeight: 300,
-    background: green[500],
+    textTransform: 'none',
     color: 'white',
     borderRadius: 10,
-    textTransform: 'none',
   },
   showPhoneButton: {
     margin: '10px 0',
@@ -87,6 +87,37 @@ const useStyles = makeStyles((theme) => ({
   description: {
     fontSize: 12,
     fontWeight: 300,
+  },
+  editButton: {
+    marginBottom: theme.spacing(1),
+    fontSize: 12,
+    fontWeight: 300,
+    textTransform: 'none',
+    color: 'white',
+    borderRadius: 10,
+  },
+  deleteButton: {
+    fontSize: 12,
+    fontWeight: 300,
+    textTransform: 'none',
+    color: 'white',
+    borderRadius: 10,
+  },
+  carouselItem: {
+    color: 'black',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    opacity: 0.3,
+  },
+  carouselImage: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  indicatorContainer: {
+    transform: 'scale(0.666)',
   },
 }));
 
@@ -124,8 +155,8 @@ const ListingDetails: React.FC = (props) => {
 
     const taskApi = new TaskApi(apiConfiguration);
 
-    taskApi.deleteTask(taskId);
-  }, [taskId]);
+    taskApi.deleteTask(taskId).finally(() => navigate(-1));
+  }, [navigate, taskId]);
 
   const copyPhone = () => {
     const copyElementInput: HTMLElement | null =
@@ -173,24 +204,36 @@ const ListingDetails: React.FC = (props) => {
             <Typography variant='body1' paragraph>
               {task?.description}
             </Typography>
-            <div className={classes.oneRowGridList}>
-              {task.images?.length ? (
-                <GridList
-                  className={classes.gridList}
-                  cellHeight='auto'
-                  cols={Math.min(
-                    window.innerWidth < 600 ? 1 : 3,
-                    task.images.length
-                  )}
-                >
-                  {task.images?.map((taskImage) => (
-                    <GridListTile key={taskImage.url}>
-                      <img src={taskImage.url} alt={task.title} />
-                    </GridListTile>
-                  ))}
-                </GridList>
-              ) : null}
-            </div>
+            {task.images?.length ? (
+              <Carousel
+                stopAutoPlayOnHover
+                navButtonsAlwaysInvisible
+                animation='slide'
+                indicatorContainerProps={{
+                  className: classes.indicatorContainer,
+                }}
+                height={500}
+              >
+                {task.images?.map(({ url, uuid }) => (
+                  <div
+                    key={uuid}
+                    style={{
+                      backgroundImage: `url(${url})`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center center',
+                      height: '100%',
+                    }}
+                  >
+                    <img
+                      src={url}
+                      alt={task.title}
+                      className={classes.carouselImage}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            ) : null}
           </main>
           <Typography component='div' className={classes.budget}>
             Бюджет
@@ -210,12 +253,18 @@ const ListingDetails: React.FC = (props) => {
                 fullWidth
                 variant='contained'
                 onClick={() => navigate(PagePath.TaskEdit + taskId)}
+                className={classes.editButton}
               >
                 Редактировать
               </Button>
 
               {task.is_deleted ? (
-                <Button fullWidth variant='contained' disabled>
+                <Button
+                  fullWidth
+                  variant='contained'
+                  disabled
+                  className={classes.deleteButton}
+                >
                   Удалено
                 </Button>
               ) : (
@@ -224,6 +273,7 @@ const ListingDetails: React.FC = (props) => {
                   variant='contained'
                   color='secondary'
                   onClick={handleHideTask}
+                  className={classes.deleteButton}
                 >
                   Удалить
                 </Button>

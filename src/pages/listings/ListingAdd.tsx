@@ -107,7 +107,10 @@ export const ListingAdd: React.FC<{}> = () => {
     const taskApi = new TaskApi(apiConfiguration);
     taskApi
       .addTask(task, axiosRequestConfig)
-      .then((response) => navigate(PagePath.Task + response.data?.uuid))
+      .then((response) => {
+        navigate(PagePath.Tasks);
+        navigate(PagePath.Task + response.data?.uuid);
+      })
       .catch((error) => setError(error));
   };
 

@@ -7,8 +7,6 @@ import {
   TextField,
   Typography,
   MenuItem,
-  GridList,
-  GridListTile,
   IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,6 +27,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { PagePath } from '..';
 import DisplayError from '../../components/DisplayError';
 import { Close } from '@material-ui/icons';
+import Carousel from 'react-material-ui-carousel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,16 +51,12 @@ const useStyles = makeStyles((theme) => ({
   imageIcon: {
     verticalAlign: 'text-bottom',
   },
-  oneRowGridList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
   gridList: {
     flexWrap: 'nowrap',
     transform: 'translateZ(0)',
+  },
+  carouselItem: {
+    color: 'black',
   },
   removeImage: {
     position: 'absolute',
@@ -252,30 +247,32 @@ export const ListingEdit: React.FC<{}> = () => {
               })
             }
           />
-          <div className={classes.oneRowGridList}>
-            {task.images?.length ? (
-              <GridList className={classes.gridList} cols={2.5}>
-                {task.images?.map(({ url, uuid }) => (
-                  <GridListTile key={uuid}>
-                    <IconButton
-                      className={classes.removeImage}
-                      onClick={() =>
-                        setTask({
-                          ...task,
-                          images: task.images?.filter(
-                            (taskImage) => taskImage.uuid !== uuid
-                          ),
-                        })
-                      }
-                    >
-                      <Close />
-                    </IconButton>
-                    <img src={url} alt={task.title} />
-                  </GridListTile>
-                ))}
-              </GridList>
-            ) : null}
-          </div>
+          {task.images?.length ? (
+            <Carousel
+              stopAutoPlayOnHover
+              navButtonsAlwaysInvisible
+              animation='slide'
+            >
+              {task.images?.map(({ url, uuid }) => (
+                <div key={uuid} className={classes.carouselItem}>
+                  <IconButton
+                    className={classes.removeImage}
+                    onClick={() =>
+                      setTask({
+                        ...task,
+                        images: task.images?.filter(
+                          (taskImage) => taskImage.uuid !== uuid
+                        ),
+                      })
+                    }
+                  >
+                    <Close />
+                  </IconButton>
+                  <img src={url} alt={task.title} />
+                </div>
+              ))}
+            </Carousel>
+          ) : null}
           <ImageDropzone
             onFinishedUpload={() => setIsUploading(false)}
             onStartUpload={() => setIsUploading(true)}
