@@ -51,7 +51,7 @@ importers:
         specifier: ^5.4.3
         version: 5.4.3(react@18.1.0)
       typescript:
-        specifier: ^4.7.3
+        specifier: ^4.9.5
         version: 4.9.5
       uuid:
         specifier: ^13.0.0
